@@ -132,7 +132,7 @@ function buildCard(item,idx){
       </div>
       <div class="spanish">(${item.es})</div>
       <div class="card-footer">
-        <button class="speak-btn" id="sp${idx}" onclick="event.stopPropagation();speak('${item.w.replace(/'/g,"\'")}',\\`${idx}\\`)">🔊 Listen</button>
+        <button class="speak-btn" id="sp${idx}" onclick="event.stopPropagation();speak(this.dataset.w,{idx})" data-w="${item.w}">🔊 Listen</button>
         <span class="flip-hint" id="hint${idx}">see example ▾</span>
       </div>
       <div class="example-wrap">
@@ -161,6 +161,7 @@ function toggle(idx){
   if(h)h.textContent=open?'close ▴':'see example ▾';
 }
 function speak(w,idx){
+  if(typeof w!=='string'){w=document.getElementById('sp'+idx)?.dataset?.w||w;}
   if(!window.speechSynthesis)return;
   window.speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(w);
