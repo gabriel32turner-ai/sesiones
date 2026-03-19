@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Progreso — Gabriel Turner English Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0D0D0D;--surface:#161616;--border:#242424;
+  --gold:#C9922A;--gold-dim:rgba(201,146,42,.15);
+  --text:#F0EDE8;--muted:#6B6B6B;--muted2:#444;
+  --green:#22C55E;--green-dim:rgba(34,197,94,.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ── HEADER ── */
+.header{padding:32px 24px 0;max-width:680px;margin:0 auto}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.gt-logo{width:40px;height:40px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#000;flex-shrink:0}
+.brand{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--text);letter-spacing:.04em}
+.brand-sub{font-size:11px;color:var(--muted);margin-top:1px}
+
+/* ── STUDENT CARD ── */
+.student-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:24px;display:flex;align-items:center;gap:16px}
+.avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#8B5E1A);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#000;flex-shrink:0}
+.student-info{flex:1}
+.student-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:2px}
+.student-level{font-size:12px;color:var(--muted)}
+.overall-badge{background:var(--gold-dim);border:1px solid rgba(201,146,42,.3);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;color:var(--gold);white-space:nowrap}
+
+/* ── OVERALL PROGRESS ── */
+.overall{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:24px}
+.section-label{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.overall-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.stat{text-align:center}
+.stat-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--text);line-height:1}
+.stat-val .unit{font-size:14px;color:var(--gold)}
+.stat-lbl{font-size:10px;color:var(--muted);margin-top:4px}
+.overall-bar-wrap{background:#1A1A1A;border-radius:100px;height:8px;overflow:hidden;margin-bottom:6px}
+.overall-bar{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--gold),#F5C842);transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.overall-pct{font-size:11px;color:var(--muted);text-align:right}
+
+/* ── LEVEL CARDS ── */
+.levels{display:flex;flex-direction:column;gap:12px;max-width:680px;margin:0 auto;padding:0 24px 40px}
+.level-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s}
+.level-card.active{border-color:var(--gold)}
+.level-card.completed{border-color:rgba(34,197,94,.3)}
+.level-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.level-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dot-done{background:var(--green)}
+.dot-active{background:var(--gold)}
+.dot-locked{background:var(--muted2)}
+.level-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;flex:1;color:var(--text)}
+.level-card.locked .level-name{color:var(--muted)}
+.level-pct{font-size:12px;font-weight:600;color:var(--muted)}
+.level-card.completed .level-pct{color:var(--green)}
+.level-card.active .level-pct{color:var(--gold)}
+.chevron{font-size:12px;color:var(--muted);transition:transform .3s;flex-shrink:0}
+.level-card.open .chevron{transform:rotate(180deg)}
+
+.level-body{display:none;border-top:1px solid var(--border);padding:14px 16px}
+.level-card.open .level-body{display:block}
+
+/* progress bar inside card */
+.card-bar-wrap{background:#1A1A1A;border-radius:100px;height:5px;overflow:hidden;margin-bottom:14px}
+.card-bar{height:100%;border-radius:100px;transition:width 1s ease}
+.bar-gold{background:linear-gradient(90deg,var(--gold),#F5C842)}
+.bar-green{background:linear-gradient(90deg,#16A34A,var(--green))}
+.bar-gray{background:var(--muted2)}
+
+/* modules */
+.modules{display:flex;flex-direction:column;gap:8px}
+.module{background:#111;border-radius:10px;padding:12px 14px}
+.module-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.module-tag{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:6px}
+.tag-done{background:var(--green-dim);color:var(--green)}
+.tag-active{background:var(--gold-dim);color:var(--gold)}
+.tag-pending{background:rgba(255,255,255,.05);color:var(--muted)}
+.module-name{font-size:13px;font-weight:600;color:var(--text);flex:1}
+.module-count{font-size:11px;color:var(--muted)}
+
+/* sessions dots */
+.sessions-dots{display:flex;gap:5px;flex-wrap:wrap}
+.sdot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+.sdot-done{background:var(--green-dim);color:var(--green);border:1px solid rgba(34,197,94,.3)}
+.sdot-active{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(201,146,42,.4)}
+.sdot-pending{background:#1A1A1A;color:var(--muted2);border:1px solid var(--border)}
+
+/* ── ACHIEVEMENTS ── */
+.achievements{max-width:680px;margin:0 auto;padding:0 24px 16px}
+.achieve-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
+.achieve{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center}
+.achieve.unlocked{border-color:rgba(201,146,42,.3);background:var(--gold-dim)}
+.achieve.locked{opacity:.4}
+.achieve-icon{font-size:24px;margin-bottom:6px}
+.achieve-name{font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px}
+.achieve-desc{font-size:10px;color:var(--muted)}
+
+/* ── FOOTER ── */
+.footer{max-width:680px;margin:0 auto;padding:0 24px 40px;text-align:center}
+.footer p{font-size:11px;color:var(--muted)}
+.footer strong{color:var(--gold)}
+
+@media(max-width:480px){
+  .header{padding:20px 16px 0}
+  .levels,.achievements,.footer{padding-left:16px;padding-right:16px}
+  .overall{margin:0 16px 16px}
+  .student-card{margin:0 16px 16px}
+  .overall-stats{gap:8px}
+  .stat-val{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="gt-logo">GT</div>
+    <div>
+      <div class="brand">Gabriel Turner English Training</div>
+      <div class="brand-sub">Panel de Progreso del Alumno</div>
+    </div>
+  </div>
+
+  <!-- STUDENT CARD -->
+  <div class="student-card">
+    <div class="avatar" id="avatarInitial">?</div>
+    <div class="student-info">
+      <div class="student-name" id="studentName">Tu Nombre</div>
+      <div class="student-level" id="studentLevelLabel">Nivel actual: —</div>
+    </div>
+    <div class="overall-badge" id="overallBadge">0%</div>
+  </div>
+
+  <!-- OVERALL PROGRESS -->
+  <div class="overall">
+    <div class="section-label">Progreso general del programa</div>
+    <div class="overall-stats">
+      <div class="stat">
+        <div class="stat-val" id="statSessions">0</div>
+        <div class="stat-lbl">Sesiones completadas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val" id="statModules">0</div>
+        <div class="stat-lbl">Módulos completados</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val" id="statHours">0<span class="unit">h</span></div>
+        <div class="stat-lbl">Horas de inglés</div>
+      </div>
+    </div>
+    <div class="overall-bar-wrap">
+      <div class="overall-bar" id="overallBar" style="width:0%"></div>
+    </div>
+    <div class="overall-pct" id="overallPct">0 de 30 sesiones completadas</div>
+  </div>
+</div>
+
+<!-- LEVELS -->
+<div class="levels" id="levelsContainer"></div>
+
+<!-- ACHIEVEMENTS -->
+<div class="achievements">
+  <div class="section-label">Logros</div>
+  <div class="achieve-grid" id="achieveGrid"></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Gabriel Turner English Training · Celaya, Guanajuato<br>
+  <strong>461 147 2119</strong> · info@gabrielturner.com</p>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────
+const PROGRAM = [
+  {
+    id:'a11', label:'A1.1', name:'Elementary — Foundations',
+    color:'#C9922A', sessions:10, modules:[
+      {name:'M1 — Hello, I\'m…', sessions:5, link:'https://gabriel32turner-ai.github.io/sesiones/GT_A1.1_M1_S1_TEACHER_v2.html'},
+      {name:'M2 — My World', sessions:5, link:'https://gabriel32turner-ai.github.io/sesiones/GT_A1.1_M2_S1_TEACHER_v2.html'},
+    ]
+  },
+  {
+    id:'a12', label:'A1.2', name:'Elementary — Narration',
+    color:'#A0206E', sessions:5, modules:[
+      {name:'M1 — What Did You Do?', sessions:5, link:'https://gabriel32turner-ai.github.io/sesiones/GT_A1.2_M1_S1_TEACHER.html'},
+    ]
+  },
+  {
+    id:'a21', label:'A2.1', name:'Elementary+ — Meetings',
+    color:'#6B21A8', sessions:5, modules:[
+      {name:'M1 — In the Meeting Room', sessions:5, link:'https://gabriel32turner-ai.github.io/sesiones/GT_A2.1_M1_S1_TEACHER.html'},
+    ]
+  },
+  {
+    id:'a22', label:'A2.2', name:'Elementary+ — Personality',
+    color:'#3730A3', sessions:5, modules:[
+      {name:'M1 — Work Environment & Personality', sessions:5, link:'https://gabriel32turner-ai.github.io/sesiones/GT_A2.2_M1_S1_TEACHER.html'},
+    ]
+  },
+  {
+    id:'b1', label:'B1', name:'Intermediate — Imagine If…',
+    color:'#2563EB', sessions:5, modules:[
+      {name:'M1 — Imagine If…', sessions:5, link:'https://gabriel32turner-ai.github.io/sesiones/GT_B1_M1_S1_TEACHER.html'},
+    ]
+  },
+];
+
+const TOTAL_SESSIONS = PROGRAM.reduce((a,l)=>a+l.sessions,0);
+
+// ── STATE ─────────────────────────────────────────────────────────────
+let state = JSON.parse(localStorage.getItem('gt_progress') || '{}');
+if(!state.name) state.name = '';
+if(!state.completed) state.completed = {};
+
+function save(){ localStorage.setItem('gt_progress', JSON.stringify(state)); }
+
+// ── INIT ──────────────────────────────────────────────────────────────
+function init(){
+  // Ask name if not set
+  if(!state.name){
+    var n = prompt('Welcome! What is your name?');
+    if(n && n.trim()){ state.name = n.trim(); save(); }
+    else { state.name = 'Student'; save(); }
+  }
+  document.getElementById('studentName').textContent = state.name;
+  document.getElementById('avatarInitial').textContent = state.name.charAt(0).toUpperCase();
+  renderAll();
+}
+
+function renderAll(){
+  renderStats();
+  renderLevels();
+  renderAchievements();
+}
+
+function renderStats(){
+  var done = countDoneSessions();
+  var pct = Math.round(done/TOTAL_SESSIONS*100);
+  document.getElementById('statSessions').textContent = done;
+  document.getElementById('statHours').innerHTML = done+'<span class="unit">h</span>';
+  var modulesDone = countDoneModules();
+  document.getElementById('statModules').textContent = modulesDone;
+  document.getElementById('overallBadge').textContent = pct+'%';
+  document.getElementById('overallPct').textContent = done+' de '+TOTAL_SESSIONS+' sesiones completadas';
+  var bar = document.getElementById('overallBar');
+  setTimeout(()=>{ bar.style.width = pct+'%'; }, 100);
+
+  // Current level label
+  var currentLevel = getCurrentLevel();
+  document.getElementById('studentLevelLabel').textContent = 'Nivel actual: '+currentLevel;
+}
+
+function countDoneSessions(){
+  var count = 0;
+  PROGRAM.forEach(function(level){
+    level.modules.forEach(function(mod, mi){
+      for(var s=1;s<=mod.sessions;s++){
+        if(state.completed[level.id+'_m'+mi+'_s'+s]) count++;
+      }
+    });
+  });
+  return count;
+}
+
+function countDoneModules(){
+  var count = 0;
+  PROGRAM.forEach(function(level){
+    level.modules.forEach(function(mod, mi){
+      var allDone = true;
+      for(var s=1;s<=mod.sessions;s++){
+        if(!state.completed[level.id+'_m'+mi+'_s'+s]){ allDone=false; break; }
+      }
+      if(allDone) count++;
+    });
+  });
+  return count;
+}
+
+function getLevelProgress(level){
+  var done=0;
+  level.modules.forEach(function(mod,mi){
+    for(var s=1;s<=mod.sessions;s++){
+      if(state.completed[level.id+'_m'+mi+'_s'+s]) done++;
+    }
+  });
+  return {done:done, total:level.sessions, pct:Math.round(done/level.sessions*100)};
+}
+
+function getCurrentLevel(){
+  var current = PROGRAM[0].label;
+  PROGRAM.forEach(function(level){
+    var p = getLevelProgress(level);
+    if(p.done > 0) current = level.label;
+  });
+  return current;
+}
+
+function renderLevels(){
+  var container = document.getElementById('levelsContainer');
+  container.innerHTML = '';
+
+  PROGRAM.forEach(function(level, li){
+    var prog = getLevelProgress(level);
+    var isCompleted = prog.pct === 100;
+    var isActive = prog.done > 0 && !isCompleted;
+    var isLocked = prog.done === 0 && li > 0 && getLevelProgress(PROGRAM[li-1]).pct < 50;
+
+    var dotClass = isCompleted ? 'dot-done' : isActive ? 'dot-active' : 'dot-locked';
+    var pctColor = isCompleted ? 'color:var(--green)' : isActive ? 'color:var(--gold)' : '';
+    var cardClass = 'level-card'+(isCompleted?' completed':isActive?' active':isLocked?' locked':'');
+
+    // modules HTML
+    var modsHtml = level.modules.map(function(mod, mi){
+      var modDone=0;
+      var dots='';
+      for(var s=1;s<=mod.sessions;s++){
+        var key = level.id+'_m'+mi+'_s'+s;
+        var isDone = !!state.completed[key];
+        if(isDone) modDone++;
+        var dotCls = isDone ? 'sdot sdot-done' : 'sdot sdot-pending';
+        dots += '<div class="'+dotCls+'" onclick="toggleSession(\''+key+'\')" title="Sesión '+s+(isDone?' — completada':' — pendiente')+'">S'+s+'</div>';
+      }
+      var allModDone = modDone === mod.sessions;
+      var tagCls = allModDone ? 'module-tag tag-done' : modDone>0 ? 'module-tag tag-active' : 'module-tag tag-pending';
+      var tagTxt = allModDone ? '✓ Completado' : modDone>0 ? 'En curso' : 'Pendiente';
+      return '<div class="module"><div class="module-head"><span class="'+tagCls+'">'+tagTxt+'</span><span class="module-name">'+mod.name+'</span><span class="module-count">'+modDone+'/'+mod.sessions+'</span></div><div class="sessions-dots">'+dots+'</div></div>';
+    }).join('');
+
+    var barClass = isCompleted ? 'card-bar bar-green' : isActive ? 'card-bar bar-gold' : 'card-bar bar-gray';
+
+    var card = document.createElement('div');
+    card.className = cardClass;
+    card.id = 'level-'+level.id;
+    card.innerHTML =
+      '<div class="level-head" onclick="toggleLevel(\''+level.id+'\')">' +
+        '<div class="level-dot '+dotClass+'"></div>' +
+        '<div class="level-name">'+level.label+' — '+level.name+'</div>' +
+        '<div class="level-pct" style="'+pctColor+'">'+prog.pct+'%</div>' +
+        '<div class="chevron">▾</div>' +
+      '</div>' +
+      '<div class="level-body">' +
+        '<div class="card-bar-wrap"><div class="'+barClass+'" style="width:'+prog.pct+'%"></div></div>' +
+        modsHtml +
+      '</div>';
+    container.appendChild(card);
+
+    // Auto-open active level
+    if(isActive || (li===0 && prog.done===0)){
+      card.classList.add('open');
+    }
+  });
+}
+
+function toggleLevel(id){
+  var card = document.getElementById('level-'+id);
+  card.classList.toggle('open');
+}
+
+function toggleSession(key){
+  state.completed[key] = !state.completed[key];
+  save();
+  renderAll();
+}
+
+function renderAchievements(){
+  var done = countDoneSessions();
+  var modules = countDoneModules();
+  var achievements = [
+    {icon:'🌱', name:'First Step', desc:'Complete your first session', unlocked: done >= 1},
+    {icon:'🔥', name:'On a Roll', desc:'Complete 5 sessions', unlocked: done >= 5},
+    {icon:'⭐', name:'Module Master', desc:'Complete your first module', unlocked: modules >= 1},
+    {icon:'💬', name:'Conversationalist', desc:'Complete 10 sessions', unlocked: done >= 10},
+    {icon:'📈', name:'Halfway There', desc:'Complete 15 sessions', unlocked: done >= 15},
+    {icon:'🏆', name:'Level Up', desc:'Complete 3 modules', unlocked: modules >= 3},
+    {icon:'🌍', name:'Going Global', desc:'Complete 25 sessions', unlocked: done >= 25},
+    {icon:'🎓', name:'B1 Graduate', desc:'Complete all current levels', unlocked: done >= TOTAL_SESSIONS},
+  ];
+
+  var grid = document.getElementById('achieveGrid');
+  grid.innerHTML = achievements.map(function(a){
+    return '<div class="achieve '+(a.unlocked?'unlocked':'locked')+'">'+
+      '<div class="achieve-icon">'+a.icon+'</div>'+
+      '<div class="achieve-name">'+a.name+'</div>'+
+      '<div class="achieve-desc">'+a.desc+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+init();
+
+// Allow name change on click
+document.getElementById('studentName').addEventListener('click', function(){
+  var n = prompt('Change your name:', state.name);
+  if(n && n.trim()){ state.name = n.trim(); save(); init(); }
+});
+</script>
+</body>
+</html>
