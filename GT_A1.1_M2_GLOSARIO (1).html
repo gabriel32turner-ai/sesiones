@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossary A1.1 M2 — Gabriel Turner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#C9922A;--dark:#1A2E45;--bg:#F7F5F0;--w:#fff;--g:#7A8A9A;--l:#EDE8DD;--green:#1A6B3C;--red:#C0392B}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh}
+
+/* HEADER */
+.hdr{background:var(--dark);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.hdr-in{max-width:960px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
+.logo{width:34px;height:34px;background:var(--a);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.ht{flex:1}.ht h1{font-size:13px;font-weight:700;color:#fff}.ht p{font-size:11px;color:rgba(255,255,255,.45)}
+.badge{background:var(--a);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0}
+
+/* TABS */
+.tabs{max-width:960px;margin:0 auto;padding:14px 16px 0;display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:7px 16px;border-radius:8px;border:2px solid var(--l);background:var(--w);color:var(--g);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.tab.active{background:var(--a);border-color:var(--a);color:#fff}
+
+/* CONTROLS (cards mode) */
+.controls{max-width:960px;margin:0 auto;padding:12px 16px 0}
+.search-wrap{position:relative;margin-bottom:10px}
+.search-wrap input{width:100%;padding:10px 36px 10px 14px;border:2px solid var(--l);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--w);color:var(--dark);outline:none;-webkit-appearance:none}
+.search-wrap input:focus{border-color:var(--a)}
+.si{position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.fb{padding:5px 12px;border-radius:20px;border:2px solid var(--l);background:var(--w);color:var(--g);font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;-webkit-tap-highlight-color:transparent;transition:all .15s}
+.fb.active{background:var(--a);border-color:var(--a);color:#fff}
+.stats{font-size:11px;color:var(--g);padding:6px 0 12px}
+
+/* GRID */
+.grid{max-width:960px;margin:0 auto;padding:0 16px 32px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.card{background:var(--w);border-radius:12px;border:1.5px solid var(--l);overflow:hidden;cursor:pointer;transition:transform .12s;-webkit-tap-highlight-color:transparent;position:relative}
+.card:active{transform:scale(.97)}
+.card.learned{border-color:#1A6B3C;background:#f0faf4}
+.card.review{border-color:#E67E22;background:#fff8f0}
+.cimg{width:100%;height:90px;object-fit:cover;display:block}
+.cimg-ph{width:100%;height:90px;background:linear-gradient(135deg,var(--dark),#2d4a6b);display:flex;align-items:center;justify-content:center;font-size:28px}
+.cbody{padding:12px}
+.stag{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--a);margin-bottom:6px;display:block}
+.ctop{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:3px}
+.cw{font-size:17px;font-weight:700;color:var(--dark);line-height:1.2}
+.tbadge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:6px;margin-top:2px;flex-shrink:0}
+.tn{background:#EBF3FF;color:#1A56A0}.tv{background:#F0EBFC;color:#5B3FA0}.tp{background:#FEF8EE;color:#B85C0A}.ta{background:#E3F5EC;color:#1A6B3C}
+.ces{font-size:12px;color:var(--g);font-style:italic;margin-bottom:8px}
+.ex-wrap{display:none;background:#F7F5F0;border-radius:7px;padding:9px 11px;margin-top:6px}
+.ex-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g);margin-bottom:3px}
+.ex{font-size:11px;color:var(--dark);line-height:1.6;font-style:italic}
+.card.open .ex-wrap{display:block}
+.cfoot{display:flex;gap:6px;margin-top:8px;align-items:center}
+.btn-s{flex:1;padding:4px 0;border-radius:7px;border:1.5px solid var(--l);background:none;font-size:11px;font-weight:600;color:var(--g);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;-webkit-tap-highlight-color:transparent;text-align:center}
+.btn-s.on-l{background:#E3F5EC;border-color:#1A6B3C;color:#1A6B3C}
+.btn-s.on-r{background:#FEF8EE;border-color:#E67E22;color:#E67E22}
+.hint{font-size:10px;color:var(--g)}
+.card.open .hint{color:var(--a)}
+.status-dot{position:absolute;top:8px;left:8px;width:10px;height:10px;border-radius:50%;display:none}
+.card.learned .status-dot{display:block;background:#1A6B3C}
+.card.review .status-dot{display:block;background:#E67E22}
+
+/* QUIZ */
+.quiz-wrap{max-width:600px;margin:0 auto;padding:16px}
+.quiz-card{background:var(--w);border-radius:14px;padding:24px;border:1.5px solid var(--l);margin-bottom:16px}
+.quiz-q{font-size:22px;font-weight:700;color:var(--dark);margin-bottom:6px;text-align:center}
+.quiz-sub{font-size:12px;color:var(--g);text-align:center;margin-bottom:20px}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qopt{padding:12px;border-radius:10px;border:2px solid var(--l);background:var(--w);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.qopt:hover{border-color:var(--a)}
+.qopt.correct{background:#E3F5EC;border-color:#1A6B3C;color:#1A6B3C}
+.qopt.wrong{background:#FDEDEC;border-color:#C0392B;color:#C0392B}
+.quiz-progress{text-align:center;font-size:12px;color:var(--g);margin-bottom:16px}
+.quiz-score{text-align:center;padding:40px 20px}
+.quiz-score h2{font-size:32px;font-weight:700;color:var(--a);margin-bottom:8px}
+.quiz-score p{color:var(--g);margin-bottom:20px}
+.btn-primary{padding:10px 24px;background:var(--a);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* MATCH */
+.match-wrap{max-width:700px;margin:0 auto;padding:16px}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.match-col{display:flex;flex-direction:column;gap:8px}
+.mitem{padding:12px 14px;border-radius:10px;border:2px solid var(--l);background:var(--w);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;transition:all .15s;-webkit-tap-highlight-color:transparent;min-height:44px;display:flex;align-items:center;justify-content:center}
+.mitem.selected{border-color:var(--a);background:rgba(0,0,0,.03)}
+.mitem.matched{background:#E3F5EC;border-color:#1A6B3C;color:#1A6B3C;cursor:default}
+.mitem.wrong-flash{background:#FDEDEC;border-color:#C0392B}
+.match-score{text-align:center;font-size:13px;color:var(--g);margin-bottom:12px}
+
+/* WRITE */
+.write-wrap{max-width:500px;margin:0 auto;padding:16px}
+.write-card{background:var(--w);border-radius:14px;padding:24px;border:1.5px solid var(--l);margin-bottom:16px;text-align:center}
+.write-prompt{font-size:18px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.write-hint{font-size:12px;color:var(--g);margin-bottom:16px}
+.write-input{width:100%;padding:11px 14px;border:2px solid var(--l);border-radius:10px;font-size:15px;font-family:'DM Sans',sans-serif;outline:none;text-align:center;-webkit-appearance:none}
+.write-input:focus{border-color:var(--a)}
+.write-input.correct{border-color:#1A6B3C;background:#E3F5EC}
+.write-input.wrong{border-color:#C0392B;background:#FDEDEC}
+.write-feedback{font-size:13px;font-weight:600;margin-top:10px;min-height:20px}
+.write-next{margin-top:14px;width:100%}
+
+/* PANEL hidden */
+.panel{display:none}.panel.active{display:block}
+
+@media(max-width:480px){
+  .grid{grid-template-columns:repeat(2,1fr);gap:8px;padding:0 12px 24px}
+  .cw{font-size:15px}.cimg,.cimg-ph{height:80px}
+  .cbody{padding:10px}
+  .quiz-opts{grid-template-columns:1fr}
+  .match-grid{grid-template-columns:1fr 1fr}
+  .tabs{padding:10px 12px 0}
+  .controls{padding:10px 12px 0}
+}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-in">
+    <div class="logo">GT</div>
+    <div class="ht"><h1>Glossary · A1.1 — M2</h1><p>My World · Entorno personal y laboral</p></div>
+    <span class="badge" id="bc">30 words</span>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('cards',this)">📚 Cards</button>
+  <button class="tab" onclick="showTab('quiz',this)">🧠 Quiz</button>
+  <button class="tab" onclick="showTab('match',this)">🔗 Match</button>
+  <button class="tab" onclick="showTab('write',this)">✏️ Write</button>
+</div>
+
+<!-- CARDS PANEL -->
+<div class="panel active" id="panel-cards">
+  <div class="controls">
+    <div class="search-wrap">
+      <input type="text" id="search" placeholder="Search in English or Spanish..." oninput="renderCards()" autocomplete="off" autocorrect="off" spellcheck="false">
+      <span class="si">🔍</span>
+    </div>
+    <div class="filters"><button class="fb active" onclick="setF('all',this)">All</button><button class="fb" onclick="setF('S1',this)">S1</button><button class="fb" onclick="setF('S2',this)">S2</button><button class="fb" onclick="setF('S3',this)">S3</button><button class="fb" onclick="setF('S4',this)">S4</button><button class="fb" onclick="setF('S5',this)">S5</button></div>
+    <div class="stats"><strong id="cnt">30</strong> words · Tap a card to see the example</div>
+  </div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<!-- QUIZ PANEL -->
+<div class="panel" id="panel-quiz">
+  <div class="quiz-wrap">
+    <div class="quiz-progress" id="qprog"></div>
+    <div id="qcard"></div>
+  </div>
+</div>
+
+<!-- MATCH PANEL -->
+<div class="panel" id="panel-match">
+  <div class="match-wrap">
+    <div class="match-score" id="mscore"></div>
+    <div class="match-grid">
+      <div class="match-col" id="mcol-en"></div>
+      <div class="match-col" id="mcol-es"></div>
+    </div>
+    <div style="text-align:center"><button class="btn-primary" onclick="initMatch()">🔄 New game</button></div>
+  </div>
+</div>
+
+<!-- WRITE PANEL -->
+<div class="panel" id="panel-write">
+  <div class="write-wrap">
+    <div class="quiz-progress" id="wprog"></div>
+    <div class="write-card" id="wcard">
+      <div class="write-prompt" id="wprompt"></div>
+      <div class="write-hint" id="whint"></div>
+      <input type="text" class="write-input" id="winput" placeholder="Type in English..." oninput="checkWrite()" autocomplete="off" autocorrect="off" spellcheck="false">
+      <div class="write-feedback" id="wfb"></div>
+      <button class="btn-primary write-next" id="wnext" onclick="nextWrite()" style="display:none">Next →</button>
+    </div>
+    <div class="quiz-score" id="wscore" style="display:none">
+      <h2 id="wscoreval"></h2><p id="wscoretext"></p>
+      <button class="btn-primary" onclick="initWrite()">Try again</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const W=[
+  {w:'desk',es:'escritorio',ex:'My desk is near the window. I love it.',s:'S1',t:'noun',img:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&auto=format&fit=crop',e:'🖥',learned:false,review:false},
+  {w:'chair',es:'silla',ex:'My chair is very comfortable.',s:'S1',t:'noun',img:'https://images.unsplash.com/photo-1505843490701-f2e456f6b4e2?w=400&auto=format&fit=crop',e:'🪑',learned:false,review:false},
+  {w:'screen',es:'pantalla / monitor',ex:'I have two screens on my desk.',s:'S1',t:'noun',img:'https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?w=400&auto=format&fit=crop',e:'🖥',learned:false,review:false},
+  {w:'keyboard',es:'teclado',ex:'My keyboard is wireless. I love it.',s:'S1',t:'noun',img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&auto=format&fit=crop',e:'⌨',learned:false,review:false},
+  {w:'printer',es:'impresora',ex:'The printer is in the copy room.',s:'S1',t:'noun',img:'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400&auto=format&fit=crop',e:'🖨',learned:false,review:false},
+  {w:'meeting room',es:'sala de juntas',ex:'The meeting room is on the third floor.',s:'S1',t:'noun',img:'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&auto=format&fit=crop',e:'🏛',learned:false,review:false},
+  {w:'my',es:'mi / mis',ex:'My desk is very organized. My team is great.',s:'S1',t:'adj',img:'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&auto=format&fit=crop',e:'👤',learned:false,review:false},
+  {w:'our',es:'nuestro / nuestra',ex:'Our office is on the second floor.',s:'S1',t:'adj',img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&auto=format&fit=crop',e:'🏢',learned:false,review:false},
+  {w:'on',es:'en / sobre (encima de)',ex:'The report is on my desk.',s:'S2',t:'phrase',img:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&auto=format&fit=crop',e:'📋',learned:false,review:false},
+  {w:'in',es:'en / dentro de',ex:'The files are in the drawer.',s:'S2',t:'phrase',img:'https://images.unsplash.com/photo-1586282391129-76a6df230234?w=400&auto=format&fit=crop',e:'📁',learned:false,review:false},
+  {w:'under',es:'debajo de',ex:'My bag is under the chair.',s:'S2',t:'phrase',img:'https://images.unsplash.com/photo-1505843490701-f2e456f6b4e2?w=400&auto=format&fit=crop',e:'⬇',learned:false,review:false},
+  {w:'next to',es:'al lado de',ex:'My printer is next to my screen.',s:'S2',t:'phrase',img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&auto=format&fit=crop',e:'↔',learned:false,review:false},
+  {w:'in front of',es:'enfrente de',ex:'There is a chair in front of my desk.',s:'S2',t:'phrase',img:'https://images.unsplash.com/photo-1573497491765-dccce02b29df?w=400&auto=format&fit=crop',e:'⬆',learned:false,review:false},
+  {w:'behind',es:'detrás de',ex:'The window is behind my desk.',s:'S2',t:'phrase',img:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&auto=format&fit=crop',e:'🔙',learned:false,review:false},
+  {w:'there is',es:'hay (singular)',ex:'There is a printer on the second floor.',s:'S2',t:'phrase',img:'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400&auto=format&fit=crop',e:'1️⃣',learned:false,review:false},
+  {w:'there are',es:'hay (plural)',ex:'There are three meeting rooms in our office.',s:'S2',t:'phrase',img:'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&auto=format&fit=crop',e:'3️⃣',learned:false,review:false},
+  {w:'this',es:'este / esta (cerca, singular)',ex:'This is my desk. This keyboard is new.',s:'S3',t:'adj',img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&auto=format&fit=crop',e:'👆',learned:false,review:false},
+  {w:'that',es:'ese / esa (lejos, singular)',ex:'That printer is broken.',s:'S3',t:'adj',img:'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400&auto=format&fit=crop',e:'👉',learned:false,review:false},
+  {w:'these',es:'estos / estas (cerca, plural)',ex:'These chairs are very old.',s:'S3',t:'adj',img:'https://images.unsplash.com/photo-1586282391129-76a6df230234?w=400&auto=format&fit=crop',e:'👆',learned:false,review:false},
+  {w:'those',es:'esos / esas (lejos, plural)',ex:'Those screens are new.',s:'S3',t:'adj',img:'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&auto=format&fit=crop',e:'👉',learned:false,review:false},
+  {w:'big',es:'grande',ex:'My office is very big. We have a big team.',s:'S3',t:'adj',img:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&auto=format&fit=crop',e:'📐',learned:false,review:false},
+  {w:'comfortable',es:'cómodo / cómoda',ex:'My chair is very comfortable.',s:'S3',t:'adj',img:'https://images.unsplash.com/photo-1505843490701-f2e456f6b4e2?w=400&auto=format&fit=crop',e:'😊',learned:false,review:false},
+  {w:'modern',es:'moderno / moderna',ex:'Our office is very modern — open space design.',s:'S3',t:'adj',img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&auto=format&fit=crop',e:'✨',learned:false,review:false},
+  {w:'drawer',es:'cajón',ex:'My keys are in the top drawer of my desk.',s:'S4',t:'noun',img:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&auto=format&fit=crop',e:'🗄',learned:false,review:false},
+  {w:'organize',es:'organizar',ex:'I organize my desk every Monday morning.',s:'S4',t:'verb',img:'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&auto=format&fit=crop',e:'📋',learned:false,review:false},
+  {w:'borrow',es:'pedir prestado',ex:'Can I borrow your charger? Mine is broken.',s:'S4',t:'verb',img:'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&auto=format&fit=crop',e:'🤲',learned:false,review:false},
+  {w:'fix',es:'arreglar / reparar',ex:'The printer is broken. Can you fix it?',s:'S4',t:'verb',img:'https://images.unsplash.com/photo-1580894894513-541e068a3e2b?w=400&auto=format&fit=crop',e:'🔧',learned:false,review:false},
+  {w:'office',es:'oficina',ex:'My office is on the third floor.',s:'S5',t:'noun',img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&auto=format&fit=crop',e:'🏢',learned:false,review:false},
+  {w:'tidy',es:'ordenado / ordenada',ex:'Is your desk tidy or messy? Mine is very tidy!',s:'S5',t:'adj',img:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&auto=format&fit=crop',e:'✅',learned:false,review:false},
+  {w:'laptop',es:'computadora portátil',ex:'I work with a laptop. I use it everywhere.',s:'S5',t:'noun',img:'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&auto=format&fit=crop',e:'💻',learned:false,review:false},
+];
+const TL={'noun':'N','verb':'V','phrase':'F','adj':'Adj'};
+const TC={'noun':'tn','verb':'tv','phrase':'tp','adj':'ta'};
+let cf='all';
+
+// ── CARDS ──
+function renderCards(){
+  const q=(document.getElementById('search').value||'').toLowerCase();
+  const items=W.filter(w=>(cf==='all'||w.s===cf)&&(!q||w.w.toLowerCase().includes(q)||w.es.toLowerCase().includes(q)));
+  document.getElementById('cnt').textContent=items.length;
+  document.getElementById('grid').innerHTML=items.map(w=>{
+    const i=W.indexOf(w);
+    const cls='card'+(w.learned?' learned':w.review?' review':'');
+    return `<div class="${cls}" id="c${i}" onclick="tog(${i})">
+      <div class="status-dot"></div>
+      ${w.img?`<img class="cimg" src="${w.img}" loading="lazy" onerror="this.style.display='none';this.nextSibling.style.display='flex'">`:''}<div class="cimg-ph" style="display:${w.img?'none':'flex'}">${w.e}</div>
+      <div class="cbody">
+        <span class="stag">${w.s} · A1.1 M2</span>
+        <div class="ctop"><div class="cw">${w.w}</div><span class="tbadge ${TC[w.t]}">${TL[w.t]}</span></div>
+        <div class="ces">(${w.es})</div>
+        <div class="cfoot">
+          <button class="btn-s${w.learned?' on-l':''}" onclick="event.stopPropagation();mark(${i},'learned')">✅ Learned</button>
+          <button class="btn-s${w.review?' on-r':''}" onclick="event.stopPropagation();mark(${i},'review')">🔁 Review</button>
+        </div>
+        <div class="ex-wrap"><div class="ex-lbl">Example</div><div class="ex">${w.ex}</div></div>
+        <div class="hint" id="h${i}">see example ▾</div>
+      </div></div>`;
+  }).join('');
+}
+function tog(i){
+  const c=document.getElementById('c'+i),h=document.getElementById('h'+i);
+  if(!c)return;const o=c.classList.toggle('open');
+  if(h)h.textContent=o?'close ▴':'see example ▾';
+}
+function mark(i,type){
+  if(type==='learned'){W[i].learned=!W[i].learned;if(W[i].learned)W[i].review=false;}
+  else{W[i].review=!W[i].review;if(W[i].review)W[i].learned=false;}
+  renderCards();
+}
+function setF(f,btn){
+  cf=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCards();
+}
+
+// ── TAB ──
+function showTab(t,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+t).classList.add('active');btn.classList.add('active');
+  if(t==='quiz')initQuiz();else if(t==='match')initMatch();else if(t==='write')initWrite();
+}
+
+// ── QUIZ ──
+let qi=0,qs=0,qlist=[];
+function shuffle(a){return a.sort(()=>Math.random()-.5);}
+function initQuiz(){
+  qlist=shuffle([...W]).slice(0,Math.min(15,W.length));qi=0;qs=0;renderQuiz();
+}
+function renderQuiz(){
+  if(qi>=qlist.length){
+    document.getElementById('qcard').innerHTML=`<div class="quiz-score"><h2>${qs}/${qlist.length}</h2><p>${qs===qlist.length?'Perfect! 🎉':qs>=qlist.length*.7?'Great job! 👍':'Keep practicing! 💪'}</p><button class="btn-primary" onclick="initQuiz()">Try again</button></div>`;
+    document.getElementById('qprog').textContent='';return;
+  }
+  document.getElementById('qprog').textContent=`Question ${qi+1} of ${qlist.length} · Score: ${qs}`;
+  const cur=qlist[qi];
+  const wrong=shuffle(W.filter(w=>w.w!==cur.w)).slice(0,3);
+  const opts=shuffle([cur,...wrong]);
+  document.getElementById('qcard').innerHTML=`<div class="quiz-card">
+    <div class="quiz-q">${cur.w}</div>
+    <div class="quiz-sub">What does this mean in Spanish?</div>
+    <div class="quiz-opts">${opts.map(o=>`<button class="qopt" onclick="answerQuiz('${o.w}','${cur.w}')">${o.es}</button>`).join('')}</div>
+  </div>`;
+}
+function answerQuiz(chosen,correct){
+  const btns=document.querySelectorAll('.qopt');
+  btns.forEach(b=>{b.disabled=true;if(b.textContent===W.find(w=>w.w===correct).es)b.classList.add('correct');else if(b.textContent===W.find(w=>w.w===chosen).es&&chosen!==correct)b.classList.add('wrong');});
+  if(chosen===correct)qs++;
+  setTimeout(()=>{qi++;renderQuiz();},900);
+}
+
+// ── MATCH ──
+let msel=null,mpairs=[],mmatched=0;
+function initMatch(){
+  mpairs=shuffle([...W]).slice(0,6);msel=null;mmatched=0;
+  const enItems=shuffle([...mpairs]);const esItems=shuffle([...mpairs]);
+  document.getElementById('mscore').textContent='Match the English word with its Spanish meaning';
+  document.getElementById('mcol-en').innerHTML=enItems.map((w,i)=>`<div class="mitem" id="men-${W.indexOf(w)}" onclick="selMatch('en',${W.indexOf(w)})">${w.w}</div>`).join('');
+  document.getElementById('mcol-es').innerHTML=esItems.map((w,i)=>`<div class="mitem" id="mes-${W.indexOf(w)}" onclick="selMatch('es',${W.indexOf(w)})">${w.es}</div>`).join('');
+}
+function selMatch(side,idx){
+  const el=document.getElementById((side==='en'?'men-':'mes-')+idx);
+  if(el.classList.contains('matched'))return;
+  if(!msel){msel={side,idx};el.classList.add('selected');return;}
+  if(msel.side===side){document.querySelectorAll('.mitem').forEach(m=>m.classList.remove('selected'));msel={side,idx};el.classList.add('selected');return;}
+  const enIdx=side==='es'?msel.idx:idx;const esIdx=side==='es'?idx:msel.idx;
+  if(enIdx===esIdx){
+    document.getElementById('men-'+enIdx).classList.remove('selected');document.getElementById('men-'+enIdx).classList.add('matched');
+    document.getElementById('mes-'+esIdx).classList.remove('selected');document.getElementById('mes-'+esIdx).classList.add('matched');
+    mmatched++;if(mmatched===mpairs.length)document.getElementById('mscore').textContent='🎉 All matched! Great job!';
+  }else{
+    const enEl=document.getElementById('men-'+enIdx);const esEl=document.getElementById('mes-'+esIdx);
+    enEl.classList.add('wrong-flash');esEl.classList.add('wrong-flash');
+    setTimeout(()=>{enEl.classList.remove('wrong-flash','selected');esEl.classList.remove('wrong-flash','selected');},600);
+  }
+  msel=null;
+}
+
+// ── WRITE ──
+let wi=0,ws=0,wlist=[];
+function initWrite(){
+  wlist=shuffle([...W]).slice(0,Math.min(10,W.length));wi=0;ws=0;
+  document.getElementById('wscore').style.display='none';
+  document.getElementById('wcard').style.display='block';
+  renderWrite();
+}
+function renderWrite(){
+  if(wi>=wlist.length){
+    document.getElementById('wcard').style.display='none';
+    document.getElementById('wscore').style.display='block';
+    document.getElementById('wscoreval').textContent=ws+'/'+wlist.length;
+    document.getElementById('wscoretext').textContent=ws===wlist.length?'Perfect! 🎉':ws>=wlist.length*.7?'Great job! 👍':'Keep practicing! 💪';
+    return;
+  }
+  document.getElementById('wprog').textContent=`Word ${wi+1} of ${wlist.length} · Score: ${ws}`;
+  const cur=wlist[wi];
+  document.getElementById('wprompt').textContent='('+cur.es+')';
+  document.getElementById('whint').textContent='Type the English word';
+  const inp=document.getElementById('winput');inp.value='';inp.className='write-input';
+  document.getElementById('wfb').textContent='';document.getElementById('wnext').style.display='none';inp.focus();
+}
+function checkWrite(){
+  const inp=document.getElementById('winput');
+  const val=inp.value.trim().toLowerCase();
+  const cur=wlist[wi];
+  if(val===cur.w.toLowerCase()){
+    inp.className='write-input correct';document.getElementById('wfb').innerHTML='<span style="color:#1A6B3C">✅ Correct!</span>';
+    ws++;setTimeout(()=>{wi++;renderWrite();},800);
+  }
+}
+function nextWrite(){wi++;renderWrite();}
+
+renderCards();
+</script>
+</body>
+</html>
