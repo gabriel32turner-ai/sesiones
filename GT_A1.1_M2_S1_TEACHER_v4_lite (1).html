@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT A1.1 M2 S1 — Teacher Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;font-family:'DM Sans',sans-serif;background:#1a1a1a;color:#111;font-size:14px;line-height:1.5;display:flex;flex-direction:column}
+
+/* ── TOPBAR ── */
+.topbar{background:#111;display:flex;align-items:center;height:52px;flex-shrink:0;border-bottom:3px solid #C9922A}
+.tlogo{width:52px;height:52px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-right:2px solid #C9922A;overflow:hidden}
+.tlogo img{width:42px;height:42px;object-fit:contain}
+.tbrand{padding:0 14px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C9922A;font-weight:600;flex-shrink:0;border-right:1px solid rgba(255,255,255,.1)}
+.ttitle{padding:0 16px;font-size:13px;font-weight:600;color:#fff;flex:1}
+.tbadges{display:flex;gap:6px;padding:0 16px;align-items:center;flex-shrink:0}
+.badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;white-space:nowrap}
+.bg{background:#C9922A;color:#fff}.br{background:#E8345A;color:#fff}
+.bd{background:rgba(255,255,255,.12);color:rgba(255,255,255,.75)}
+.bt{background:#2D4A1E;color:#b8e09a}
+
+/* ── TABS ── */
+.navtabs{background:#1e1e1e;display:flex;align-items:flex-end;gap:2px;padding:0 12px;height:36px;flex-shrink:0;overflow-x:auto}
+.tab{padding:0 13px;height:30px;border-radius:6px 6px 0 0;font-size:11px;font-weight:600;cursor:pointer;border:none;background:transparent;color:rgba(255,255,255,.4);white-space:nowrap;transition:all .18s;font-family:'DM Sans',sans-serif}
+.tab:hover{color:rgba(255,255,255,.75);background:rgba(255,255,255,.06)}
+.tab.active{background:#FAF7F2;color:#111}
+
+/* ── SLIDES ── */
+.slides{flex:1;overflow:hidden;background:#FAF7F2;position:relative;min-height:0}
+.slide{display:none;height:100%;overflow:hidden}
+.slide.active{display:flex}
+.lay{display:flex;height:100%;overflow:hidden}
+.main{flex:1;overflow-y:auto;padding:18px 24px;display:flex;flex-direction:column;gap:12px}
+.side{width:260px;flex-shrink:0;background:#fff;border-left:1px solid #EDE8DD;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+
+/* ── COMPONENTS ── */
+.sechead{display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:2px solid #EDE8DD;flex-shrink:0}
+.secicon{font-size:18px}.sectitle{font-size:16px;font-weight:600;flex:1;color:#111}
+.sectime{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7A8A9A}
+.tnote{background:#EAF2E3;border-left:4px solid #2D4A1E;border-radius:0 6px 6px 0;padding:10px 14px;font-size:12px;color:#2D4A1E;flex-shrink:0}
+.tnlbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.slbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#7A8A9A;margin-bottom:3px}
+.sideimg{width:100%;height:150px;border-radius:8px;overflow:hidden;flex-shrink:0}
+.sideimg img{width:100%;height:100%;object-fit:cover;display:block}
+.tip{background:#FAF7F2;border-radius:5px;padding:6px 8px;font-size:11px;color:#1A2E45}
+.phrase{background:#FAF7F2;border-radius:5px;padding:6px 9px;border-left:3px solid #C9922A;font-size:12px;font-weight:600;color:#1A2E45}
+
+/* ── VOCAB TABLE con click ── */
+.vtable{width:100%;border-collapse:collapse;font-size:13px}
+.vtable thead th{background:#1A2E45;color:#fff;padding:8px 10px;text-align:left;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.vtable tbody tr:nth-child(even){background:rgba(0,0,0,.03)}
+.vtable tbody tr:nth-child(odd){background:#fff}
+.vtable tbody td{padding:7px 10px;border-bottom:1px solid #EDE8DD;vertical-align:middle}
+.vword{font-weight:600;color:#1A2E45;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:5px;transition:all .15s;border:1.5px solid transparent}
+.vword:hover{background:#FEF0E3;border-color:#C9922A}
+.vword.playing{background:#C9922A;color:#fff;border-color:#C9922A}
+.vword .spkicon{font-size:12px;opacity:.6}
+.vtrans{font-size:11px;color:#7A8A9A;font-style:italic}
+.vex{font-size:11px;color:#7A8A9A;font-style:italic}
+
+/* ── VISUAL VOCAB ── */
+.vvgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.vvcard{background:#fff;border-radius:8px;overflow:hidden;border:1.5px solid #EDE8DD;cursor:pointer;transition:all .2s;position:relative}
+.vvcard:hover{border-color:#C9922A;transform:translateY(-2px);box-shadow:0 4px 12px rgba(201,146,42,.15)}
+.vvcard.flipped .vfront{display:none}
+.vvcard.flipped .vback{display:flex}
+.vfront,.vback{width:100%}
+.vback{display:none;flex-direction:column;align-items:center;justify-content:center;padding:12px;min-height:100px;background:#FEF8EE;text-align:center}
+.vvimg{width:100%;height:90px;object-fit:cover;display:block}
+.vven{font-size:13px;font-weight:700;color:#1A2E45;padding:6px 8px 2px;text-align:center}
+.vves{font-size:11px;color:#7A8A9A;font-style:italic;padding:0 8px 8px;text-align:center}
+.vback-word{font-size:18px;font-weight:700;color:#C9922A;margin-bottom:4px}
+.vback-es{font-size:13px;color:#1A2E45}
+.vback-hint{font-size:10px;color:#7A8A9A;margin-top:6px}
+.vv-section-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#B85C0A;margin:12px 0 6px}
+
+/* ── GRAMMAR INTERACTIVE ── */
+.grammar-box{background:#fff;border:2px solid #1A2E45;border-radius:8px;overflow:hidden;flex-shrink:0}
+.grammar-head{background:#1A2E45;color:#fff;padding:9px 14px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.grammar-body{padding:14px}
+.rule-box{background:#EBF3FF;border-radius:5px;padding:9px 12px;margin-bottom:10px;font-size:13px;color:#1A2E45}
+.rule-box code{font-family:monospace;background:#1A2E45;color:#F0B84A;padding:1px 6px;border-radius:3px;font-size:12px}
+
+/* WORD BANK */
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#F0EBFC;border-radius:8px;margin-bottom:14px}
+.word-token{background:#fff;border:2px solid #5B3FA0;border-radius:6px;padding:5px 14px;font-size:13px;font-weight:700;color:#5B3FA0;cursor:pointer;transition:all .18s;user-select:none}
+.word-token:hover{background:#5B3FA0;color:#fff}
+.word-token.used{opacity:.3;pointer-events:none;text-decoration:line-through}
+.word-token.selected{background:#5B3FA0;color:#fff;transform:scale(1.05)}
+
+/* FILL EXERCISE */
+.fill-list{display:flex;flex-direction:column;gap:8px}
+.fill-item{display:flex;gap:8px;align-items:baseline;font-size:13px;padding:8px 12px;background:#fff;border-radius:6px;border:1px solid #EDE8DD}
+.fill-num{font-weight:700;color:#B85C0A;min-width:18px;font-size:12px}
+.fill-blank{display:inline-block;min-width:80px;height:26px;border-bottom:2px solid #1A2E45;margin:0 4px;vertical-align:bottom;cursor:pointer;border-radius:4px 4px 0 0;text-align:center;font-weight:700;font-size:13px;transition:all .2s;padding:2px 6px}
+.fill-blank:hover{background:#F0EBFC}
+.fill-blank.filled-correct{background:#E3F5EC;border-color:#1A6B3C;color:#1A6B3C;border-radius:4px;border-bottom-width:2px}
+.fill-blank.filled-wrong{background:#FDE8ED;border-color:#E8345A;color:#E8345A;border-radius:4px;animation:shake .3s}
+.fill-blank.empty-selected{background:#F0EBFC;border-color:#5B3FA0}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+.answer-key{margin-top:10px;font-size:11px;color:#B85C0A;background:rgba(184,92,10,.07);border-radius:5px;padding:6px 10px}
+.reset-btn{margin-top:8px;padding:5px 14px;background:#1A2E45;color:#fff;border:none;border-radius:5px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600}
+.reset-btn:hover{background:#243d5c}
+
+/* SPEAKING */
+.sq-list{display:flex;flex-direction:column;gap:6px}
+.sq-row{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;background:#fff;border-radius:6px}
+.sq-num{width:24px;height:24px;border-radius:50%;background:#1A6B3C;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.sq-text{font-size:13px;font-weight:500;color:#111}
+.sq-tag{font-size:10px;color:#7A8A9A;margin-top:2px}
+
+/* READING / LISTENING */
+.rtext{background:#fff;border-radius:6px;padding:14px 16px;border-left:4px solid #5B3FA0;font-size:13px;line-height:1.8;flex-shrink:0}
+.lt{border-color:#0D7377}
+.cq-list{display:flex;flex-direction:column;gap:5px}
+.cq{display:flex;gap:7px;align-items:flex-start;padding:7px 10px;background:#fff;border-radius:5px;border:1px solid #EDE8DD;font-size:12px}
+.cqn{font-weight:700;color:#5B3FA0;flex-shrink:0}
+.cqnt{color:#0D7377}
+.akey{background:#EAF2E3;border-left:4px solid #2D4A1E;border-radius:0 6px 6px 0;padding:8px 12px;font-size:12px;color:#2D4A1E}
+
+/* WRAPUP */
+.err-row{background:#fff;border-radius:7px;padding:12px;border:1px solid #EDE8DD}
+.err-pair{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.err-w{flex:1;background:#FDE8ED;border-radius:5px;padding:6px 10px;font-size:12px;font-weight:600;color:#9B1A34}
+.err-r{flex:1;background:#E3F5EC;border-radius:5px;padding:6px 10px;font-size:12px;font-weight:600;color:#1A6B3C}
+.err-arr{color:#7A8A9A;font-size:16px}
+.err-why{font-size:11px;color:#7A8A9A;padding-top:5px;border-top:1px solid #EDE8DD}
+.reflection{background:#111;color:#fff;border-radius:8px;padding:14px 18px;display:flex;gap:12px;align-items:center;flex-shrink:0}
+
+/* FOOTER */
+.footbar{background:#111;color:rgba(255,255,255,.3);font-size:10px;display:flex;align-items:center;justify-content:space-between;padding:5px 18px;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tlogo"><div style="width:42px;height:42px;background:#C9922A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff">GT</div></div>
+  <div class="tbrand">Gabriel Turner · English Training</div>
+  <div class="ttitle">A1.1 · Module 2 · Session 1 — Office Vocabulary &amp; Possessives</div>
+  <div class="tbadges">
+    <span class="badge bg">A1.1</span>
+    <span class="badge br">M2 · S1</span>
+    <span class="badge bd">⏱ 60 min</span>
+    <span class="badge bt">👨‍🏫 Teacher</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="navtabs">
+  <button class="tab active" onclick="showTab('checkin',this)">🟡 Check-in</button>
+  <button class="tab" onclick="showTab('warmup',this)">🔵 Warm-up</button>
+  <button class="tab" onclick="showTab('vocab',this)">🟠 Vocabulary</button>
+  <button class="tab" onclick="showTab('visual',this)">🖼 Visual Vocab</button>
+  <button class="tab" onclick="showTab('grammar',this)">📐 Grammar</button>
+  <button class="tab" onclick="showTab('speaking',this)">🟢 Speaking</button>
+  <button class="tab" onclick="showTab('reading',this)">📖 Reading</button>
+  <button class="tab" onclick="showTab('listening',this)">🎧 Listening</button>
+  <button class="tab" onclick="showTab('wrapup',this)">⚡ Wrap-up</button>
+</div>
+
+<div class="slides">
+
+<!-- ════ CHECK-IN ════ -->
+<div class="slide active" id="s-checkin">
+<div class="lay">
+<div class="main">
+  <div class="sechead"><span class="secicon">🟡</span><span class="sectitle">Check-in with the Student</span><span class="sectime">⏱ 3–5 min</span></div>
+  <div class="tnote"><div class="tnlbl">📌 Teacher Note</div>M2 starts here — office and workspace. Ask the student to look around their workspace RIGHT NOW. This makes the vocabulary tangible from minute one. Don't correct here.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div style="background:#fff;border-radius:6px;padding:10px 12px;border-left:3px solid #C9922A"><div style="font-size:10px;font-weight:700;color:#C9922A;margin-bottom:2px">Q1</div><div style="font-size:13px;color:#1A2E45">How are you today?</div></div>
+    <div style="background:#fff;border-radius:6px;padding:10px 12px;border-left:3px solid #C9922A"><div style="font-size:10px;font-weight:700;color:#C9922A;margin-bottom:2px">Q2</div><div style="font-size:13px;color:#1A2E45">Where are you right now — office or home?</div></div>
+    <div style="background:#fff;border-radius:6px;padding:10px 12px;border-left:3px solid #C9922A"><div style="font-size:10px;font-weight:700;color:#C9922A;margin-bottom:2px">Q3</div><div style="font-size:13px;color:#1A2E45">Is your workspace big or small?</div></div>
+    <div style="background:#fff;border-radius:6px;padding:10px 12px;border-left:3px solid #C9922A"><div style="font-size:10px;font-weight:700;color:#C9922A;margin-bottom:2px">Q4</div><div style="font-size:13px;color:#1A2E45">What is on your desk right now?</div></div>
+    <div style="background:#fff;border-radius:6px;padding:10px 12px;border-left:3px solid #C9922A"><div style="font-size:10px;font-weight:700;color:#C9922A;margin-bottom:2px">Q5</div><div style="font-size:13px;color:#1A2E45">Is your office new or old?</div></div>
+  </div>
+</div>
+<div class="side">
+  <div class="slbl">Photo</div>
+  <div class="sideimg"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop" alt="office"></div>
+  <div class="slbl">M2 Goals</div>
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <div class="tip">🎯 Name office objects</div>
+    <div class="tip">🎯 Use my/your/his/her</div>
+    <div class="tip">🎯 Describe the workspace</div>
+    <div class="tip">🎯 Use to be + adjectives</div>
+  </div>
+</div>
+</div></div>
+
+<!-- ════ WARM-UP ════ -->
+<div class="slide" id="s-warmup">
+<div class="lay">
+<div class="main">
+  <div class="sechead"><span class="secicon">🔵</span><span class="sectitle">Warm-up</span><span class="sectime">⏱ 5–7 min</span></div>
+  <div style="background:#EBF3FF;border:1px solid #B5CFF5;border-radius:8px;padding:12px 14px;border-left:4px solid #1A56A0;flex-shrink:0">
+    <div style="font-weight:700;font-size:12px;color:#1A56A0;margin-bottom:5px">THIS SESSION · "Desk Scavenger Hunt"</div>
+    <p style="font-size:13px;color:#1A2E45">Ask the student to find and name 5 objects on their desk in English. Teacher provides any unknown word immediately. Then ask: <em>"Is that your pen? Is that a laptop?"</em> — student answers yes/no using to be.</p>
+    <div style="margin-top:6px;font-size:11px;color:#7A8A9A"><strong>Why:</strong> real objects = real vocabulary. The student will remember "keyboard" forever because they touched theirs during this activity.</div>
+  </div>
+  <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A8A9A;margin-bottom:6px">📋 Office Objects — Quick Reference</div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px">
+    <div style="background:#fff;border-radius:5px;padding:6px 8px;border-top:2px solid #C9922A;text-align:center;font-size:12px;color:#1A2E45"><strong>desk</strong><div style="font-size:10px;color:#7A8A9A;font-style:italic">escritorio</div></div>
+    <div style="background:#fff;border-radius:5px;padding:6px 8px;border-top:2px solid #C9922A;text-align:center;font-size:12px;color:#1A2E45"><strong>chair</strong><div style="font-size:10px;color:#7A8A9A;font-style:italic">silla</div></div>
+    <div style="background:#fff;border-radius:5px;padding:6px 8px;border-top:2px solid #C9922A;text-align:center;font-size:12px;color:#1A2E45"><strong>laptop</strong><div style="font-size:10px;color:#7A8A9A;font-style:italic">computadora</div></div>
+    <div style="background:#fff;border-radius:5px;padding:6px 8px;border-top:2px solid #C9922A;text-align:center;font-size:12px;color:#1A2E45"><strong>screen</strong><div style="font-size:10px;color:#7A8A9A;font-style:italic">pantalla</div></div>
+    <div style="background:#fff;border-radius:5px;padding:6px 8px;border-top:2px solid #C9922A;text-align:center;font-size:12px;color:#1A2E45"><strong>phone</strong><div style="font-size:10px;color:#7A8A9A;font-style:italic">teléfono</div></div>
+    <div style="background:#fff;border-radius:5px;padding:6px 8px;border-top:2px solid #C9922A;text-align:center;font-size:12px;color:#1A2E45"><strong>notebook</strong><div style="font-size:10px;color:#7A8A9A;font-style:italic">libreta</div></div>
+    <div style="background:#fff;border-radius:5px;padding:6px 8px;border-top:2px solid #C9922A;text-align:center;font-size:12px;color:#1A2E45"><strong>pen</strong><div style="font-size:10px;color:#7A8A9A;font-style:italic">bolígrafo</div></div>
+    <div style="background:#fff;border-radius:5px;padding:6px 8px;border-top:2px solid #C9922A;text-align:center;font-size:12px;color:#1A2E45"><strong>keyboard</strong><div style="font-size:10px;color:#7A8A9A;font-style:italic">teclado</div></div>
+    <div style="background:#fff;border-radius:5px;padding:6px 8px;border-top:2px solid #C9922A;text-align:center;font-size:12px;color:#1A2E45"><strong>mouse</strong><div style="font-size:10px;color:#7A8A9A;font-style:italic">ratón</div></div>
+    <div style="background:#fff;border-radius:5px;padding:6px 8px;border-top:2px solid #C9922A;text-align:center;font-size:12px;color:#1A2E45"><strong>printer</strong><div style="font-size:10px;color:#7A8A9A;font-style:italic">impresora</div></div>
+  </div>
+</div>
+<div class="side">
+  <div class="slbl">Photo</div>
+  <div class="sideimg"><img src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?w=800&auto=format&fit=crop" alt="desk objects"></div>
+  <div class="slbl">Useful reactions</div>
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <div class="phrase">Yes, that is my ___.</div>
+    <div class="phrase">No, that is not my ___.</div>
+    <div class="phrase">This is a ___.</div>
+    <div class="phrase">I don't have a ___.</div>
+  </div>
+</div>
+</div></div>
+
+<!-- ════ VOCABULARY (con click + español) ════ -->
+<div class="slide" id="s-vocab">
+<div class="lay">
+<div class="main">
+  <div class="sechead"><span class="secicon">🟠</span><span class="sectitle">Vocabulary <span style="font-size:12px;font-weight:400;color:#7A8A9A">— click a word to hear it</span></span><span class="sectime">⏱ 8–10 min</span></div>
+  <div class="tnote"><div class="tnlbl">📌 Teacher Note</div>Click any word in the table to highlight it while you say it aloud. Ask the student: "Do you have this in your office?" Connect every word to their real environment.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+    <div>
+      <div style="font-weight:600;font-size:11px;color:#B85C0A;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em">Key Words</div>
+      <table class="vtable">
+        <thead><tr><th>Word</th><th>Meaning <span style="font-style:italic;opacity:.7">(español)</span></th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><span class="vword" onclick="hlWord(this)">desk <span class="spkicon">🔊</span></span></td><td>work surface <span class="vtrans">(escritorio)</span></td><td class="vex">My desk is next to the window.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">chair <span class="spkicon">🔊</span></span></td><td>seat for sitting <span class="vtrans">(silla)</span></td><td class="vex">The chair is comfortable.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">screen <span class="spkicon">🔊</span></span></td><td>computer display <span class="vtrans">(pantalla)</span></td><td class="vex">I have two screens on my desk.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">keyboard <span class="spkicon">🔊</span></span></td><td>used to type <span class="vtrans">(teclado)</span></td><td class="vex">My keyboard is wireless.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">printer <span class="spkicon">🔊</span></span></td><td>prints documents <span class="vtrans">(impresora)</span></td><td class="vex">The printer is on the 2nd floor.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">floor <span class="spkicon">🔊</span></span></td><td>level of a building <span class="vtrans">(piso)</span></td><td class="vex">My office is on floor 3.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">building <span class="spkicon">🔊</span></span></td><td>structure with rooms <span class="vtrans">(edificio)</span></td><td class="vex">My building has 5 floors.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">meeting room <span class="spkicon">🔊</span></span></td><td>room for meetings <span class="vtrans">(sala de juntas)</span></td><td class="vex">The meeting room is on floor 2.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div style="font-weight:600;font-size:11px;color:#B85C0A;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em">Key Verbs</div>
+      <table class="vtable">
+        <thead><tr><th>Verb</th><th>Meaning <span style="font-style:italic;opacity:.7">(español)</span></th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><span class="vword" onclick="hlWord(this)">work <span class="spkicon">🔊</span></span></td><td>to have a job <span class="vtrans">(trabajar)</span></td><td class="vex">I work at Ford.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">use <span class="spkicon">🔊</span></span></td><td>to operate something <span class="vtrans">(usar)</span></td><td class="vex">I use my laptop every day.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">sit <span class="spkicon">🔊</span></span></td><td>to be seated <span class="vtrans">(sentarse)</span></td><td class="vex">I sit next to my manager.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">print <span class="spkicon">🔊</span></span></td><td>to make a paper copy <span class="vtrans">(imprimir)</span></td><td class="vex">Can you print the report?</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">share <span class="spkicon">🔊</span></span></td><td>to use together <span class="vtrans">(compartir)</span></td><td class="vex">We share the printer.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">clean <span class="spkicon">🔊</span></span></td><td>to make tidy <span class="vtrans">(limpiar)</span></td><td class="vex">I clean my desk on Fridays.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">have <span class="spkicon">🔊</span></span></td><td>to own / to possess <span class="vtrans">(tener)</span></td><td class="vex">I have a laptop and a phone.</td></tr>
+          <tr><td><span class="vword" onclick="hlWord(this)">need <span class="spkicon">🔊</span></span></td><td>to require something <span class="vtrans">(necesitar)</span></td><td class="vex">I need a bigger desk.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="side">
+  <div class="slbl">Photo</div>
+  <div class="sideimg"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&auto=format&fit=crop" alt="office"></div>
+  <div class="slbl">Key phrases</div>
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <div class="phrase">My desk is ___.</div>
+    <div class="phrase">I work on floor ___.</div>
+    <div class="phrase">I use a ___ every day.</div>
+    <div class="phrase">Do you have a ___?</div>
+    <div class="phrase">Is there a printer here?</div>
+  </div>
+  <div class="slbl" style="margin-top:6px">💡 Click a word</div>
+  <div class="tip">Click any word in the table to highlight it while presenting to the student.</div>
+</div>
+</div></div>
+
+<!-- ════ VISUAL VOCAB (tarjetas con flip) ════ -->
+<div class="slide" id="s-visual">
+<div class="lay">
+<div class="main">
+  <div class="sechead"><span class="secicon">🖼</span><span class="sectitle">Visual Vocabulary <span style="font-size:12px;font-weight:400;color:#7A8A9A">— click a card to flip it</span></span><span class="sectime">⏱ 5–8 min</span></div>
+  <div class="tnote"><div class="tnlbl">📌 How to use</div>Click any card to flip it and reveal the English word + Spanish translation. Use as a quick visual drill: show the image, student says the word in English before you flip. Click again to flip back.</div>
+
+  <div class="vv-section-title">🏢 Office Objects</div>
+  <div class="vvgrid">
+    <div class="vvcard" onclick="flipCard(this)">
+      <div class="vfront"><img class="vvimg" onerror="this.closest('.vvcard').style.display='none'" src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=400&auto=format&fit=crop" alt="desk"><div class="vven">desk</div></div>
+      <div class="vback"><div class="vback-word">DESK</div><div class="vback-es">escritorio</div><div class="vback-hint">My desk is next to the window.</div></div>
+    </div>
+    <div class="vvcard" onclick="flipCard(this)">
+      <div class="vfront"><img class="vvimg" onerror="this.closest('.vvcard').style.display='none'" src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&auto=format&fit=crop" alt="chair"><div class="vven">chair</div></div>
+      <div class="vback"><div class="vback-word">CHAIR</div><div class="vback-es">silla</div><div class="vback-hint">The chair is comfortable.</div></div>
+    </div>
+    <div class="vvcard" onclick="flipCard(this)">
+      <div class="vfront"><img class="vvimg" onerror="this.closest('.vvcard').style.display='none'" src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&auto=format&fit=crop" alt="laptop"><div class="vven">laptop</div></div>
+      <div class="vback"><div class="vback-word">LAPTOP</div><div class="vback-es">computadora portátil</div><div class="vback-hint">I use my laptop every day.</div></div>
+    </div>
+    <div class="vvcard" onclick="flipCard(this)">
+      <div class="vfront"><img class="vvimg" onerror="this.closest('.vvcard').style.display='none'" src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&auto=format&fit=crop" alt="keyboard"><div class="vven">keyboard</div></div>
+      <div class="vback"><div class="vback-word">KEYBOARD</div><div class="vback-es">teclado</div><div class="vback-hint">My keyboard is wireless.</div></div>
+    </div>
+    <div class="vvcard" onclick="flipCard(this)">
+      <div class="vfront"><img class="vvimg" onerror="this.closest('.vvcard').style.display='none'" src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400&auto=format&fit=crop" alt="printer"><div class="vven">printer</div></div>
+      <div class="vback"><div class="vback-word">PRINTER</div><div class="vback-es">impresora</div><div class="vback-hint">The printer is on the 2nd floor.</div></div>
+    </div>
+    <div class="vvcard" onclick="flipCard(this)">
+      <div class="vfront"><img class="vvimg" onerror="this.closest('.vvcard').style.display='none'" src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&auto=format&fit=crop" alt="notebook"><div class="vven">notebook</div></div>
+      <div class="vback"><div class="vback-word">NOTEBOOK</div><div class="vback-es">libreta</div><div class="vback-hint">I write notes in my notebook.</div></div>
+    </div>
+    <div class="vvcard" onclick="flipCard(this)">
+      <div class="vfront"><img class="vvimg" onerror="this.closest('.vvcard').style.display='none'" src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&auto=format&fit=crop" alt="phone"><div class="vven">phone</div></div>
+      <div class="vback"><div class="vback-word">PHONE</div><div class="vback-es">teléfono</div><div class="vback-hint">My phone is on my desk.</div></div>
+    </div>
+    <div class="vvcard" onclick="flipCard(this)">
+      <div class="vfront"><img class="vvimg" onerror="this.closest('.vvcard').style.display='none'" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&auto=format&fit=crop" alt="meeting room"><div class="vven">meeting room</div></div>
+      <div class="vback"><div class="vback-word">MEETING ROOM</div><div class="vback-es">sala de juntas</div><div class="vback-hint">The meeting room is on floor 2.</div></div>
+    </div>
+  </div>
+
+  <div class="vv-section-title" style="margin-top:8px">🏢 Spaces & Building</div>
+  <div class="vvgrid">
+    <div class="vvcard" onclick="flipCard(this)">
+      <div class="vfront"><img class="vvimg" onerror="this.closest('.vvcard').style.display='none'" src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&auto=format&fit=crop" alt="building"><div class="vven">building</div></div>
+      <div class="vback"><div class="vback-word">BUILDING</div><div class="vback-es">edificio</div><div class="vback-hint">My building has 5 floors.</div></div>
+    </div>
+    <div class="vvcard" onclick="flipCard(this)">
+      <div class="vfront"><img class="vvimg" onerror="this.closest('.vvcard').style.display='none'" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400&auto=format&fit=crop" alt="office space"><div class="vven">office</div></div>
+      <div class="vback"><div class="vback-word">OFFICE</div><div class="vback-es">oficina</div><div class="vback-hint">I work in an open office.</div></div>
+    </div>
+    <div class="vvcard" onclick="flipCard(this)">
+      <div class="vfront"><img class="vvimg" onerror="this.closest('.vvcard').style.display='none'" src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&auto=format&fit=crop" alt="chair comfortable"><div class="vven">comfortable</div></div>
+      <div class="vback"><div class="vback-word">COMFORTABLE</div><div class="vback-es">cómodo/a</div><div class="vback-hint">My chair is very comfortable.</div></div>
+    </div>
+    <div class="vvcard" onclick="flipCard(this)">
+      <div class="vfront"><img class="vvimg" onerror="this.closest('.vvcard').style.display='none'" src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&auto=format&fit=crop" alt="modern office"><div class="vven">modern</div></div>
+      <div class="vback"><div class="vback-word">MODERN</div><div class="vback-es">moderno/a</div><div class="vback-hint">Our office is modern and clean.</div></div>
+    </div>
+  </div>
+</div>
+<div class="side">
+  <div class="slbl">How to use</div>
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <div class="tip">1. Show the image side — student says the word.</div>
+    <div class="tip">2. Click to reveal English + Spanish.</div>
+    <div class="tip">3. Click again to flip back.</div>
+    <div class="tip">4. Use as warm-up or vocabulary review.</div>
+  </div>
+  <div class="slbl" style="margin-top:8px">Drill ideas</div>
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <div class="tip">🎯 Teacher shows image → student says word</div>
+    <div class="tip">🎯 Teacher says word → student draws</div>
+    <div class="tip">🎯 Student points at real objects → names them</div>
+  </div>
+</div>
+</div></div>
+
+<!-- ════ GRAMMAR (interactiva) ════ -->
+<div class="slide" id="s-grammar">
+<div class="lay">
+<div class="main">
+  <div class="sechead"><span class="secicon">📐</span><span class="sectitle">Grammar — Possessive Adjectives <span style="font-size:12px;font-weight:400;color:#7A8A9A">— click to fill</span></span><span class="sectime">⏱ 8–10 min</span></div>
+  <div class="tnote"><div class="tnlbl">📌 Teacher Note</div>Keep SHORT. Select a word from the bank, then click the blank to place it. Green = correct, Red = wrong. Reset to try again.</div>
+  <div class="grammar-box">
+    <div class="grammar-head">📐 Possessive Adjectives — my / your / his / her / our / their</div>
+    <div class="grammar-body">
+      <div class="rule-box">
+        <code>I</code> → my &nbsp;·&nbsp; <code>you</code> → your &nbsp;·&nbsp; <code>he</code> → his &nbsp;·&nbsp; <code>she</code> → her &nbsp;·&nbsp; <code>we</code> → our &nbsp;·&nbsp; <code>they</code> → their
+      </div>
+      <div style="display:flex;gap:7px;font-size:12px;margin-bottom:8px">
+        <span style="background:#E3F5EC;color:#1A6B3C;font-size:10px;font-weight:700;padding:2px 6px;border-radius:8px;flex-shrink:0;margin-top:2px">✅</span>
+        <div><strong>My</strong> desk is big. &nbsp;·&nbsp; <strong>Her</strong> laptop is new. &nbsp;·&nbsp; <strong>Our</strong> office is on floor 3.</div>
+      </div>
+      <div style="display:flex;gap:7px;font-size:12px">
+        <span style="background:#FDE8ED;color:#E8345A;font-size:10px;font-weight:700;padding:2px 6px;border-radius:8px;flex-shrink:0;margin-top:2px">❌</span>
+        <div>Is this <u>you</u> desk? &nbsp;·&nbsp; <u>She</u> laptop is new. &nbsp;·&nbsp; <u>He</u> manager is Carlos.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#B85C0A;margin-bottom:8px">⚙️ Click a word → then click a blank to place it</div>
+
+  <div class="word-bank" id="wordBank">
+    <span class="word-token" onclick="selectWord(this)">my</span>
+    <span class="word-token" onclick="selectWord(this)">your</span>
+    <span class="word-token" onclick="selectWord(this)">his</span>
+    <span class="word-token" onclick="selectWord(this)">her</span>
+    <span class="word-token" onclick="selectWord(this)">our</span>
+    <span class="word-token" onclick="selectWord(this)">their</span>
+  </div>
+
+  <div class="fill-list">
+    <div class="fill-item"><div class="fill-num">1.</div><div>This is <span class="fill-blank" onclick="placeWord(this)" data-answer="my"></span> desk. (I)</div></div>
+    <div class="fill-item"><div class="fill-num">2.</div><div><span class="fill-blank" onclick="placeWord(this)" data-answer="her"></span> manager is American. (she)</div></div>
+    <div class="fill-item"><div class="fill-num">3.</div><div>We share <span class="fill-blank" onclick="placeWord(this)" data-answer="our"></span> office with HR. (we)</div></div>
+    <div class="fill-item"><div class="fill-num">4.</div><div>Is this <span class="fill-blank" onclick="placeWord(this)" data-answer="your"></span> laptop? (you)</div></div>
+    <div class="fill-item"><div class="fill-num">5.</div><div>The company has <span class="fill-blank" onclick="placeWord(this)" data-answer="its"></span> own parking. (it)</div></div>
+    <div class="fill-item"><div class="fill-num">6.</div><div><span class="fill-blank" onclick="placeWord(this)" data-answer="his"></span> desk is the big one near the door. (he)</div></div>
+    <div class="fill-item"><div class="fill-num">7.</div><div>All <span class="fill-blank" onclick="placeWord(this)" data-answer="their"></span> desks are new. (they)</div></div>
+  </div>
+  <div class="answer-key">⚠️ Note: "its" is not in the bank — students write it. <strong>Key:</strong> 1. my · 2. Her · 3. our · 4. your · 5. its · 6. His · 7. their</div>
+  <button class="reset-btn" onclick="resetGrammar()">↺ Reset exercise</button>
+</div>
+<div class="side">
+  <div class="slbl">Photo</div>
+  <div class="sideimg"><img src="https://images.unsplash.com/photo-1517842645767-c639042777db?w=800&auto=format&fit=crop" alt="notebook writing"></div>
+  <div class="slbl">Quick reference</div>
+  <div style="background:#1A2E45;border-radius:7px;padding:12px;color:#fff;font-size:12px;line-height:2">
+    <div>I → <strong style="color:#F0B84A">my</strong></div>
+    <div>You → <strong style="color:#F0B84A">your</strong></div>
+    <div>He → <strong style="color:#F0B84A">his</strong></div>
+    <div>She → <strong style="color:#F0B84A">her</strong></div>
+    <div>It → <strong style="color:#F0B84A">its</strong></div>
+    <div>We → <strong style="color:#F0B84A">our</strong></div>
+    <div>They → <strong style="color:#F0B84A">their</strong></div>
+  </div>
+  <div class="tnote" style="font-size:11px"><div class="tnlbl">💡 Most confused</div>His vs. her: students say "his" for everything. He → his, She → her.</div>
+</div>
+</div></div>
+
+<!-- ════ SPEAKING (ajustado al nivel A1.1) ════ -->
+<div class="slide" id="s-speaking">
+<div class="lay">
+<div class="main">
+  <div class="sechead"><span class="secicon">🟢</span><span class="sectitle">Speaking — Main Activity</span><span class="sectime">⏱ 15–20 min</span></div>
+  <div class="tnote"><div class="tnlbl">📌 Teacher Note — A1.1 Level</div>All questions use only: to be (am/is/are), simple present (do/does), and vocabulary from M1 and M2. No comparatives, no "would", no "have been". If the student gives a one-word answer — ask "Is it big or small?" or "Do you have one?" to extend.</div>
+  <div class="sq-list">
+    <div class="sq-row"><div class="sq-num">1</div><div><div class="sq-text">What is on your desk right now?</div><div class="sq-tag">to be · office objects · starter</div></div></div>
+    <div class="sq-row"><div class="sq-num">2</div><div><div class="sq-text">Is your desk big or small?</div><div class="sq-tag">to be + adjective · starter</div></div></div>
+    <div class="sq-row"><div class="sq-num">3</div><div><div class="sq-text">Do you have a laptop? Is it new or old?</div><div class="sq-tag">do you have · to be + adjective · elementary</div></div></div>
+    <div class="sq-row"><div class="sq-num">4</div><div><div class="sq-text">What floor is your office on?</div><div class="sq-tag">to be · floor vocabulary · elementary</div></div></div>
+    <div class="sq-row"><div class="sq-num">5</div><div><div class="sq-text">Do you have a printer in your office? Where is it?</div><div class="sq-tag">do you have · where is · elementary</div></div></div>
+    <div class="sq-row"><div class="sq-num">6</div><div><div class="sq-text">Is your office open or private? Is it clean?</div><div class="sq-tag">to be · adjectives · elementary</div></div></div>
+    <div class="sq-row"><div class="sq-num">7</div><div><div class="sq-text">What is your manager's desk like? Is it big?</div><div class="sq-tag">possessives his/her · to be · medium</div></div></div>
+    <div class="sq-row"><div class="sq-num">8</div><div><div class="sq-text">Do you share a printer with your colleagues?</div><div class="sq-tag">do you + verb · simple present · medium</div></div></div>
+    <div class="sq-row"><div class="sq-num">9</div><div><div class="sq-text">Is there a meeting room in your office? Is it big or small?</div><div class="sq-tag">is there · there is/are preview · medium</div></div></div>
+    <div class="sq-row"><div class="sq-num">10</div><div><div class="sq-text">Tell me about your workspace: What is on your desk? Is your office big? What floor is it on?</div><div class="sq-tag">full production · all M2 S1 vocab · challenge</div></div></div>
+  </div>
+</div>
+<div class="side">
+  <div class="slbl">Photo</div>
+  <div class="sideimg"><img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&auto=format&fit=crop" alt="video call"></div>
+  <div class="slbl">If student is stuck…</div>
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <div class="tip">Point at something: "What is that?"</div>
+    <div class="tip">Give choice: "Big or small?"</div>
+    <div class="tip">Ask yes/no first: "Do you have a printer?"</div>
+    <div class="tip">Type the word in chat.</div>
+  </div>
+  <div class="slbl" style="margin-top:6px">Grammar check ✅</div>
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <div class="tip">✅ to be (is/are)</div>
+    <div class="tip">✅ Do/Does questions</div>
+    <div class="tip">✅ My/your/his/her</div>
+    <div class="tip">✅ A1.1 vocabulary only</div>
+    <div class="tip">❌ No "would/could/have been"</div>
+  </div>
+</div>
+</div></div>
+
+<!-- ════ READING ════ -->
+<div class="slide" id="s-reading">
+<div class="lay">
+<div class="main">
+  <div class="sechead"><span class="secicon">📖</span><span class="sectitle">Reading + Comprehension</span><span class="sectime">⏱ 8–10 min</span></div>
+  <div class="rtext">
+    <p>My name is Ana. I work at a small company. My office is on the third floor.</p>
+    <p style="margin-top:8px">My desk is next to the window. I have a laptop, a keyboard, and a phone on my desk. My chair is new and comfortable.</p>
+    <p style="margin-top:8px">Our office is not big. My manager's desk is near the door. His computer is old but it works well. We share a printer. It is on the second floor.</p>
+  </div>
+  <div style="font-weight:600;font-size:11px;color:#5B3FA0;text-transform:uppercase;letter-spacing:.08em;margin:8px 0 5px">Comprehension questions</div>
+  <div class="cq-list">
+    <div class="cq"><span class="cqn">1.</span> What floor is Ana's office on?</div>
+    <div class="cq"><span class="cqn">2.</span> What does Ana have on her desk? (name 3 things)</div>
+    <div class="cq"><span class="cqn">3.</span> Is Ana's chair new or old?</div>
+    <div class="cq"><span class="cqn">4.</span> Where is the manager's desk?</div>
+    <div class="cq"><span class="cqn">5.</span> Where is the printer?</div>
+  </div>
+  <div class="akey"><strong>Key:</strong> 1. Third floor · 2. Laptop, keyboard, phone · 3. New · 4. Near the door · 5. Second floor</div>
+</div>
+<div class="side">
+  <div class="slbl">Photo</div>
+  <div class="sideimg"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop" alt="reading"></div>
+  <div class="slbl">Implicit grammar</div>
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <div class="tip"><strong>To be:</strong> is, are throughout</div>
+    <div class="tip"><strong>Possessives:</strong> my, our, his</div>
+    <div class="tip"><strong>Simple present:</strong> works, share</div>
+    <div class="tip"><strong>Adjectives:</strong> small, new, old, comfortable</div>
+  </div>
+</div>
+</div></div>
+
+<!-- ════ LISTENING ════ -->
+<div class="slide" id="s-listening">
+<div class="lay">
+<div class="main">
+  <div class="sechead"><span class="secicon">🎧</span><span class="sectitle">Listening</span><span class="sectime">⏱ 5–8 min</span></div>
+  <div class="tnote"><div class="tnlbl">📌 Read aloud — natural pace, slightly slower. A1.1 level — short sentences.</div>Key grammar: to be (my/his/her), simple present (work/have/sit). If student says "he are" → point to grammar tab. 20 seconds max.</div>
+  <div style="background:#E0F4F4;border:1.5px solid #0D7377;border-radius:10px;padding:14px 16px;flex-shrink:0">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0D7377;margin-bottom:8px">🔊 Listening Audio — Press play</div>
+      <iframe src="https://drive.google.com/file/d/1hypxzWfbR61p0g4vkoZOGRK4i8UcVBeN/preview" 
+              width="100%" height="80" 
+              allow="autoplay"
+              style="border:none;border-radius:6px;background:#fff">
+      </iframe>
+      <div style="margin-top:6px;font-size:11px;color:#0D7377">
+        ⚠️ If audio doesn't play: 
+        <a href="https://drive.google.com/file/d/1hypxzWfbR61p0g4vkoZOGRK4i8UcVBeN/view" target="_blank" 
+           style="color:#0D7377;font-weight:700;text-decoration:underline">open in Drive ↗</a>
+      </div>
+    </div>
+  <div class="rtext lt">
+    <p>Hello! My name is David. I work at a car company. My office is on the 4th floor.</p>
+    <p style="margin-top:8px">My desk is big. I have a laptop and two screens. My keyboard is black. My chair is not very comfortable — it is old!</p>
+    <p style="margin-top:8px">My manager is Laura. Her desk is next to mine. Her computer is new. We share a printer — it is at the end of the hall.</p>
+    <p style="margin-top:8px">Our office is open. There are 10 desks on our floor. It is a good office. Nice to meet you!</p>
+  </div>
+  <div style="font-weight:600;font-size:11px;color:#0D7377;text-transform:uppercase;letter-spacing:.08em;margin:8px 0 5px">Comprehension questions</div>
+  <div class="cq-list">
+    <div class="cq"><span class="cqn cqnt">1.</span> What floor is David's office on? Is his desk big or small?</div>
+    <div class="cq"><span class="cqn cqnt">2.</span> What does David have on his desk?</div>
+    <div class="cq"><span class="cqn cqnt">3.</span> Who is Laura? Where is her desk?</div>
+  </div>
+  <div class="akey"><strong>Key:</strong> 1. 4th floor — big · 2. Laptop + two screens · 3. His manager — next to his desk</div>
+</div>
+<div class="side">
+  <div class="slbl">Photo</div>
+  <div class="sideimg"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop" alt="listening"></div>
+  <div class="slbl">Delivery tips</div>
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <div class="tip">Read twice if needed for A1.</div>
+    <div class="tip">Pause at punctuation marks.</div>
+    <div class="tip">Don't translate words.</div>
+    <div class="tip">Let student write notes.</div>
+  </div>
+  <div class="tnote" style="margin-top:6px;font-size:11px"><div class="tnlbl">🔊 Audio</div>Future version: add MP3 here.</div>
+</div>
+</div></div>
+
+<!-- ════ WRAP-UP ════ -->
+<div class="slide" id="s-wrapup">
+<div class="lay">
+<div class="main">
+  <div class="sechead"><span class="secicon">⚡</span><span class="sectitle">Wrap-up &amp; Error Correction</span><span class="sectime">⏱ 3–5 min</span></div>
+  <div style="font-weight:600;font-size:11px;color:#E8345A;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Common errors — A1.1 · Office &amp; Possessives</div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="err-row"><div class="err-pair"><div class="err-w">❌ Is this you desk?</div><div class="err-arr">→</div><div class="err-r">✅ Is this your desk?</div></div><div class="err-why">'You' = pronoun. 'Your' = possessive. Never use 'you' as a possessive.</div></div>
+    <div class="err-row"><div class="err-pair"><div class="err-w">❌ She laptop is new.</div><div class="err-arr">→</div><div class="err-r">✅ Her laptop is new.</div></div><div class="err-why">She = pronoun. Her = possessive. I/my · He/his · She/her — always.</div></div>
+    <div class="err-row"><div class="err-pair"><div class="err-w">❌ The office have 3 floors.</div><div class="err-arr">→</div><div class="err-r">✅ The office has 3 floors.</div></div><div class="err-why">It/He/She → has (not have). Have = I/You/We/They.</div></div>
+  </div>
+  <div class="reflection"><div style="font-size:22px">💬</div><div style="font-size:13px;font-style:italic;color:rgba(255,255,255,.85)">"Describe your desk in 3 sentences in English — right now, without notes."</div></div>
+  <div style="font-size:10px;font-weight:700;color:#7A8A9A;text-transform:uppercase;letter-spacing:.1em;margin-top:10px;margin-bottom:4px">📝 Teacher notes</div>
+  <div style="border:2px dashed #EDE8DD;border-radius:6px;height:52px;padding:8px 12px;font-size:11px;color:#7A8A9A">Errors observed · vocabulary gaps · next session focus…</div>
+</div>
+<div class="side">
+  <div class="slbl">Photo</div>
+  <div class="sideimg"><img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=800&auto=format&fit=crop" alt="wrapup"></div>
+  <div class="slbl">Before next session</div>
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <div class="tip">📝 Write 5 objects on your desk in English.</div>
+    <div class="tip">✏️ Describe your office in 3 sentences.</div>
+    <div class="tip">📷 Take a photo of your desk — describe next class.</div>
+  </div>
+</div>
+</div></div>
+
+</div><!-- /slides -->
+
+<div class="footbar">
+  <span>© Gabriel Turner English Training · <span style="color:#C9922A">Celaya, Guanajuato · Todo México</span></span>
+  <span>A1.1 · Module 2 · Session 1 · Teacher Copy — not for student distribution</span>
+  <span>Zoom / Teams · 60 min</span>
+</div>
+
+<script>
+// ── TAB NAVIGATION ──
+function showTab(id,btn){
+  document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('s-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── VOCAB WORD HIGHLIGHT (click) ──
+function hlWord(el){
+  document.querySelectorAll('.vword').forEach(w=>w.classList.remove('playing'));
+  el.classList.add('playing');
+  // Web Speech API — reads the word aloud
+  var word = el.innerText.replace('🔊','').trim();
+  if('speechSynthesis' in window){
+    var u = new SpeechSynthesisUtterance(word);
+    u.lang = 'en-US'; u.rate = 0.85;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+    u.onend = function(){ el.classList.remove('playing'); };
+  }
+  setTimeout(()=>el.classList.remove('playing'), 1500);
+}
+
+// ── VISUAL VOCAB FLIP ──
+function flipCard(card){
+  card.classList.toggle('flipped');
+}
+
+// ── GRAMMAR INTERACTIVE ──
+var selectedWord = null;
+function selectWord(el){
+  document.querySelectorAll('.word-token').forEach(t=>t.classList.remove('selected'));
+  if(selectedWord === el){ selectedWord = null; return; }
+  el.classList.add('selected');
+  selectedWord = el;
+}
+
+function placeWord(blank){
+  if(!selectedWord) return;
+  var word = selectedWord.innerText.trim();
+  var answer = blank.dataset.answer;
+  blank.innerText = word;
+  if(word.toLowerCase() === answer.toLowerCase()){
+    blank.className = 'fill-blank filled-correct';
+    selectedWord.classList.add('used');
+    selectedWord.classList.remove('selected');
+    selectedWord = null;
+  } else {
+    blank.className = 'fill-blank filled-wrong';
+    blank.addEventListener('animationend', function(){
+      blank.className = 'fill-blank empty-selected';
+      blank.innerText = '';
+    }, {once:true});
+    selectedWord.classList.remove('selected');
+    selectedWord = null;
+  }
+}
+
+function resetGrammar(){
+  document.querySelectorAll('.fill-blank').forEach(b=>{
+    b.className = 'fill-blank'; b.innerText = '';
+  });
+  document.querySelectorAll('.word-token').forEach(t=>{
+    t.classList.remove('used','selected');
+  });
+  selectedWord = null;
+}
+</script>
+</body>
+</html>
