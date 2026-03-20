@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Level Test — Gabriel Turner English Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#0F1923;--navy:#1A2E45;--gold:#C9922A;--gold-l:rgba(201,146,42,.12);
+  --bg:#F9F7F4;--white:#fff;--text:#1A2E45;--muted:#6B7A8D;--border:#E8E4DC;
+  --green:#16A34A;--green-l:rgba(22,163,74,.1);--red:#DC2626;--red-l:rgba(220,38,38,.1);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+.header{background:var(--dark);padding:22px 24px}
+.header-inner{max-width:660px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.logo{width:40px;height:40px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:#000;flex-shrink:0}
+.brand h1{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#fff}
+.brand p{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+
+.screen{display:none;max-width:660px;margin:0 auto;padding:28px 20px 60px}
+.screen.active{display:block}
+
+/* WELCOME */
+.welcome-hero{text-align:center;padding:24px 0 20px}
+.welcome-hero h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;margin-bottom:10px}
+.welcome-hero p{font-size:14px;color:var(--muted);line-height:1.7;max-width:460px;margin:0 auto}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+.info-item{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center}
+.info-icon{font-size:22px;margin-bottom:4px}
+.info-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gold)}
+.info-lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.form-box{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:18px}
+.form-box label{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:7px}
+.form-box input{width:100%;padding:10px 13px;border:2px solid var(--border);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);outline:none;-webkit-appearance:none;margin-bottom:14px}
+.form-box input:last-child{margin-bottom:0}
+.form-box input:focus{border-color:var(--gold)}
+.levels-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.lp{padding:3px 11px;border-radius:20px;font-size:11px;font-weight:700}
+.btn-primary{width:100%;padding:13px;background:var(--gold);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;-webkit-tap-highlight-color:transparent}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed}
+
+/* PROGRESS */
+.progress-wrap{margin-bottom:20px}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.prog-section{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em}
+.prog-count{font-size:12px;color:var(--muted)}
+.prog-bg{background:var(--border);border-radius:100px;height:5px;overflow:hidden}
+.prog-bar{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--gold),#F5C842);transition:width .35s ease}
+.exit-btn{display:flex;align-items:center;gap:5px;background:none;border:1.5px solid var(--border);border-radius:20px;padding:5px 13px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:16px;-webkit-tap-highlight-color:transparent}
+.exit-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* QUESTION */
+.q-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:16px}
+.q-num{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.q-text{font-size:16px;font-weight:600;color:var(--text);line-height:1.6;margin-bottom:5px}
+.q-ctx{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:16px;line-height:1.6}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{padding:12px 15px;border:2px solid var(--border);border-radius:10px;cursor:pointer;font-size:14px;font-weight:500;color:var(--text);background:var(--white);transition:all .15s;-webkit-tap-highlight-color:transparent;text-align:left;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:10px}
+.opt:hover{border-color:var(--gold);background:var(--gold-l)}
+.opt.selected{border-color:var(--gold);background:var(--gold-l);font-weight:600}
+.opt.correct{border-color:var(--green);background:var(--green-l);color:var(--green)}
+.opt.wrong{border-color:var(--red);background:var(--red-l);color:var(--red)}
+.opt-letter{width:24px;height:24px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;transition:all .15s}
+.opt.selected .opt-letter{background:var(--gold);color:#fff}
+.opt.correct .opt-letter{background:var(--green);color:#fff}
+.opt.wrong .opt-letter{background:var(--red);color:#fff}
+.btn-next{width:100%;padding:12px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:none;-webkit-tap-highlight-color:transparent}
+
+/* CONFIRM EXIT MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.active{display:flex}
+.modal{background:var(--white);border-radius:16px;padding:28px 24px;max-width:360px;width:100%;text-align:center}
+.modal h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:8px}
+.modal p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px}
+.modal-btns{display:flex;gap:10px}
+.btn-cancel{flex:1;padding:11px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;background:none;color:var(--text)}
+.btn-exit-confirm{flex:1;padding:11px;background:var(--navy);border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;color:#fff}
+
+/* RESULT */
+.result-top{text-align:center;padding:16px 0 24px}
+.result-badge{display:inline-block;padding:7px 22px;border-radius:30px;font-family:'Playfair Display',serif;font-size:30px;font-weight:700;margin-bottom:10px}
+.result-name{font-size:14px;color:var(--muted);margin-bottom:5px}
+.result-level{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:8px}
+.result-desc{font-size:13px;color:var(--muted);line-height:1.8;max-width:460px;margin:0 auto 18px}
+.score-ring{width:90px;height:90px;border-radius:50%;background:var(--gold-l);border:3px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 4px}
+.score-val{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--gold);line-height:1}
+.score-lbl{font-size:10px;color:var(--muted);margin-top:2px}
+.partial-note{font-size:11px;color:var(--muted);font-style:italic;margin-bottom:20px;text-align:center}
+.rbox{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px}
+.rbox h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text);margin-bottom:12px}
+.cando-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:13px;line-height:1.5}
+.cando-item:last-child{margin-bottom:0}
+.ssrow{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.ssrow:last-child{margin-bottom:0}
+.ss-lbl{font-size:12px;font-weight:700;width:46px;flex-shrink:0}
+.ss-bg{flex:1;background:var(--border);border-radius:100px;height:5px;overflow:hidden}
+.ss-fill{height:100%;border-radius:100px}
+.ss-val{font-size:11px;font-weight:700;width:32px;text-align:right;flex-shrink:0}
+.cta-box{background:linear-gradient(135deg,var(--dark),#1A3550);border-radius:14px;padding:22px;text-align:center;margin-bottom:14px}
+.cta-box h3{font-family:'Playfair Display',serif;font-size:17px;color:#fff;margin-bottom:7px}
+.cta-box p{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:14px;line-height:1.6}
+.wa-link{display:inline-flex;align-items:center;gap:7px;background:#25D366;color:#fff;text-decoration:none;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700}
+.contact-box{background:var(--white);border:1.5px solid var(--gold);border-radius:12px;padding:16px;text-align:center}
+.contact-box p{font-size:12px;color:var(--muted)}
+.contact-box strong{font-size:14px;color:var(--text);display:block;margin:4px 0 10px}
+
+@media(max-width:480px){
+  .screen{padding:18px 14px 40px}
+  .q-text{font-size:15px}
+  .opt{font-size:13px;padding:10px 12px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo">GT</div>
+    <div class="brand">
+      <h1>Gabriel Turner English Training</h1>
+      <p>English Level Placement Test — CEFR</p>
+    </div>
+  </div>
+</div>
+
+<!-- WELCOME -->
+<div class="screen active" id="screen-welcome">
+  <div class="welcome-hero">
+    <h2>Find Your English Level</h2>
+    <p>40 questions. ~8 minutes. Instant results. Place yourself on the international CEFR scale — from A1 to B2.</p>
+  </div>
+  <div class="info-grid">
+    <div class="info-item"><div class="info-icon">📝</div><div class="info-val">40</div><div class="info-lbl">Questions</div></div>
+    <div class="info-item"><div class="info-icon">⏱</div><div class="info-val">~8</div><div class="info-lbl">Minutes</div></div>
+    <div class="info-item"><div class="info-icon">🎯</div><div class="info-val">8</div><div class="info-lbl">CEFR levels</div></div>
+  </div>
+  <div class="form-box">
+    <label>Your full name</label>
+    <input type="text" id="userName" placeholder="e.g. Ana García" autocomplete="off">
+    <label>Your email <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+    <input type="email" id="userEmail" placeholder="e.g. ana@company.com" autocomplete="off">
+  </div>
+  <div class="levels-row">
+    <span class="lp" style="background:rgba(201,146,42,.12);color:#8B5E1A">A1.1</span>
+    <span class="lp" style="background:rgba(201,146,42,.2);color:#7A4F10">A1.2</span>
+    <span class="lp" style="background:rgba(160,32,110,.12);color:#A0206E">A2.1</span>
+    <span class="lp" style="background:rgba(160,32,110,.2);color:#8B1A5E">A2.2</span>
+    <span class="lp" style="background:rgba(37,99,235,.12);color:#2563EB">B1.1</span>
+    <span class="lp" style="background:rgba(37,99,235,.2);color:#1D4ED8">B1.2</span>
+    <span class="lp" style="background:rgba(107,33,168,.12);color:#6B21A8">B2.1</span>
+    <span class="lp" style="background:rgba(107,33,168,.2);color:#5B1A95">B2.2</span>
+  </div>
+  <button class="btn-primary" id="startBtn" onclick="startTest()" disabled>Start Test →</button>
+</div>
+
+<!-- TEST -->
+<div class="screen" id="screen-test">
+  <button class="exit-btn" onclick="showExitModal()">💾 Save & exit — get partial result</button>
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <div class="prog-section" id="progSection">A1.1</div>
+      <div class="prog-count" id="progCount">1 / 40</div>
+    </div>
+    <div class="prog-bg"><div class="prog-bar" id="progBar" style="width:2%"></div></div>
+  </div>
+  <div class="q-card">
+    <div class="q-num" id="qNum">Question 1</div>
+    <div class="q-text" id="qText"></div>
+    <div class="q-ctx" id="qCtx" style="display:none"></div>
+    <div class="opts" id="opts"></div>
+  </div>
+  <button class="btn-next" id="btnNext" onclick="nextQ()">Next →</button>
+</div>
+
+<!-- EXIT MODAL -->
+<div class="modal-overlay" id="exitModal">
+  <div class="modal">
+    <h3>Save your progress?</h3>
+    <p>You can get a partial result based on the questions you've answered so far. Your level will be estimated from your current score.</p>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="hideExitModal()">Keep going</button>
+      <button class="btn-exit-confirm" onclick="showResult(true)">Get my result</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="screen" id="screen-result">
+  <div class="result-top">
+    <div id="rBadge" class="result-badge"></div>
+    <div class="result-name" id="rName"></div>
+    <div class="result-level" id="rLevel"></div>
+    <div class="result-desc" id="rDesc"></div>
+    <div class="score-ring">
+      <div class="score-val" id="rScore"></div>
+      <div class="score-lbl">correct</div>
+    </div>
+    <div class="partial-note" id="rPartial"></div>
+  </div>
+  <div class="rbox" id="rCanDo"></div>
+  <div class="rbox" id="rSections"></div>
+  <div class="cta-box">
+    <h3>Ready to start your program?</h3>
+    <p>Gabriel Turner English Training offers personalized business English programs designed for working professionals in Mexico — aligned to your exact CEFR level.</p>
+    <a class="wa-link" id="waLink" href="#" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Contact us on WhatsApp
+    </a>
+  </div>
+  <div class="contact-box">
+    <p>Questions? We're here.</p>
+    <strong>Gabriel Turner · 461 147 2119 · Celaya, Guanajuato</strong>
+    <a class="wa-link" href="https://wa.me/524611472119" target="_blank" style="font-size:12px;padding:8px 16px">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</div>
+
+<script>
+const QS=[
+  // A1.1 (5)
+  {s:"A1.1",q:"What ___ your name?",opts:["am","is","are","be"],a:1},
+  {s:"A1.1",q:"She ___ from Mexico. She is Mexican.",opts:["am","is","are","be"],a:1},
+  {s:"A1.1",q:"Choose the correct morning greeting.",opts:["Good night","Good afternoon","Good morning","Good evening"],a:2},
+  {s:"A1.1",q:"___ you a student or a professional?",opts:["Am","Is","Are","Be"],a:2},
+  {s:"A1.1",q:"My phone number ___ 461 147 2119.",opts:["am","is","are","have"],a:1},
+  // A1.2 (5)
+  {s:"A1.2",q:"Yesterday, I ___ to the office at 8am.",opts:["go","goes","went","going"],a:2},
+  {s:"A1.2",q:"There ___ five people in the meeting.",opts:["is","am","are","be"],a:2},
+  {s:"A1.2",q:"___ keyboard is on the desk.",ctx:"Belonging to me.",opts:["My","Your","His","Their"],a:0},
+  {s:"A1.2",q:"She ___ finish the report. The deadline was Friday.",opts:["didn't","doesn't","wasn't","isn't"],a:0},
+  {s:"A1.2",q:"We ___ a meeting last Monday.",opts:["have","had","has","having"],a:1},
+  // A2.1 (5)
+  {s:"A2.1",q:"I ___ call the client this afternoon.",ctx:"Spontaneous decision made right now.",opts:["am going to","will","would","shall"],a:1},
+  {s:"A2.1",q:"We ___ present the new strategy next week.",ctx:"Confirmed plan.",opts:["will","would","are going to","shall"],a:2},
+  {s:"A2.1",q:"___ my opinion, we should increase the budget.",opts:["On","In","At","By"],a:1},
+  {s:"A2.1",q:"Sorry ___ interrupt — I have an important point.",opts:["for","to","of","about"],a:1},
+  {s:"A2.1",q:"The results are good. ___, we still need to improve quality.",opts:["Because","Although","However","So"],a:2},
+  // A2.2 (5)
+  {s:"A2.2",q:"I ___ already sent the proposal to the client.",opts:["have","had","has","am"],a:0},
+  {s:"A2.2",q:"She ___ in this role for three years.",opts:["works","is working","has worked","worked"],a:2},
+  {s:"A2.2",q:"I ___ to arrive early. It's just how I am.",opts:["tend","tends","tending","am tend"],a:0},
+  {s:"A2.2",q:"We haven't received the contract ___.",opts:["already","ever","yet","just"],a:2},
+  {s:"A2.2",q:"I've worked here ___ 2019.",opts:["for","since","during","from"],a:1},
+  // B1.1 (5)
+  {s:"B1.1",q:"If I ___ the manager, I would change the process.",opts:["am","was","were","would be"],a:2},
+  {s:"B1.1",q:"I wish the approval process ___ faster.",opts:["is","was","were","would be"],a:2},
+  {s:"B1.1",q:"If I ___ you, I'd raise this concern directly.",opts:["am","was","were","would be"],a:2},
+  {s:"B1.1",q:"I'd rather ___ on one big project than manage five small ones.",opts:["work","to work","working","worked"],a:0},
+  {s:"B1.1",q:"If we ___ more resources, we'd achieve much more.",opts:["have","had","would have","will have"],a:1},
+  // B1.2 (5)
+  {s:"B1.2",q:"If the market ___, we will need to adapt our strategy.",opts:["changes","changed","will change","would change"],a:0},
+  {s:"B1.2",q:"The report ___ by the team before the meeting.",ctx:"Passive voice.",opts:["was prepared","prepared","has prepare","is prepare"],a:0},
+  {s:"B1.2",q:"She said that she ___ finish the project the next day.",opts:["will","would","can","shall"],a:1},
+  {s:"B1.2",q:"I ___ working on this proposal for three hours.",ctx:"Started in the past — still ongoing.",opts:["have been","am","was","had"],a:0},
+  {s:"B1.2",q:"He told me ___ wait outside.",opts:["to","that","for","about"],a:0},
+  // B2.1 (5)
+  {s:"B2.1",q:"You ___ have told me earlier — I could have helped.",ctx:"Mild criticism about the past.",opts:["should","must","would","shall"],a:0},
+  {s:"B2.1",q:"What I find most challenging ___ managing conflicting priorities.",opts:["are","is","be","am"],a:1},
+  {s:"B2.1",q:"___ the fact that the budget was cut, the team delivered excellent results.",opts:["Although","Despite","However","Even"],a:1},
+  {s:"B2.1",q:"The merger ___ have been approved without a risk analysis.",ctx:"Expressing what was not acceptable.",opts:["shouldn't","mustn't","can't","wouldn't"],a:0},
+  {s:"B2.1",q:"It is ___ the quality of leadership that determines company culture.",opts:["largely","large","larger","largely of"],a:0},
+  // B2.2 (5)
+  {s:"B2.2",q:"Let's ___ — we both want a fair deal.",ctx:"Idiomatic: agree on a middle point.",opts:["split the difference","cut corners","miss the point","pass the buck"],a:0},
+  {s:"B2.2",q:"Had I known about the problem earlier, I ___ taken a different approach.",opts:["would have","will have","had","could"],a:0},
+  {s:"B2.2",q:"The proposal was ___ — clear, structured, and persuasive.",opts:["compelling","compelled","compulsory","compellingly"],a:0},
+  {s:"B2.2",q:"We need to ___ on the delivery timeline before finalizing the contract.",ctx:"Business negotiation.",opts:["nail down","bring about","take on","back off"],a:0},
+  {s:"B2.2",q:"The decision was made ___ — nobody was consulted beforehand.",opts:["unilaterally","unanimously","uniformly","uniquely"],a:0},
+];
+
+const COLORS={A11:"#C9922A",A12:"#B07820",A21:"#A0206E",A22:"#8B1A5E",B11:"#2563EB",B12:"#1D4ED8",B21:"#6B21A8",B22:"#5B1A95"};
+const LABELS={A11:"A1.1",A12:"A1.2",A21:"A2.1",A22:"A2.2",B11:"B1.1",B12:"B1.2",B21:"B2.1",B22:"B2.2"};
+const SMAP=["A11","A11","A11","A11","A11","A12","A12","A12","A12","A12","A21","A21","A21","A21","A21","A22","A22","A22","A22","A22","B11","B11","B11","B11","B11","B12","B12","B12","B12","B12","B21","B21","B21","B21","B21","B22","B22","B22","B22","B22"];
+const MAX={A11:5,A12:5,A21:5,A22:5,B11:5,B12:5,B21:5,B22:5};
+const LEVELDATA={
+  "A1.1":{name:"A1.1 — Absolute Beginner",desc:"You are at the start of your English journey. You can understand very basic expressions and give simple personal information.",cando:["Introduce yourself in English","Understand basic greetings and numbers","Communicate your name, job and company","Recognize simple questions about daily life"]},
+  "A1.2":{name:"A1.2 — Beginner",desc:"You can handle simple, routine communication. You understand familiar words and basic phrases about your immediate environment.",cando:["Talk about past events using simple past","Describe your office and work environment","Use basic possessives and prepositions","Ask and answer simple work-related questions"]},
+  "A2.1":{name:"A2.1 — Elementary",desc:"You can communicate in simple exchanges on familiar professional topics. You are beginning to participate in meetings in English.",cando:["Talk about plans using going to and will","Express basic opinions with connectors","Use meeting language to agree and interrupt","Follow a structured conversation in a meeting"]},
+  "A2.2":{name:"A2.2 — Elementary+",desc:"You have a solid foundation. You can describe experiences, express preferences, and discuss your professional profile.",cando:["Use the present perfect to describe experience","Describe personality and work style","Express preferences with I tend to and I'd rather","Discuss career topics and work environment"]},
+  "B1.1":{name:"B1.1 — Intermediate",desc:"You can hypothesize, give advice, and express your views with growing confidence. Your English is becoming genuinely functional.",cando:["Use the second conditional for hypotheticals","Give professional advice using If I were you","Express wishes and preferences naturally","Discuss business scenarios with structure"]},
+  "B1.2":{name:"B1.2 — Intermediate",desc:"You handle most professional communication situations with confidence. You use passive voice, reported speech, and conditionals accurately.",cando:["Use passive voice in reports and presentations","Report what others said accurately","Predict real outcomes with first conditional","Use present perfect continuous naturally"]},
+  "B2.1":{name:"B2.1 — Upper-Intermediate",desc:"You express yourself clearly on a wide range of professional topics. You understand complex arguments and use sophisticated grammar.",cando:["Use advanced modals for nuance and criticism","Construct cleft sentences for emphasis","Use complex discourse markers fluently","Discuss business decisions with precision"]},
+  "B2.2":{name:"B2.2 — Upper-Intermediate",desc:"You have strong command of English in professional contexts. You can negotiate, persuade, and communicate complex ideas. You are close to C1.",cando:["Use advanced idioms naturally in negotiations","Master complex conditional and passive structures","Command sophisticated business vocabulary","Handle any professional conversation confidently"]},
+};
+
+let cur=0,sel=null,userName="";
+let scores={A11:0,A12:0,A21:0,A22:0,B11:0,B12:0,B21:0,B22:0};
+let answered=0;
+
+document.getElementById('userName').addEventListener('input',function(){
+  document.getElementById('startBtn').disabled=this.value.trim().length<2;
+});
+
+function startTest(){
+  userName=document.getElementById('userName').value.trim();
+  show('screen-test');renderQ();
+}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function showExitModal(){document.getElementById('exitModal').classList.add('active');}
+function hideExitModal(){document.getElementById('exitModal').classList.remove('active');}
+
+function renderQ(){
+  const q=QS[cur];
+  const pct=Math.round((cur/QS.length)*100);
+  const sk=SMAP[cur];
+  document.getElementById('progSection').textContent=LABELS[sk];
+  document.getElementById('progSection').style.color=COLORS[sk];
+  document.getElementById('progCount').textContent=(cur+1)+' / '+QS.length;
+  document.getElementById('progBar').style.width=Math.max(pct,2)+'%';
+  document.getElementById('qNum').textContent='Question '+(cur+1);
+  document.getElementById('qText').textContent=q.q;
+  const ctx=document.getElementById('qCtx');
+  if(q.ctx){ctx.textContent=q.ctx;ctx.style.display='block';}else{ctx.style.display='none';}
+  const opts=document.getElementById('opts');
+  opts.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const b=document.createElement('button');
+    b.className='opt';
+    b.innerHTML='<span class="opt-letter">'+l+'</span>'+q.opts[i];
+    b.onclick=()=>pick(i);
+    opts.appendChild(b);
+  });
+  sel=null;
+  document.getElementById('btnNext').style.display='none';
+}
+
+function pick(idx){
+  if(sel!==null)return;
+  sel=idx;
+  answered++;
+  const q=QS[cur];
+  document.querySelectorAll('.opt').forEach((o,i)=>{
+    if(i===idx)o.classList.add(i===q.a?'correct':'wrong');
+    if(i===q.a&&i!==idx)o.classList.add('correct');
+  });
+  if(idx===q.a)scores[SMAP[cur]]++;
+  document.getElementById('btnNext').style.display='block';
+}
+
+function nextQ(){
+  cur++;
+  if(cur>=QS.length){showResult(false);return;}
+  renderQ();
+}
+
+function showResult(partial){
+  hideExitModal();
+  const order=['A11','A12','A21','A22','B11','B12','B21','B22'];
+  const ratios={};
+  order.forEach(k=>ratios[k]=MAX[k]>0?scores[k]/MAX[k]:0);
+  let level='A1.1';
+  for(let i=0;i<order.length;i++){
+    if(ratios[order[i]]>=0.5)level=LABELS[order[i]];
+    else break;
+  }
+  const total=Object.values(scores).reduce((a,b)=>a+b,0);
+  const ld=LEVELDATA[level];
+  const col=Object.values(COLORS)[Object.keys(LABELS).findIndex(k=>LABELS[k]===level)];
+
+  document.getElementById('rBadge').textContent=level;
+  document.getElementById('rBadge').style.cssText=`background:${col}22;color:${col};border:2px solid ${col}44`;
+  document.getElementById('rName').textContent='Results for '+userName;
+  document.getElementById('rLevel').textContent=ld.name;
+  document.getElementById('rDesc').textContent=ld.desc;
+  document.getElementById('rScore').textContent=total+'/'+answered;
+  document.getElementById('rPartial').textContent=partial?'Partial result — based on '+answered+' of 40 questions answered.':'';
+
+  document.getElementById('rCanDo').innerHTML='<h3>✅ What you can do in English</h3>'+
+    ld.cando.map(c=>`<div class="cando-item"><span>✔</span><span>${c}</span></div>`).join('');
+
+  document.getElementById('rSections').innerHTML='<h3>📊 Score by section</h3>'+
+    order.map(k=>{
+      const p2=Math.round(ratios[k]*100);
+      const c=COLORS[k];
+      return`<div class="ssrow"><div class="ss-lbl" style="color:${c}">${LABELS[k]}</div><div class="ss-bg"><div class="ss-fill" style="width:${p2}%;background:${c}"></div></div><div class="ss-val" style="color:${c}">${scores[k]}/${MAX[k]}</div></div>`;
+    }).join('');
+
+  const msg=encodeURIComponent('Hola Gabriel, acabo de hacer el test de nivel y obtuve '+level+'. Me gustaría conocer el programa.');
+  document.getElementById('waLink').href='https://wa.me/524611472119?text='+msg;
+  show('screen-result');
+}
+</script>
+</body>
+</html>
