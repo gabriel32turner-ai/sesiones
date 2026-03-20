@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-A1 · M0 · S1 — Colors & Greetings | Gabriel Turner</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#E85D04;--dark:#1A1A2E;--bg:#FAFAF8;--white:#fff;
+  --muted:#8A8FA8;--border:#ECEAE4;--green:#16A34A;--green-l:rgba(22,163,74,.1);
+  --red:#DC2626;--yellow:#F59E0B;
+}
+body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh}
+
+/* HEADER */
+.header{background:var(--dark);padding:12px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.gt-logo{width:36px;height:36px;background:var(--orange);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#fff;flex-shrink:0}
+.htitle{flex:1}
+.htitle h1{font-size:13px;font-weight:800;color:#fff;font-family:'Nunito',sans-serif}
+.htitle p{font-size:10px;color:rgba(255,255,255,.4);margin-top:1px}
+.hbadge{background:var(--orange);color:#fff;font-size:10px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;font-family:'Nunito',sans-serif}
+.teacher-badge{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:4px}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--orange) 0%,#F97316 50%,#FBBF24 100%);padding:32px 20px 28px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-emoji{font-size:48px;margin-bottom:10px;position:relative;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero-title{font-family:'Nunito',sans-serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:4px;position:relative}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.8);margin-bottom:16px;position:relative}
+.hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative}
+.hpill{background:rgba(255,255,255,.2);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:#fff}
+
+/* TABS */
+.tabs-wrap{background:var(--dark);border-bottom:2px solid rgba(255,255,255,.06);position:sticky;top:60px;z-index:100}
+.tabs{max-width:860px;margin:0 auto;padding:0 16px;display:flex;overflow-x:auto;scrollbar-width:none;gap:0}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:11px 18px;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;-webkit-tap-highlight-color:transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:'Nunito Sans',sans-serif}
+.tab.active{color:var(--orange);border-bottom-color:var(--orange)}
+.tab:hover{color:rgba(255,255,255,.7)}
+
+/* PANELS */
+.panel{display:none;max-width:860px;margin:0 auto;padding:24px 20px 60px}
+.panel.active{display:block}
+
+/* SECTION HEADS */
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.sec-icon{font-size:22px}
+.sec-title{font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:var(--dark)}
+.sec-time{font-size:11px;color:var(--muted);margin-left:auto;background:var(--border);padding:3px 10px;border-radius:20px;font-weight:700}
+.teacher-note{background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:10px;padding:12px 14px;font-size:12px;color:#92400E;line-height:1.6;margin-bottom:16px}
+.teacher-note strong{color:#78350F}
+
+/* COLOR CARDS */
+.colors-intro{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6}
+.colors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+.color-card{border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.color-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.15)}
+.color-swatch{height:80px;display:flex;align-items:center;justify-content:center;font-size:28px}
+.color-body{background:var(--white);padding:10px 12px;text-align:center;border-top:1px solid var(--border)}
+.color-name{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:var(--dark);margin-bottom:2px}
+.color-es{font-size:11px;color:var(--muted);font-style:italic;margin-bottom:6px}
+.speak-btn{display:inline-flex;align-items:center;gap:4px;background:none;border:1.5px solid var(--border);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .15s;-webkit-tap-highlight-color:transparent;color:var(--muted)}
+.speak-btn:hover,.speak-btn.playing{background:var(--orange);border-color:var(--orange);color:#fff}
+.color-card.selected .color-body{background:#FFF7ED}
+
+/* GREETINGS */
+.greet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.greet-card{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.greet-card:hover{border-color:var(--orange);transform:translateY(-2px)}
+.greet-emoji{font-size:36px;margin-bottom:8px}
+.greet-en{font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;color:var(--dark);margin-bottom:4px}
+.greet-es{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:8px}
+.greet-when{font-size:11px;color:var(--orange);font-weight:700;background:#FFF7ED;padding:3px 10px;border-radius:20px;display:inline-block}
+
+/* MATCH GAME */
+.match-intro{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6}
+.match-container{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.match-col{display:flex;flex-direction:column;gap:8px}
+.match-col-label{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;text-align:center}
+.mitem{padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--white);font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;text-align:center;transition:all .15s;-webkit-tap-highlight-color:transparent;min-height:48px;display:flex;align-items:center;justify-content:center}
+.mitem.image{font-size:28px;background:var(--bg)}
+.mitem:hover{border-color:var(--orange)}
+.mitem.selected{border-color:var(--orange);background:#FFF7ED;transform:scale(1.03)}
+.mitem.matched{background:var(--green-l);border-color:var(--green);color:var(--green);cursor:default}
+.mitem.wrong-flash{background:rgba(220,38,38,.1);border-color:var(--red)}
+.match-score{text-align:center;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px}
+.match-score.done{color:var(--green)}
+
+/* SAY IT */
+.say-intro{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6}
+.say-list{display:flex;flex-direction:column;gap:10px}
+.say-item{background:var(--white);border:2px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.say-num{width:32px;height:32px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0;font-family:'Nunito',sans-serif}
+.say-content{flex:1}
+.say-prompt{font-size:13px;color:var(--muted);margin-bottom:4px}
+.say-answer{font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;color:var(--dark)}
+.say-es{font-size:11px;color:var(--muted);font-style:italic;margin-top:2px}
+
+/* I KNOW THIS */
+.progress-section{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:20px;margin-top:20px}
+.progress-section h3{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;margin-bottom:14px;color:var(--dark)}
+.word-chips{display:flex;gap:8px;flex-wrap:wrap}
+.wchip{padding:8px 16px;border-radius:30px;border:2px solid var(--border);background:var(--bg);font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .2s;-webkit-tap-highlight-color:transparent;color:var(--muted)}
+.wchip.known{background:var(--green-l);border-color:var(--green);color:var(--green)}
+.progress-bar-wrap{background:var(--border);border-radius:100px;height:10px;overflow:hidden;margin:14px 0 8px}
+.progress-bar-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--orange),#FBBF24);transition:width .5s ease}
+.progress-label{font-size:12px;color:var(--muted);font-weight:700;text-align:center}
+
+/* TEACHER TIPS */
+.tip-grid{display:flex;flex-direction:column;gap:8px}
+.tip-item{display:flex;align-items:flex-start;gap:10px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--dark);line-height:1.6}
+.tip-icon{font-size:18px;flex-shrink:0}
+
+/* RESET BTN */
+.btn-reset{padding:8px 20px;background:none;border:2px solid var(--border);border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;color:var(--muted);transition:all .15s;margin-top:8px}
+.btn-reset:hover{border-color:var(--orange);color:var(--orange)}
+.btn-primary{padding:10px 24px;background:var(--orange);border:none;border-radius:20px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;color:#fff;transition:opacity .15s}
+.btn-primary:hover{opacity:.9}
+
+@media(max-width:480px){
+  .panel{padding:16px 12px 40px}
+  .colors-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .color-swatch{height:60px;font-size:22px}
+  .greet-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-title{font-size:22px}
+  .tab{padding:9px 12px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="gt-logo">GT</div>
+  <div class="htitle">
+    <h1>Gabriel Turner English Training</h1>
+    <p>Pre-A1 · Module 0 · Session 1</p>
+  </div>
+  <span class="hbadge">Pre-A1</span>
+  <span class="teacher-badge">👩‍🏫 Teacher</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-emoji">🎨</div>
+  <div class="hero-title">Colors & Greetings</div>
+  <div class="hero-sub">Module 0 · Session 1 · 55 minutes</div>
+  <div class="hero-pills">
+    <span class="hpill">🎨 10 colors</span>
+    <span class="hpill">👋 6 greetings</span>
+    <span class="hpill">🎮 Match game</span>
+    <span class="hpill">🏆 I Know This</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab(0,this)">🎨 Colors</button>
+    <button class="tab" onclick="showTab(1,this)">👋 Greetings</button>
+    <button class="tab" onclick="showTab(2,this)">🎮 Match It</button>
+    <button class="tab" onclick="showTab(3,this)">🗣 Say It</button>
+    <button class="tab" onclick="showTab(4,this)">🏆 I Know This</button>
+    <button class="tab" onclick="showTab(5,this)">📋 Teacher Tips</button>
+  </div>
+</div>
+
+<!-- ══ PANEL 0: COLORS ══ -->
+<div class="panel active" id="panel-0">
+  <div class="sec-head"><span class="sec-icon">🎨</span><span class="sec-title">Colors</span><span class="sec-time">10 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Show each card one by one. Click 🔊 to hear the word. Student repeats immediately. No sentences yet — just the word. Point to real objects in the room to reinforce. After all 10, test: point to an object and wait for the student to say the color.</div>
+  <div class="colors-intro">Click 🔊 to hear. Click the card to select it.</div>
+  <div class="colors-grid">
+    <div class="color-card" onclick="this.classList.toggle('selected')">
+      <div class="color-swatch" style="background:#EF4444">⬛</div>
+      <div class="color-body">
+        <div class="color-name">red</div>
+        <div class="color-es">rojo / roja</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakWord('red',this)">🔊 red</button>
+      </div>
+    </div>
+    <div class="color-card" onclick="this.classList.toggle('selected')">
+      <div class="color-swatch" style="background:#3B82F6">⬛</div>
+      <div class="color-body">
+        <div class="color-name">blue</div>
+        <div class="color-es">azul</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakWord('blue',this)">🔊 blue</button>
+      </div>
+    </div>
+    <div class="color-card" onclick="this.classList.toggle('selected')">
+      <div class="color-swatch" style="background:#22C55E">⬛</div>
+      <div class="color-body">
+        <div class="color-name">green</div>
+        <div class="color-es">verde</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakWord('green',this)">🔊 green</button>
+      </div>
+    </div>
+    <div class="color-card" onclick="this.classList.toggle('selected')">
+      <div class="color-swatch" style="background:#F59E0B">⬛</div>
+      <div class="color-body">
+        <div class="color-name">yellow</div>
+        <div class="color-es">amarillo/a</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakWord('yellow',this)">🔊 yellow</button>
+      </div>
+    </div>
+    <div class="color-card" onclick="this.classList.toggle('selected')">
+      <div class="color-swatch" style="background:#F97316">⬛</div>
+      <div class="color-body">
+        <div class="color-name">orange</div>
+        <div class="color-es">naranja</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakWord('orange',this)">🔊 orange</button>
+      </div>
+    </div>
+    <div class="color-card" onclick="this.classList.toggle('selected')">
+      <div class="color-swatch" style="background:#8B5CF6">⬛</div>
+      <div class="color-body">
+        <div class="color-name">purple</div>
+        <div class="color-es">morado/a</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakWord('purple',this)">🔊 purple</button>
+      </div>
+    </div>
+    <div class="color-card" onclick="this.classList.toggle('selected')">
+      <div class="color-swatch" style="background:#EC4899">⬛</div>
+      <div class="color-body">
+        <div class="color-name">pink</div>
+        <div class="color-es">rosa</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakWord('pink',this)">🔊 pink</button>
+      </div>
+    </div>
+    <div class="color-card" onclick="this.classList.toggle('selected')">
+      <div class="color-swatch" style="background:#1C1C1C">⬛</div>
+      <div class="color-body">
+        <div class="color-name">black</div>
+        <div class="color-es">negro/a</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakWord('black',this)">🔊 black</button>
+      </div>
+    </div>
+    <div class="color-card" onclick="this.classList.toggle('selected')">
+      <div class="color-swatch" style="background:#F1F5F9;border:1px solid #E2E8F0">⬛</div>
+      <div class="color-body">
+        <div class="color-name">white</div>
+        <div class="color-es">blanco/a</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakWord('white',this)">🔊 white</button>
+      </div>
+    </div>
+    <div class="color-card" onclick="this.classList.toggle('selected')">
+      <div class="color-swatch" style="background:#92400E">⬛</div>
+      <div class="color-body">
+        <div class="color-name">brown</div>
+        <div class="color-es">café / marrón</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakWord('brown',this)">🔊 brown</button>
+      </div>
+    </div>
+  </div>
+  <div class="teacher-note" style="margin-top:0"><strong>🎯 Quick drill:</strong> Point at objects in the room — "What color is this?" Student says one word. Accept any attempt. Celebrate every correct answer enthusiastically.</div>
+
+  <!-- Extra: Color sentence starters -->
+  <div style="margin-top:20px">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">🔊 Listen & Repeat — Color phrases</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+      <button onclick="speakWord('The sky is blue',null)" style="padding:12px;background:#EFF6FF;border:2px solid #BFDBFE;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:#1E40AF;-webkit-tap-highlight-color:transparent">🔊 The sky is blue</button>
+      <button onclick="speakWord('The sun is yellow',null)" style="padding:12px;background:#FFFBEB;border:2px solid #FDE68A;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:#92400E;-webkit-tap-highlight-color:transparent">🔊 The sun is yellow</button>
+      <button onclick="speakWord('Grass is green',null)" style="padding:12px;background:#F0FDF4;border:2px solid #BBF7D0;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:#166534;-webkit-tap-highlight-color:transparent">🔊 Grass is green</button>
+      <button onclick="speakWord('Blood is red',null)" style="padding:12px;background:#FEF2F2;border:2px solid #FECACA;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:#991B1B;-webkit-tap-highlight-color:transparent">🔊 Blood is red</button>
+      <button onclick="speakWord('Night is black',null)" style="padding:12px;background:#F8FAFC;border:2px solid #E2E8F0;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:#1A1A2E;-webkit-tap-highlight-color:transparent">🔊 Night is black</button>
+      <button onclick="speakWord('Snow is white',null)" style="padding:12px;background:#F8FAFC;border:2px solid #E2E8F0;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:#1A1A2E;-webkit-tap-highlight-color:transparent">🔊 Snow is white</button>
+    </div>
+
+    <div style="background:var(--white);border:2px solid var(--border);border-radius:14px;padding:16px">
+      <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;margin-bottom:10px;color:var(--dark)">👁 Look around the room — say the color!</div>
+      <div style="display:flex;flex-direction:column;gap:7px;font-size:13px;color:var(--dark)">
+        <div style="padding:9px 12px;background:var(--bg);border-radius:8px">Teacher asks: <strong>"What color is the door?"</strong> — student answers</div>
+        <div style="padding:9px 12px;background:var(--bg);border-radius:8px">Teacher asks: <strong>"What color is your pen?"</strong> — student answers</div>
+        <div style="padding:9px 12px;background:var(--bg);border-radius:8px">Teacher asks: <strong>"What color is your bag / notebook?"</strong> — student answers</div>
+        <div style="padding:9px 12px;background:var(--bg);border-radius:8px">Student asks teacher: <strong>"What color is this?"</strong> — student picks an object</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PANEL 1: GREETINGS ══ -->
+<div class="panel" id="panel-1">
+  <div class="sec-head"><span class="sec-icon">👋</span><span class="sec-title">Greetings</span><span class="sec-time">8 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Show each card. Say the greeting first — student repeats. Then role-play: teacher greets, student responds. Focus on Hello, Hi, Good morning, Goodbye. The others are passive recognition only at this stage.</div>
+  <div class="greet-grid">
+    <div class="greet-card" onclick="speakGreeting('Hello')">
+      <div class="greet-emoji">👋</div>
+      <div class="greet-en">Hello</div>
+      <div class="greet-es">Hola</div>
+      <span class="greet-when">Any time</span>
+    </div>
+    <div class="greet-card" onclick="speakGreeting('Hi')">
+      <div class="greet-emoji">😊</div>
+      <div class="greet-en">Hi</div>
+      <div class="greet-es">Hola (informal)</div>
+      <span class="greet-when">Casual</span>
+    </div>
+    <div class="greet-card" onclick="speakGreeting('Good morning')">
+      <div class="greet-emoji">☀️</div>
+      <div class="greet-en">Good morning</div>
+      <div class="greet-es">Buenos días</div>
+      <span class="greet-when">Before noon</span>
+    </div>
+    <div class="greet-card" onclick="speakGreeting('Good afternoon')">
+      <div class="greet-emoji">🌤</div>
+      <div class="greet-en">Good afternoon</div>
+      <div class="greet-es">Buenas tardes</div>
+      <span class="greet-when">12pm – 6pm</span>
+    </div>
+    <div class="greet-card" onclick="speakGreeting('Goodbye')">
+      <div class="greet-emoji">👋</div>
+      <div class="greet-en">Goodbye</div>
+      <div class="greet-es">Adiós</div>
+      <span class="greet-when">Leaving</span>
+    </div>
+    <div class="greet-card" onclick="speakGreeting('See you later')">
+      <div class="greet-emoji">✌️</div>
+      <div class="greet-en">See you later</div>
+      <div class="greet-es">Hasta luego</div>
+      <span class="greet-when">Informal goodbye</span>
+    </div>
+  </div>
+
+  <!-- Greetings role-play -->
+  <div style="margin-top:16px;background:var(--white);border:2px solid var(--border);border-radius:14px;overflow:hidden">
+    <div style="background:var(--dark);padding:10px 14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#fff">🎭 Practice — Greeting role-play</div>
+    <div style="padding:14px;display:flex;flex-direction:column;gap:8px;font-size:13px">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <span style="background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:800;color:#92400E;white-space:nowrap">Teacher</span>
+        <div style="background:#FFF7ED;border-radius:8px;padding:9px 12px;flex:1"><strong>"Good morning!"</strong></div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;flex-direction:row-reverse">
+        <span style="background:#F0FDF4;border:1.5px solid #BBF7D0;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:800;color:#166534;white-space:nowrap">Student</span>
+        <div style="background:#F0FDF4;border-radius:8px;padding:9px 12px;flex:1;text-align:right"><strong>"Good morning!"</strong> or <strong>"Hello!"</strong></div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <span style="background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:800;color:#92400E;white-space:nowrap">Teacher</span>
+        <div style="background:#FFF7ED;border-radius:8px;padding:9px 12px;flex:1"><strong>"Goodbye! See you next class!"</strong></div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;flex-direction:row-reverse">
+        <span style="background:#F0FDF4;border:1.5px solid #BBF7D0;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:800;color:#166534;white-space:nowrap">Student</span>
+        <div style="background:#F0FDF4;border-radius:8px;padding:9px 12px;flex:1;text-align:right"><strong>"Goodbye!"</strong> or <strong>"See you later!"</strong></div>
+      </div>
+      <div style="background:#FFFBEB;border-radius:8px;padding:9px 12px;font-size:12px;color:#78350F">💡 <strong>Switch roles!</strong> Student says the greeting first, teacher responds. Do this 3 times for each greeting.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PANEL 2: MATCH IT ══ -->
+<div class="panel" id="panel-2">
+  <div class="sec-head"><span class="sec-icon">🎮</span><span class="sec-title">Match It — Colors</span><span class="sec-time">8 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Student taps a color swatch on the left, then taps the matching word on the right. No time limit. No pressure. Celebrate every match. Play twice if time allows — the second round is always faster and builds confidence visibly.</div>
+  <div class="match-score" id="matchScore">Match the color to the word 🎨</div>
+  <div class="match-container">
+    <div class="match-col">
+      <div class="match-col-label">Color</div>
+      <div id="colLeft"></div>
+    </div>
+    <div class="match-col">
+      <div class="match-col-label">Word</div>
+      <div id="colRight"></div>
+    </div>
+  </div>
+  <button class="btn-reset" onclick="initMatch()">🔄 New game</button>
+</div>
+
+<!-- ══ PANEL 3: SAY IT ══ -->
+<div class="panel" id="panel-3">
+  <div class="sec-head"><span class="sec-icon">🗣</span><span class="sec-title">Say It</span><span class="sec-time">10 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Teacher points to the image or object. Student says the English word — just one word. Do NOT ask for sentences yet. If the student hesitates, say the word yourself first. The goal is zero hesitation on these 6 core responses by end of session.</div>
+  <div class="say-intro">Look at each image and say the word in English.</div>
+  <div class="say-list">
+    <div class="say-item">
+      <div class="say-num">1</div>
+      <div style="font-size:40px;flex-shrink:0">🔴</div>
+      <div class="say-content">
+        <div class="say-prompt">What color is this?</div>
+        <div class="say-answer">Red</div>
+        <div class="say-es">rojo</div>
+      </div>
+      <button class="speak-btn" onclick="speakWord('red',this)">🔊</button>
+    </div>
+    <div class="say-item">
+      <div class="say-num">2</div>
+      <div style="font-size:40px;flex-shrink:0">🔵</div>
+      <div class="say-content">
+        <div class="say-prompt">What color is this?</div>
+        <div class="say-answer">Blue</div>
+        <div class="say-es">azul</div>
+      </div>
+      <button class="speak-btn" onclick="speakWord('blue',this)">🔊</button>
+    </div>
+    <div class="say-item">
+      <div class="say-num">3</div>
+      <div style="font-size:40px;flex-shrink:0">🟢</div>
+      <div class="say-content">
+        <div class="say-prompt">What color is this?</div>
+        <div class="say-answer">Green</div>
+        <div class="say-es">verde</div>
+      </div>
+      <button class="speak-btn" onclick="speakWord('green',this)">🔊</button>
+    </div>
+    <div class="say-item">
+      <div class="say-num">4</div>
+      <div style="font-size:40px;flex-shrink:0">☀️</div>
+      <div class="say-content">
+        <div class="say-prompt">What color is the sun?</div>
+        <div class="say-answer">Yellow</div>
+        <div class="say-es">amarillo</div>
+      </div>
+      <button class="speak-btn" onclick="speakWord('yellow',this)">🔊</button>
+    </div>
+    <div class="say-item">
+      <div class="say-num">5</div>
+      <div style="font-size:40px;flex-shrink:0">👋</div>
+      <div class="say-content">
+        <div class="say-prompt">How do you say "hola" in English?</div>
+        <div class="say-answer">Hello / Hi</div>
+        <div class="say-es">hola</div>
+      </div>
+      <button class="speak-btn" onclick="speakWord('hello',this)">🔊</button>
+    </div>
+    <div class="say-item">
+      <div class="say-num">6</div>
+      <div style="font-size:40px;flex-shrink:0">👋</div>
+      <div class="say-content">
+        <div class="say-prompt">How do you say "adiós"?</div>
+        <div class="say-answer">Goodbye</div>
+        <div class="say-es">adiós</div>
+      </div>
+      <button class="speak-btn" onclick="speakWord('goodbye',this)">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PANEL 4: I KNOW THIS ══ -->
+<div class="panel" id="panel-4">
+  <div class="sec-head"><span class="sec-icon">🏆</span><span class="sec-title">I Know This!</span><span class="sec-time">5 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note — CRITICAL:</strong> This is the most important part of the session. The student marks every word they feel confident saying. The bar fills up. Make it a celebration. Say: "Look how much you know already!" This moment of visible progress is what brings them back next class.</div>
+
+  <div class="progress-section">
+    <h3>Tap every word you know 👆</h3>
+    <div class="word-chips" id="wordChips"></div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">0 of 16 words · Keep going! 🚀</div>
+  </div>
+
+  <div style="text-align:center;margin-top:20px">
+    <div style="font-size:40px;margin-bottom:8px" id="celebEmoji">🌟</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:var(--dark)" id="celebMsg">Tap the words you know!</div>
+  </div>
+</div>
+
+<!-- ══ PANEL 5: TEACHER TIPS ══ -->
+<div class="panel" id="panel-5">
+  <div class="sec-head"><span class="sec-icon">📋</span><span class="sec-title">Session Guide</span></div>
+  <div class="teacher-note"><strong>📌 Pre-A1 students need:</strong> maximum 8–10 words per session · zero pressure · visible wins · repetition without boredom · images over text · celebration over correction.</div>
+
+  <div style="font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 10px">Session flow (45 min)</div>
+  <div class="tip-grid" style="margin-bottom:20px">
+    <div class="tip-item"><div class="tip-icon">🔁</div><div><strong>0–5 min — Warm-up:</strong> Show 5 images from last session (if not S1). Student says the word. No pressure — teacher says it first if needed.</div></div>
+    <div class="tip-item"><div class="tip-icon">🎨</div><div><strong>5–15 min — Colors:</strong> Present one at a time. Hear → repeat → point to real object of that color in the room.</div></div>
+    <div class="tip-item"><div class="tip-icon">👋</div><div><strong>15–23 min — Greetings:</strong> Role-play. Teacher greets, student responds. Switch roles. Keep it light and funny.</div></div>
+    <div class="tip-item"><div class="tip-icon">🎮</div><div><strong>23–31 min — Match It:</strong> Student plays the match game independently or with teacher pointing. Reset and play twice.</div></div>
+    <div class="tip-item"><div class="tip-icon">🗣</div><div><strong>31–40 min — Say It:</strong> Teacher points at images/objects. Student says the word. Zero sentences needed.</div></div>
+    <div class="tip-item"><div class="tip-icon">🏆</div><div><strong>40–45 min — I Know This:</strong> Student marks all known words. Progress bar fills. Celebrate loudly.</div></div>
+  </div>
+
+  <div style="font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 10px">Key principles for this student</div>
+  <div class="tip-grid">
+    <div class="tip-item"><div class="tip-icon">🖼</div><div><strong>Image first, always.</strong> Never say a word without showing the image or pointing to the object. The brain needs the visual anchor before the sound.</div></div>
+    <div class="tip-item"><div class="tip-icon">⏰</div><div><strong>55 minutes max.</strong> End on a high — before fatigue sets in. A short successful session builds confidence. A long exhausting one destroys it.</div></div>
+    <div class="tip-item"><div class="tip-icon">🎉</div><div><strong>Celebrate everything.</strong> "Red" said correctly deserves the same reaction as a perfect paragraph at B2. These students have failed before. Show them success feels different here.</div></div>
+    <div class="tip-item"><div class="tip-icon">🚫</div><div><strong>No correction mid-production.</strong> If the student says a word wrong, say the correct version once naturally and move on. Never repeat the error back. Never say "wrong".</div></div>
+  </div>
+
+  <div style="background:#FFF7ED;border-radius:12px;padding:16px;margin-top:20px;text-align:center">
+    <div style="font-size:24px;margin-bottom:6px">🎯</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:var(--dark);margin-bottom:4px">Session 1 Success Goal</div>
+    <div style="font-size:13px;color:#92400E;line-height:1.6">Student leaves saying <strong>at least 4 colors</strong> and <strong>Hello + Goodbye</strong> confidently. That's it. That's a complete win.</div>
+  </div>
+</div>
+
+<script>
+// ── TABS ─────────────────────────────────────────────────────────────
+function showTab(idx,btn){
+  document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  window.scrollTo(0,0);
+}
+
+// ── AUDIO ────────────────────────────────────────────────────────────
+function speakWord(w,btn){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(w);
+  u.lang='en-US';u.rate=0.82;
+  if(btn){btn.classList.add('playing');btn.textContent='🔊';}
+  u.onend=function(){if(btn){btn.classList.remove('playing');}};
+  window.speechSynthesis.speak(u);
+}
+function speakGreeting(w){
+  speakWord(w,null);
+}
+
+// ── MATCH GAME ───────────────────────────────────────────────────────
+var PAIRS=[
+  {emoji:'🔴',word:'red'},{emoji:'🔵',word:'blue'},
+  {emoji:'🟢',word:'green'},{emoji:'🟡',word:'yellow'},
+  {emoji:'🟠',word:'orange'},{emoji:'🖤',word:'black'},
+];
+var mSel=null,mMatched=0;
+
+function shuffle(a){return a.sort(()=>Math.random()-.5);}
+
+function initMatch(){
+  mSel=null;mMatched=0;
+  document.getElementById('matchScore').textContent='Match the color to the word 🎨';
+  document.getElementById('matchScore').className='match-score';
+  var left=shuffle([...PAIRS]);
+  var right=shuffle([...PAIRS]);
+  document.getElementById('colLeft').innerHTML=left.map(p=>'<div class="mitem image" data-word="'+p.word+'" onclick="selMatch(this,\'left\')">'+p.emoji+'</div>').join('');
+  document.getElementById('colRight').innerHTML=right.map(p=>'<div class="mitem" data-word="'+p.word+'" onclick="selMatch(this,\'right\')">'+p.word+'</div>').join('');
+}
+
+function selMatch(el,side){
+  if(el.classList.contains('matched'))return;
+  if(mSel&&mSel.side===side){
+    document.querySelectorAll('.mitem').forEach(m=>m.classList.remove('selected'));
+    mSel=null;
+  }
+  if(!mSel){
+    el.classList.add('selected');mSel={el,side,word:el.dataset.word};return;
+  }
+  if(mSel.side===side){el.classList.add('selected');mSel={el,side,word:el.dataset.word};return;}
+  if(mSel.word===el.dataset.word){
+    mSel.el.classList.remove('selected');mSel.el.classList.add('matched');
+    el.classList.add('matched');mMatched++;
+    if(mMatched===PAIRS.length){
+      document.getElementById('matchScore').textContent='🎉 Perfect! All matched!';
+      document.getElementById('matchScore').className='match-score done';
+    }
+  } else {
+    mSel.el.classList.add('wrong-flash');el.classList.add('wrong-flash');
+    setTimeout(()=>{mSel.el.classList.remove('wrong-flash','selected');el.classList.remove('wrong-flash');mSel=null;},500);
+    return;
+  }
+  mSel=null;
+}
+initMatch();
+
+// ── I KNOW THIS ──────────────────────────────────────────────────────
+var WORDS=['red','blue','green','yellow','orange','purple','pink','black','white','brown','hello','hi','good morning','good afternoon','goodbye','see you later'];
+var known=new Set();
+
+function renderChips(){
+  document.getElementById('wordChips').innerHTML=WORDS.map(w=>
+    '<div class="wchip'+(known.has(w)?' known':'')+'" onclick="toggleKnown(\''+w+'\')">'+w+'</div>'
+  ).join('');
+  var pct=Math.round(known.size/WORDS.length*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  var msgs=[
+    [0,'Tap the words you know!'],
+    [25,'Great start! 🌱'],
+    [50,'Halfway there! 🌟'],
+    [75,'Almost there! 🔥'],
+    [100,'You know everything! 🏆 Amazing!']
+  ];
+  var msg=msgs.filter(m=>pct>=m[0]).pop()[1];
+  document.getElementById('progressLabel').textContent=known.size+' of '+WORDS.length+' words · '+msg;
+  var emojis=['🌟','🎉','🔥','🏆','🎊'];
+  if(known.size>0)document.getElementById('celebEmoji').textContent=emojis[Math.min(Math.floor(pct/25),4)];
+  document.getElementById('celebMsg').textContent=pct===100?'You know ALL the words! 🏆':known.size>0?'Keep tapping!':'Tap the words you know!';
+}
+
+function toggleKnown(w){
+  if(known.has(w))known.delete(w);else known.add(w);
+  renderChips();
+}
+renderChips();
+</script>
+
+<!-- EXTRA: Color Listening Drill + I Spy -->
+<div style="max-width:860px;margin:0 auto;padding:0 20px 30px">
+  <div style="background:#FFF7ED;border:2px solid #FED7AA;border-radius:16px;padding:20px">
+    <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:#92400E;margin-bottom:4px">🔍 Extra — I Spy!</div>
+    <div style="font-size:12px;color:#B45309;margin-bottom:14px">Teacher says "I spy something <strong>[color]</strong>." Student finds the object and says the color in English. Then switch roles — student says it, teacher finds it.</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="background:#fff;border:1.5px solid #FED7AA;border-radius:10px;padding:12px 14px;display:flex;gap:12px;align-items:center">
+        <span style="font-size:24px">👁</span>
+        <div><div style="font-weight:700;font-size:13px">Teacher: "I spy something RED."</div><div style="font-size:12px;color:#B45309;margin-top:2px">Student finds a red object → says "Red!" or points + says "Red pen! Red chair!"</div></div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #FED7AA;border-radius:10px;padding:12px 14px;display:flex;gap:12px;align-items:center">
+        <span style="font-size:24px">🔄</span>
+        <div><div style="font-weight:700;font-size:13px">Now reverse: Student says "I spy something ___."</div><div style="font-size:12px;color:#B45309;margin-top:2px">Student chooses a color they see in the room. Teacher finds it. This is the first time the student produces English spontaneously.</div></div>
+      </div>
+    </div>
+    <div style="margin-top:14px;background:#FFF7ED;border:2px solid #FED7AA;border-radius:10px;padding:12px;font-size:12px;color:#92400E;line-height:1.6">
+      <strong>📌 Teacher note:</strong> "I spy" is perfect for this level — it uses exactly one word of English (the color), it's fun, it requires zero grammar, and it feels like a real conversation. Do 5–6 rounds minimum.
+    </div>
+  </div>
+</div>
+<!-- EXTRA: Greeting role-play with real objects -->
+<div style="max-width:860px;margin:0 auto;padding:0 20px 30px">
+  <div style="background:#E0F2F1;border:2px solid #99F6E4;border-radius:16px;padding:20px">
+    <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:#0D5E55;margin-bottom:4px">👋 Extra — Greet + Color</div>
+    <div style="font-size:12px;color:#0D7377;margin-bottom:14px">Combine greetings with colors. Teacher points to an object and says a greeting — student responds AND names the color.</div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+      <div style="background:#fff;border-left:4px solid #0D9488;border-radius:0 10px 10px 0;padding:10px 14px"><strong>Teacher:</strong> "Good morning! What color is this?" (points to pen)<br><strong>Student:</strong> "Good morning! Blue!"</div>
+      <div style="background:#fff;border-left:4px solid #0D9488;border-radius:0 10px 10px 0;padding:10px 14px"><strong>Teacher:</strong> "Hi! Is this red?" (points to green object)<br><strong>Student:</strong> "Hi! No! Green!"</div>
+      <div style="background:#fff;border-left:4px solid #0D9488;border-radius:0 10px 10px 0;padding:10px 14px"><strong>Teacher:</strong> "Hello! How many red things can you see?"<br><strong>Student:</strong> "Hello! One! / Two! / Three!"</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

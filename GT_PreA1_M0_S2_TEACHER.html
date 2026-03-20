@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-A1 · M0 · S2 — Numbers & Yes/No | Gabriel Turner</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--orange:#E85D04;--dark:#1A1A2E;--bg:#FAFAF8;--white:#fff;--muted:#8A8FA8;--border:#ECEAE4;--green:#16A34A;--green-l:rgba(22,163,74,.1);--red:#DC2626;--red-l:rgba(220,38,38,.08);--blue:#2563EB;}
+body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh}
+.header{background:var(--dark);padding:12px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200}
+.gt-logo{width:36px;height:36px;background:var(--orange);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#fff;flex-shrink:0}
+.htitle{flex:1}.htitle h1{font-size:13px;font-weight:800;color:#fff;font-family:'Nunito',sans-serif}.htitle p{font-size:10px;color:rgba(255,255,255,.4);margin-top:1px}
+.hbadge{background:var(--orange);color:#fff;font-size:10px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;font-family:'Nunito',sans-serif}
+.teacher-badge{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:4px}
+.hero{background:linear-gradient(135deg,#2563EB 0%,#3B82F6 50%,#60A5FA 100%);padding:28px 20px 24px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Crect x='10' y='10' width='20' height='20' rx='4'/%3E%3C/g%3E%3C/svg%3E")}
+.hero-emoji{font-size:44px;margin-bottom:8px;position:relative;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero-title{font-family:'Nunito',sans-serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:4px;position:relative}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.75);margin-bottom:14px;position:relative}
+.hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative}
+.hpill{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:#fff}
+.tabs-wrap{background:var(--dark);border-bottom:2px solid rgba(255,255,255,.06);position:sticky;top:60px;z-index:100}
+.tabs{max-width:860px;margin:0 auto;padding:0 16px;display:flex;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:11px 18px;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;-webkit-tap-highlight-color:transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:'Nunito Sans',sans-serif}
+.tab.active{color:#60A5FA;border-bottom-color:#60A5FA}
+.tab:hover{color:rgba(255,255,255,.7)}
+.panel{display:none;max-width:860px;margin:0 auto;padding:24px 20px 60px}
+.panel.active{display:block}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.sec-icon{font-size:22px}.sec-title{font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:var(--dark)}
+.sec-time{font-size:11px;color:var(--muted);margin-left:auto;background:var(--border);padding:3px 10px;border-radius:20px;font-weight:700}
+.teacher-note{background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:12px 14px;font-size:12px;color:#1E40AF;line-height:1.6;margin-bottom:16px}
+.teacher-note strong{color:#1E3A8A}
+
+/* NUMBERS GRID */
+.numbers-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+.num-card{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.num-card:hover{border-color:#3B82F6;transform:translateY(-2px)}
+.num-card.playing{border-color:#3B82F6;background:#EFF6FF}
+.num-big{font-family:'Nunito',sans-serif;font-size:32px;font-weight:900;color:#2563EB;line-height:1}
+.num-dots{font-size:18px;margin:4px 0;min-height:24px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:2px}
+.num-word{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;color:var(--dark);margin:4px 0 2px}
+.num-es{font-size:10px;color:var(--muted);font-style:italic}
+.speak-btn{display:inline-flex;align-items:center;gap:3px;background:none;border:1.5px solid var(--border);border-radius:20px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .15s;color:var(--muted);-webkit-tap-highlight-color:transparent;margin-top:4px}
+.speak-btn:hover,.speak-btn.playing{background:#2563EB;border-color:#2563EB;color:#fff}
+
+/* YES/NO */
+.yesno-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.yn-card{border-radius:20px;padding:28px 20px;text-align:center;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.yn-yes{background:linear-gradient(135deg,#16A34A,#22C55E);box-shadow:0 4px 20px rgba(22,163,74,.3)}
+.yn-no{background:linear-gradient(135deg,#DC2626,#EF4444);box-shadow:0 4px 20px rgba(220,38,38,.3)}
+.yn-emoji{font-size:44px;margin-bottom:10px}
+.yn-word{font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#fff;margin-bottom:4px}
+.yn-es{font-size:13px;color:rgba(255,255,255,.8)}
+.yn-card:hover{transform:translateY(-3px) scale(1.02)}
+.yn-card.pop{animation:pop .2s ease}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+/* COUNTING GAME */
+.count-game{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:20px;text-align:center;margin-bottom:16px}
+.count-display{font-size:60px;margin-bottom:12px;min-height:70px}
+.count-question{font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;color:var(--dark);margin-bottom:16px}
+.count-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.copt{padding:12px;background:var(--bg);border:2px solid var(--border);border-radius:12px;font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;color:var(--dark)}
+.copt:hover{border-color:#3B82F6;background:#EFF6FF}
+.copt.correct{background:var(--green-l);border-color:var(--green);color:var(--green)}
+.copt.wrong{background:var(--red-l);border-color:var(--red);color:var(--red);animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.count-score{font-size:13px;font-weight:700;color:var(--muted)}
+
+/* SAY IT */
+.say-list{display:flex;flex-direction:column;gap:10px}
+.say-item{background:var(--white);border:2px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.say-num{width:32px;height:32px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0;font-family:'Nunito',sans-serif}
+.say-content{flex:1}.say-prompt{font-size:13px;color:var(--muted);margin-bottom:4px}
+.say-answer{font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;color:var(--dark)}
+.say-es{font-size:11px;color:var(--muted);font-style:italic;margin-top:2px}
+
+/* I KNOW THIS */
+.progress-section{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:20px}
+.progress-section h3{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;margin-bottom:14px;color:var(--dark)}
+.word-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.wchip{padding:8px 16px;border-radius:30px;border:2px solid var(--border);background:var(--bg);font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .2s;color:var(--muted);-webkit-tap-highlight-color:transparent}
+.wchip.known{background:var(--green-l);border-color:var(--green);color:var(--green)}
+.progress-bar-wrap{background:var(--border);border-radius:100px;height:10px;overflow:hidden;margin-bottom:8px}
+.progress-bar-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,#2563EB,#60A5FA);transition:width .5s ease}
+.progress-label{font-size:12px;color:var(--muted);font-weight:700;text-align:center}
+
+/* TIPS */
+.tip-grid{display:flex;flex-direction:column;gap:8px}
+.tip-item{display:flex;align-items:flex-start;gap:10px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--dark);line-height:1.6}
+.tip-icon{font-size:18px;flex-shrink:0}
+.btn-reset{padding:8px 20px;background:none;border:2px solid var(--border);border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;color:var(--muted);transition:all .15s}
+.btn-reset:hover{border-color:#3B82F6;color:#3B82F6}
+@media(max-width:480px){
+  .panel{padding:16px 12px 40px}.numbers-grid{grid-template-columns:repeat(5,1fr);gap:6px}
+  .num-big{font-size:24px}.num-word{font-size:12px}.count-opts{grid-template-columns:repeat(4,1fr)}
+  .hero-title{font-size:22px}.tab{padding:9px 12px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="gt-logo">GT</div>
+  <div class="htitle"><h1>Gabriel Turner English Training</h1><p>Pre-A1 · Module 0 · Session 2</p></div>
+  <span class="hbadge">Pre-A1</span>
+  <span class="teacher-badge">👩‍🏫 Teacher</span>
+</div>
+
+<div class="hero">
+  <div class="hero-emoji">🔢</div>
+  <div class="hero-title">Numbers & Yes / No</div>
+  <div class="hero-sub">Module 0 · Session 2 · 55 minutes</div>
+  <div class="hero-pills">
+    <span class="hpill">🔢 1 – 10</span>
+    <span class="hpill">✅ Yes / ❌ No</span>
+    <span class="hpill">🎮 Count It</span>
+    <span class="hpill">🏆 I Know This</span>
+  </div>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab(0,this)">🔢 Numbers</button>
+    <button class="tab" onclick="showTab(1,this)">✅ Yes / No</button>
+    <button class="tab" onclick="showTab(2,this)">🎮 Count It</button>
+    <button class="tab" onclick="showTab(3,this)">🗣 Say It</button>
+    <button class="tab" onclick="showTab(4,this)">🏆 I Know This</button>
+    <button class="tab" onclick="showTab(5,this)">📋 Teacher Tips</button>
+  </div>
+</div>
+
+<!-- PANEL 0: NUMBERS -->
+<div class="panel active" id="panel-0">
+  <div class="sec-head"><span class="sec-icon">🔢</span><span class="sec-title">Numbers 1–10</span><span class="sec-time">12 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Click each card to hear the number. Student repeats immediately. After all 10: teacher holds up fingers, student says the number. Then reverse: teacher says the number, student holds up fingers. Physical movement anchors the learning.</div>
+  <div class="numbers-grid">
+    <div class="num-card" onclick="speakNum('one',this)">
+      <div class="num-big">1</div>
+      <div class="num-dots">☝️</div>
+      <div class="num-word">one</div>
+      <div class="num-es">uno</div>
+      <button class="speak-btn" onclick="event.stopPropagation();speakNum('one',this)">🔊 one</button>
+    </div>
+    <div class="num-card" onclick="speakNum('two',this)">
+      <div class="num-big">2</div>
+      <div class="num-dots">✌️</div>
+      <div class="num-word">two</div>
+      <div class="num-es">dos</div>
+      <button class="speak-btn" onclick="event.stopPropagation();speakNum('two',this)">🔊 two</button>
+    </div>
+    <div class="num-card" onclick="speakNum('three',this)">
+      <div class="num-big">3</div>
+      <div class="num-dots">🤟</div>
+      <div class="num-word">three</div>
+      <div class="num-es">tres</div>
+      <button class="speak-btn" onclick="event.stopPropagation();speakNum('three',this)">🔊 three</button>
+    </div>
+    <div class="num-card" onclick="speakNum('four',this)">
+      <div class="num-big">4</div>
+      <div class="num-dots">🖐</div>
+      <div class="num-word">four</div>
+      <div class="num-es">cuatro</div>
+      <button class="speak-btn" onclick="event.stopPropagation();speakNum('four',this)">🔊 four</button>
+    </div>
+    <div class="num-card" onclick="speakNum('five',this)">
+      <div class="num-big">5</div>
+      <div class="num-dots">🙌</div>
+      <div class="num-word">five</div>
+      <div class="num-es">cinco</div>
+      <button class="speak-btn" onclick="event.stopPropagation();speakNum('five',this)">🔊 five</button>
+    </div>
+    <div class="num-card" onclick="speakNum('six',this)">
+      <div class="num-big">6</div>
+      <div class="num-dots">🎲</div>
+      <div class="num-word">six</div>
+      <div class="num-es">seis</div>
+      <button class="speak-btn" onclick="event.stopPropagation();speakNum('six',this)">🔊 six</button>
+    </div>
+    <div class="num-card" onclick="speakNum('seven',this)">
+      <div class="num-big">7</div>
+      <div class="num-dots">🌈</div>
+      <div class="num-word">seven</div>
+      <div class="num-es">siete</div>
+      <button class="speak-btn" onclick="event.stopPropagation();speakNum('seven',this)">🔊 seven</button>
+    </div>
+    <div class="num-card" onclick="speakNum('eight',this)">
+      <div class="num-big">8</div>
+      <div class="num-dots">🎱</div>
+      <div class="num-word">eight</div>
+      <div class="num-es">ocho</div>
+      <button class="speak-btn" onclick="event.stopPropagation();speakNum('eight',this)">🔊 eight</button>
+    </div>
+    <div class="num-card" onclick="speakNum('nine',this)">
+      <div class="num-big">9</div>
+      <div class="num-dots">🎯</div>
+      <div class="num-word">nine</div>
+      <div class="num-es">nueve</div>
+      <button class="speak-btn" onclick="event.stopPropagation();speakNum('nine',this)">🔊 nine</button>
+    </div>
+    <div class="num-card" onclick="speakNum('ten',this)">
+      <div class="num-big">10</div>
+      <div class="num-dots">🔟</div>
+      <div class="num-word">ten</div>
+      <div class="num-es">diez</div>
+      <button class="speak-btn" onclick="event.stopPropagation();speakNum('ten',this)">🔊 ten</button>
+    </div>
+  </div>
+  <div class="teacher-note" style="margin-bottom:0"><strong>🎯 S1 Review (2 min first):</strong> Before numbers — show 5 color cards from S1. Student says the color. Quick, fun, no pressure. Then move to numbers.</div>
+</div>
+
+<!-- PANEL 1: YES/NO -->
+<div class="panel" id="panel-1">
+  <div class="sec-head"><span class="sec-icon">✅</span><span class="sec-title">Yes / No</span><span class="sec-time">8 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Tap each card to hear it. Then ask simple Yes/No questions using visuals. "Is this red?" (show blue object) → "No!" "Is this five?" (show 5 fingers) → "Yes!" Keep energy high. These are the two most powerful words in early language acquisition.</div>
+  <div class="yesno-grid">
+    <div class="yn-card yn-yes" onclick="speakYN('yes',this)">
+      <div class="yn-emoji">✅</div>
+      <div class="yn-word">Yes</div>
+      <div class="yn-es">sí</div>
+    </div>
+    <div class="yn-card yn-no" onclick="speakYN('no',this)">
+      <div class="yn-emoji">❌</div>
+      <div class="yn-word">No</div>
+      <div class="yn-es">no</div>
+    </div>
+  </div>
+  <div style="background:var(--white);border:2px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px">
+    <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;margin-bottom:10px;color:var(--dark)">🎯 Yes/No Drill — Ask these questions:</div>
+    <div style="display:flex;flex-direction:column;gap:7px;font-size:13px">
+      <div style="padding:8px 12px;background:var(--bg);border-radius:8px;display:flex;gap:10px"><span style="font-weight:700;color:#2563EB">Q:</span><span>Is this <strong>blue</strong>? (point to a blue object)</span></div>
+      <div style="padding:8px 12px;background:var(--bg);border-radius:8px;display:flex;gap:10px"><span style="font-weight:700;color:#2563EB">Q:</span><span>Is this <strong>five</strong>? (hold up 3 fingers)</span></div>
+      <div style="padding:8px 12px;background:var(--bg);border-radius:8px;display:flex;gap:10px"><span style="font-weight:700;color:#2563EB">Q:</span><span>Is tu nombre <strong>Maria</strong>? (use wrong name)</span></div>
+      <div style="padding:8px 12px;background:var(--bg);border-radius:8px;display:flex;gap:10px"><span style="font-weight:700;color:#2563EB">Q:</span><span>Is this <strong>red</strong>? (point to green object)</span></div>
+      <div style="padding:8px 12px;background:var(--bg);border-radius:8px;display:flex;gap:10px"><span style="font-weight:700;color:#2563EB">Q:</span><span>Is this <strong>ten</strong>? (hold up 10 fingers)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 2: COUNT IT GAME -->
+<div class="panel" id="panel-2">
+  <div class="sec-head"><span class="sec-icon">🎮</span><span class="sec-title">Count It!</span><span class="sec-time">8 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> The game shows emojis and asks how many. Student picks the number. No time limit. Reset and play again — the second round builds speed and confidence. After the game, student says the number aloud before clicking.</div>
+  <div class="count-game">
+    <div class="count-display" id="countDisplay">🍎🍎🍎</div>
+    <div class="count-question" id="countQ">How many? 👆</div>
+    <div class="count-opts" id="countOpts"></div>
+    <div class="count-score" id="countScore">Score: 0 / 0</div>
+  </div>
+  <button class="btn-reset" onclick="initCount()">🔄 New game</button>
+</div>
+
+<!-- PANEL 3: SAY IT -->
+<div class="panel" id="panel-3">
+  <div class="sec-head"><span class="sec-icon">🗣</span><span class="sec-title">Say It</span><span class="sec-time">8 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Teacher shows each item. Student says the English word immediately. If the student hesitates more than 3 seconds, say the word yourself and move on — no pressure. Goal: automatic recall, zero hesitation on numbers 1–5 and Yes/No.</div>
+  <div class="say-list">
+    <div class="say-item"><div class="say-num">1</div><div style="font-size:36px">✌️</div><div class="say-content"><div class="say-prompt">How many fingers?</div><div class="say-answer">Two</div><div class="say-es">dos</div></div><button class="speak-btn" onclick="speakNum('two',this)">🔊</button></div>
+    <div class="say-item"><div class="say-num">2</div><div style="font-size:36px">🙌</div><div class="say-content"><div class="say-prompt">How many hands?</div><div class="say-answer">Five</div><div class="say-es">cinco</div></div><button class="speak-btn" onclick="speakNum('five',this)">🔊</button></div>
+    <div class="say-item"><div class="say-num">3</div><div style="font-size:36px">🍕🍕🍕🍕</div><div class="say-content"><div class="say-prompt">How many pizzas?</div><div class="say-answer">Four</div><div class="say-es">cuatro</div></div><button class="speak-btn" onclick="speakNum('four',this)">🔊</button></div>
+    <div class="say-item"><div class="say-num">4</div><div style="font-size:36px">☀️</div><div class="say-content"><div class="say-prompt">Is this the sun? (yes/no)</div><div class="say-answer">Yes!</div><div class="say-es">¡sí!</div></div><button class="speak-btn" onclick="speakYN('yes',this)">🔊</button></div>
+    <div class="say-item"><div class="say-num">5</div><div style="font-size:36px">🔵</div><div class="say-content"><div class="say-prompt">Is this red? (yes/no)</div><div class="say-answer">No!</div><div class="say-es">¡no!</div></div><button class="speak-btn" onclick="speakYN('no',this)">🔊</button></div>
+    <div class="say-item"><div class="say-num">6</div><div style="font-size:36px">🌟🌟🌟🌟🌟🌟🌟</div><div class="say-content"><div class="say-prompt">How many stars?</div><div class="say-answer">Seven</div><div class="say-es">siete</div></div><button class="speak-btn" onclick="speakNum('seven',this)">🔊</button></div>
+  </div>
+</div>
+
+<!-- PANEL 4: I KNOW THIS -->
+<div class="panel" id="panel-4">
+  <div class="sec-head"><span class="sec-icon">🏆</span><span class="sec-title">I Know This!</span><span class="sec-time">5 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note — CRITICAL:</strong> Student marks every word they know confidently — from S1 AND S2. The bar fills with all learned vocabulary so far. Make this a celebration. Count the words aloud together.</div>
+  <div class="progress-section">
+    <h3>Tap every word you know 👆</h3>
+    <div class="word-chips" id="wordChips"></div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-label" id="progressLabel">0 words · Let's go! 🚀</div>
+  </div>
+  <div style="text-align:center;margin-top:20px">
+    <div style="font-size:40px;margin-bottom:8px" id="celebEmoji">🌟</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:var(--dark)" id="celebMsg">Tap the words you know!</div>
+  </div>
+</div>
+
+<!-- PANEL 5: TEACHER TIPS -->
+<div class="panel" id="panel-5">
+  <div class="sec-head"><span class="sec-icon">📋</span><span class="sec-title">Session Guide</span></div>
+  <div class="teacher-note"><strong>📌 Session 2 starts with 2-min S1 review.</strong> Colors only — no sentences. Then numbers. Then Yes/No. Keep energy high throughout.</div>
+  <div class="tip-grid">
+    <div class="tip-item"><div class="tip-icon">🔁</div><div><strong>0–2 min — S1 Review:</strong> 5 color images. Student says the word. Fast, fun.</div></div>
+    <div class="tip-item"><div class="tip-icon">🔢</div><div><strong>2–14 min — Numbers:</strong> Present 1–10 with fingers + click to hear. Student repeats each one. Then: teacher holds up fingers → student says number. Then reverse.</div></div>
+    <div class="tip-item"><div class="tip-icon">✅</div><div><strong>14–22 min — Yes/No:</strong> Hear both words, then Yes/No drill with visuals. Keep questions simple and a little funny to reduce anxiety.</div></div>
+    <div class="tip-item"><div class="tip-icon">🎮</div><div><strong>22–30 min — Count It:</strong> Student plays the counting game. Say the number aloud BEFORE clicking the answer.</div></div>
+    <div class="tip-item"><div class="tip-icon">🗣</div><div><strong>30–40 min — Say It:</strong> Teacher shows image/fingers. Student says one word. Zero sentences needed.</div></div>
+    <div class="tip-item"><div class="tip-icon">🏆</div><div><strong>40–45 min — I Know This:</strong> Mark all S1 + S2 words. Count together. Celebrate loudly.</div></div>
+  </div>
+  <div style="background:#EFF6FF;border-radius:12px;padding:16px;margin-top:20px;text-align:center">
+    <div style="font-size:24px;margin-bottom:6px">🎯</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:var(--dark);margin-bottom:4px">Session 2 Success Goal</div>
+    <div style="font-size:13px;color:#1E40AF;line-height:1.6">Student counts <strong>1 to 5</strong> without hesitation and says <strong>Yes</strong> and <strong>No</strong> instantly. Plus remembers at least 6 colors from S1.</div>
+  </div>
+</div>
+
+<script>
+function showTab(idx,btn){
+  document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  window.scrollTo(0,0);
+}
+function speakWord(w,btn){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=0.82;
+  if(btn){btn.classList.add('playing');}
+  u.onend=function(){if(btn)btn.classList.remove('playing');};
+  window.speechSynthesis.speak(u);
+}
+function speakNum(w,btn){speakWord(w,btn);}
+function speakYN(w,el){
+  if(el&&el.classList){el.classList.add('pop');setTimeout(()=>el.classList.remove('pop'),200);}
+  speakWord(w,null);
+}
+
+// COUNT GAME
+var EMOJIS=['🍎','🌟','🐶','🍕','💙','🌈','🎯','🏆','🍦','🦁'];
+var cScore=0,cTotal=0,cAnswer=0;
+function shuffle(a){return a.sort(()=>Math.random()-.5);}
+function initCount(){cScore=0;cTotal=0;nextCount();}
+function nextCount(){
+  var n=Math.floor(Math.random()*10)+1;
+  cAnswer=n;
+  var em=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+  document.getElementById('countDisplay').textContent=em.repeat(n);
+  document.getElementById('countQ').textContent='How many? 👆';
+  var opts=shuffle([n,...new Set([...Array(10)].map(()=>Math.floor(Math.random()*10)+1).filter(x=>x!==n))].slice(0,4));
+  document.getElementById('countOpts').innerHTML=opts.map(o=>
+    '<button class="copt" onclick="checkCount('+o+',this)">'+o+'</button>'
+  ).join('');
+  document.getElementById('countScore').textContent='Score: '+cScore+' / '+cTotal;
+}
+function checkCount(val,btn){
+  cTotal++;
+  document.querySelectorAll('.copt').forEach(b=>b.onclick=null);
+  if(val===cAnswer){
+    btn.classList.add('correct');cScore++;
+    speakWord((['','one','two','three','four','five','six','seven','eight','nine','ten'])[cAnswer],null);
+    setTimeout(nextCount,1000);
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.copt').forEach(b=>{if(parseInt(b.textContent)===cAnswer)b.classList.add('correct');});
+    setTimeout(nextCount,1200);
+  }
+}
+initCount();
+
+// I KNOW THIS
+var WORDS=['red','blue','green','yellow','orange','purple','pink','black','white','brown','hello','goodbye','one','two','three','four','five','six','seven','ten','yes','no'];
+var known=new Set();
+function renderChips(){
+  document.getElementById('wordChips').innerHTML=WORDS.map(w=>
+    '<div class="wchip'+(known.has(w)?' known':'')+'" onclick="toggleKnown(\''+w+'\')">'+w+'</div>'
+  ).join('');
+  var pct=Math.round(known.size/WORDS.length*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('progressLabel').textContent=known.size+' of '+WORDS.length+' words · '+(pct===100?'Amazing! 🏆':pct>=50?'Great job! 🔥':pct>0?'Keep going! 🌱':'Let\'s go! 🚀');
+  document.getElementById('celebEmoji').textContent=pct===100?'🏆':pct>=75?'🔥':pct>=50?'🌟':pct>0?'🌱':'⭐';
+  document.getElementById('celebMsg').textContent=pct===100?'You know everything! AMAZING!':pct>0?known.size+' words — fantastic!':'Tap the words you know!';
+}
+function toggleKnown(w){if(known.has(w))known.delete(w);else known.add(w);renderChips();}
+renderChips();
+</script>
+
+<!-- EXTRA: Number + Yes/No physical game -->
+<div style="max-width:860px;margin:0 auto;padding:0 20px 30px">
+  <div style="background:#EFF6FF;border:2px solid #BFDBFE;border-radius:16px;padding:20px">
+    <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:#1E40AF;margin-bottom:4px">🎲 Extra — Number Bingo (1 player)</div>
+    <div style="font-size:12px;color:#1E3A8A;margin-bottom:14px">Teacher says a number in Spanish. Student says it in English immediately. Then reverse — teacher says in English, student holds up that many fingers. Speed increases each round.</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px">
+      <div style="background:#fff;border:2px solid #BFDBFE;border-radius:10px;padding:10px;text-align:center;cursor:pointer;transition:all .15s" onclick="speakWord('one',this)"><div style="font-size:22px;font-weight:900;color:#2563EB;font-family:'Nunito',sans-serif">1</div><div style="font-size:11px;color:#6B7280">uno</div></div>
+      <div style="background:#fff;border:2px solid #BFDBFE;border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="speakWord('two',this)"><div style="font-size:22px;font-weight:900;color:#2563EB;font-family:'Nunito',sans-serif">2</div><div style="font-size:11px;color:#6B7280">dos</div></div>
+      <div style="background:#fff;border:2px solid #BFDBFE;border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="speakWord('three',this)"><div style="font-size:22px;font-weight:900;color:#2563EB;font-family:'Nunito',sans-serif">3</div><div style="font-size:11px;color:#6B7280">tres</div></div>
+      <div style="background:#fff;border:2px solid #BFDBFE;border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="speakWord('four',this)"><div style="font-size:22px;font-weight:900;color:#2563EB;font-family:'Nunito',sans-serif">4</div><div style="font-size:11px;color:#6B7280">cuatro</div></div>
+      <div style="background:#fff;border:2px solid #BFDBFE;border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="speakWord('five',this)"><div style="font-size:22px;font-weight:900;color:#2563EB;font-family:'Nunito',sans-serif">5</div><div style="font-size:11px;color:#6B7280">cinco</div></div>
+      <div style="background:#fff;border:2px solid #BFDBFE;border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="speakWord('six',this)"><div style="font-size:22px;font-weight:900;color:#2563EB;font-family:'Nunito',sans-serif">6</div><div style="font-size:11px;color:#6B7280">seis</div></div>
+      <div style="background:#fff;border:2px solid #BFDBFE;border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="speakWord('seven',this)"><div style="font-size:22px;font-weight:900;color:#2563EB;font-family:'Nunito',sans-serif">7</div><div style="font-size:11px;color:#6B7280">siete</div></div>
+      <div style="background:#fff;border:2px solid #BFDBFE;border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="speakWord('eight',this)"><div style="font-size:22px;font-weight:900;color:#2563EB;font-family:'Nunito',sans-serif">8</div><div style="font-size:11px;color:#6B7280">ocho</div></div>
+      <div style="background:#fff;border:2px solid #BFDBFE;border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="speakWord('nine',this)"><div style="font-size:22px;font-weight:900;color:#2563EB;font-family:'Nunito',sans-serif">9</div><div style="font-size:11px;color:#6B7280">nueve</div></div>
+      <div style="background:#fff;border:2px solid #BFDBFE;border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="speakWord('ten',this)"><div style="font-size:22px;font-weight:900;color:#2563EB;font-family:'Nunito',sans-serif">10</div><div style="font-size:11px;color:#6B7280">diez</div></div>
+    </div>
+    <div style="background:#DBEAFE;border-radius:10px;padding:12px;font-size:12px;color:#1E40AF;line-height:1.6">
+      <strong>🎯 Speed round:</strong> Teacher points to numbers in random order. Student says the English word as fast as possible. Goal: zero hesitation on 1–5 by end of session.
+    </div>
+  </div>
+</div>
+<!-- EXTRA: Yes/No fast fire -->
+<div style="max-width:860px;margin:0 auto;padding:0 20px 30px">
+  <div style="background:#F0FDF4;border:2px solid #BBF7D0;border-radius:16px;padding:20px">
+    <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:#14532D;margin-bottom:4px">⚡ Extra — Yes/No Fast Fire</div>
+    <div style="font-size:12px;color:#166534;margin-bottom:14px">Teacher asks 10 rapid yes/no questions using colors + numbers from this session. Student answers immediately. No thinking time!</div>
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:13px">
+      <div style="background:#fff;border-left:4px solid #16A34A;border-radius:0 8px 8px 0;padding:8px 12px"><strong>Is this five?</strong> (holds up 3 fingers)</div>
+      <div style="background:#fff;border-left:4px solid #16A34A;border-radius:0 8px 8px 0;padding:8px 12px"><strong>Is this blue?</strong> (points to red object)</div>
+      <div style="background:#fff;border-left:4px solid #16A34A;border-radius:0 8px 8px 0;padding:8px 12px"><strong>Is this ten?</strong> (holds up 10 fingers)</div>
+      <div style="background:#fff;border-left:4px solid #16A34A;border-radius:0 8px 8px 0;padding:8px 12px"><strong>Is this green?</strong> (points to green object)</div>
+      <div style="background:#fff;border-left:4px solid #16A34A;border-radius:0 8px 8px 0;padding:8px 12px"><strong>Is this two?</strong> (holds up 2 fingers)</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-A1 · M0 · S3 — My Name & Countries | Gabriel Turner</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--orange:#E85D04;--purple:#7C3AED;--dark:#1A1A2E;--bg:#FAFAF8;--white:#fff;--muted:#8A8FA8;--border:#ECEAE4;--green:#16A34A;--green-l:rgba(22,163,74,.1);--red:#DC2626;}
+body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh}
+.header{background:var(--dark);padding:12px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200}
+.gt-logo{width:36px;height:36px;background:var(--orange);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#fff;flex-shrink:0}
+.htitle{flex:1}.htitle h1{font-size:13px;font-weight:800;color:#fff;font-family:'Nunito',sans-serif}.htitle p{font-size:10px;color:rgba(255,255,255,.4);margin-top:1px}
+.hbadge{background:var(--orange);color:#fff;font-size:10px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;font-family:'Nunito',sans-serif}
+.teacher-badge{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:4px}
+.hero{background:linear-gradient(135deg,#7C3AED 0%,#A855F7 50%,#C084FC 100%);padding:28px 20px 24px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpolygon points='25,0 50,50 0,50'/%3E%3C/g%3E%3C/svg%3E")}
+.hero-emoji{font-size:44px;margin-bottom:8px;position:relative;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero-title{font-family:'Nunito',sans-serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:4px;position:relative}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.75);margin-bottom:14px;position:relative}
+.hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative}
+.hpill{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:#fff}
+.tabs-wrap{background:var(--dark);border-bottom:2px solid rgba(255,255,255,.06);position:sticky;top:60px;z-index:100}
+.tabs{max-width:860px;margin:0 auto;padding:0 16px;display:flex;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:11px 18px;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;-webkit-tap-highlight-color:transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:'Nunito Sans',sans-serif}
+.tab.active{color:#C084FC;border-bottom-color:#C084FC}
+.panel{display:none;max-width:860px;margin:0 auto;padding:24px 20px 60px}
+.panel.active{display:block}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.sec-icon{font-size:22px}.sec-title{font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:var(--dark)}
+.sec-time{font-size:11px;color:var(--muted);margin-left:auto;background:var(--border);padding:3px 10px;border-radius:20px;font-weight:700}
+.teacher-note{background:#F5F3FF;border:1.5px solid #DDD6FE;border-radius:10px;padding:12px 14px;font-size:12px;color:#4C1D95;line-height:1.6;margin-bottom:16px}
+.teacher-note strong{color:#3B0764}
+
+/* NAME INTRO */
+.name-box{background:linear-gradient(135deg,#7C3AED,#A855F7);border-radius:20px;padding:24px;text-align:center;margin-bottom:20px}
+.name-box-title{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;color:rgba(255,255,255,.7);margin-bottom:12px;text-transform:uppercase;letter-spacing:.1em}
+.phrase-big{font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#fff;margin-bottom:6px}
+.phrase-es{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:16px}
+.speak-big-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4);border-radius:30px;padding:10px 24px;font-size:14px;font-weight:800;color:#fff;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.speak-big-btn:hover{background:rgba(255,255,255,.35)}
+.phrase-cards{display:flex;flex-direction:column;gap:10px}
+.phrase-card{background:var(--white);border:2px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.phrase-card:hover{border-color:#A855F7;background:#F5F3FF}
+.phrase-num{width:32px;height:32px;background:#7C3AED;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0;font-family:'Nunito',sans-serif}
+.phrase-en{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:var(--dark)}
+.phrase-es-small{font-size:12px;color:var(--muted);font-style:italic;margin-top:2px}
+.speak-sm{display:inline-flex;align-items:center;gap:3px;background:none;border:1.5px solid var(--border);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;color:var(--muted);transition:all .15s;-webkit-tap-highlight-color:transparent;margin-left:auto;flex-shrink:0}
+.speak-sm:hover,.speak-sm.playing{background:#7C3AED;border-color:#7C3AED;color:#fff}
+
+/* COUNTRIES */
+.countries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+.country-card{background:var(--white);border:2px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.country-card:hover{border-color:#A855F7;transform:translateY(-2px)}
+.country-flag{font-size:36px;margin-bottom:6px}
+.country-name{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;color:var(--dark);margin-bottom:2px}
+.country-es{font-size:10px;color:var(--muted);font-style:italic;margin-bottom:6px}
+.country-nat{font-size:11px;font-weight:700;color:#7C3AED;background:#F5F3FF;padding:2px 8px;border-radius:20px;display:inline-block}
+
+/* ROLEPLAY */
+.roleplay-box{background:var(--white);border:2px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:16px}
+.roleplay-head{background:#7C3AED;padding:12px 16px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#fff}
+.dialogue{padding:16px;display:flex;flex-direction:column;gap:10px}
+.bubble{max-width:80%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5}
+.bubble-teacher{background:#F5F3FF;border:1.5px solid #DDD6FE;color:#4C1D95;align-self:flex-start;border-bottom-left-radius:4px}
+.bubble-student{background:linear-gradient(135deg,#7C3AED,#A855F7);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.bubble-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;opacity:.7}
+.bubble-text{font-family:'Nunito',sans-serif;font-weight:700}
+.blank-fill{display:inline-block;min-width:80px;border-bottom:2px solid rgba(255,255,255,.6);color:rgba(255,255,255,.5);font-style:italic}
+.blank-fill.dark{border-bottom-color:#7C3AED;color:#A855F7}
+
+/* I KNOW THIS */
+.progress-section{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:20px}
+.progress-section h3{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;margin-bottom:14px;color:var(--dark)}
+.word-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.wchip{padding:8px 16px;border-radius:30px;border:2px solid var(--border);background:var(--bg);font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .2s;color:var(--muted);-webkit-tap-highlight-color:transparent}
+.wchip.known{background:var(--green-l);border-color:var(--green);color:var(--green)}
+.progress-bar-wrap{background:var(--border);border-radius:100px;height:10px;overflow:hidden;margin-bottom:8px}
+.progress-bar-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,#7C3AED,#C084FC);transition:width .5s ease}
+.progress-label{font-size:12px;color:var(--muted);font-weight:700;text-align:center}
+.tip-grid{display:flex;flex-direction:column;gap:8px}
+.tip-item{display:flex;align-items:flex-start;gap:10px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--dark);line-height:1.6}
+.tip-icon{font-size:18px;flex-shrink:0}
+@media(max-width:480px){
+  .panel{padding:16px 12px 40px}.countries-grid{grid-template-columns:repeat(3,1fr)}
+  .hero-title{font-size:22px}.tab{padding:9px 12px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="gt-logo">GT</div>
+  <div class="htitle"><h1>Gabriel Turner English Training</h1><p>Pre-A1 · Module 0 · Session 3</p></div>
+  <span class="hbadge">Pre-A1</span>
+  <span class="teacher-badge">👩‍🏫 Teacher</span>
+</div>
+<div class="hero">
+  <div class="hero-emoji">🌍</div>
+  <div class="hero-title">My Name & Countries</div>
+  <div class="hero-sub">Module 0 · Session 3 · 55 minutes</div>
+  <div class="hero-pills">
+    <span class="hpill">👤 My name is…</span>
+    <span class="hpill">🌍 8 countries</span>
+    <span class="hpill">🗣 Role-play</span>
+    <span class="hpill">🏆 I Know This</span>
+  </div>
+</div>
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab(0,this)">👤 My Name</button>
+    <button class="tab" onclick="showTab(1,this)">🌍 Countries</button>
+    <button class="tab" onclick="showTab(2,this)">🗣 Role-play</button>
+    <button class="tab" onclick="showTab(3,this)">🎯 Practice</button>
+    <button class="tab" onclick="showTab(4,this)">🏆 I Know This</button>
+    <button class="tab" onclick="showTab(5,this)">📋 Teacher Tips</button>
+  </div>
+</div>
+
+<!-- PANEL 0: MY NAME -->
+<div class="panel active" id="panel-0">
+  <div class="sec-head"><span class="sec-icon">👤</span><span class="sec-title">My Name Is…</span><span class="sec-time">10 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> These are the student's first full phrases in English. Click to hear each one. Student repeats 3 times — slow, normal, then fast. The goal: say these two phrases without thinking. This is the foundation of every English conversation.</div>
+  <div class="name-box">
+    <div class="name-box-title">🌟 Your first English phrases</div>
+    <div class="phrase-big">My name is <em style="color:#FCD34D">✏️ tu nombre</em>.</div>
+    <div class="phrase-es">Mi nombre es <em style="color:#A855F7">[tu nombre]</em>.</div>
+    <button class="speak-big-btn" onclick="speakPhrase('My name is Ana')">🔊 Hear it</button>
+  </div>
+  <div class="phrase-cards">
+    <div class="phrase-card">
+      <div class="phrase-num">1</div>
+      <div style="flex:1">
+        <div class="phrase-en">My name is <em style="color:#FCD34D">✏️ tu nombre</em>.</div>
+        <div class="phrase-es-small">Mi nombre es <em style="color:#A855F7">[tu nombre]</em>.</div>
+      </div>
+      <button class="speak-sm" onclick="speakPhrase('My name is Ana')">🔊</button>
+    </div>
+    <div class="phrase-card">
+      <div class="phrase-num">2</div>
+      <div style="flex:1">
+        <div class="phrase-en">I'm from <em style="color:#FCD34D">✏️ tu ciudad</em>.</div>
+        <div class="phrase-es-small">Soy de [tu ciudad].</div>
+      </div>
+      <button class="speak-sm" onclick="speakPhrase('I am from Mexico')">🔊</button>
+    </div>
+    <div class="phrase-card">
+      <div class="phrase-num">3</div>
+      <div style="flex:1">
+        <div class="phrase-en">Nice to meet you!</div>
+        <div class="phrase-es-small">Mucho gusto.</div>
+      </div>
+      <button class="speak-sm" onclick="speakPhrase('Nice to meet you')">🔊</button>
+    </div>
+    <div class="phrase-card">
+      <div class="phrase-num">4</div>
+      <div style="flex:1">
+        <div class="phrase-en">What's your name?</div>
+        <div class="phrase-es-small">¿Cuál es tu nombre?</div>
+      </div>
+      <button class="speak-sm" onclick="speakPhrase('What is your name')">🔊</button>
+    </div>
+    <div class="phrase-card">
+      <div class="phrase-num">5</div>
+      <div style="flex:1">
+        <div class="phrase-en">Where are you from?</div>
+        <div class="phrase-es-small">¿De dónde eres?</div>
+      </div>
+      <button class="speak-sm" onclick="speakPhrase('Where are you from')">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 1: COUNTRIES -->
+<div class="panel" id="panel-1">
+  <div class="sec-head"><span class="sec-icon">🌍</span><span class="sec-title">Countries</span><span class="sec-time">10 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Show each flag. Student says the country name. Then ask: "Are you from Mexico?" → student answers Yes/No (from S2!). Connect to S2 vocabulary. After all 8: "I'm from [...]" — student completes with their own country.</div>
+  <div class="countries-grid">
+    <div class="country-card" onclick="speakPhrase('Mexico')">
+      <div class="country-flag">🇲🇽</div>
+      <div class="country-name">Mexico</div>
+      <div class="country-es">México</div>
+      <div class="country-nat">Mexican</div>
+    </div>
+    <div class="country-card" onclick="speakPhrase('United States')">
+      <div class="country-flag">🇺🇸</div>
+      <div class="country-name">USA</div>
+      <div class="country-es">Estados Unidos</div>
+      <div class="country-nat">American</div>
+    </div>
+    <div class="country-card" onclick="speakPhrase('Canada')">
+      <div class="country-flag">🇨🇦</div>
+      <div class="country-name">Canada</div>
+      <div class="country-es">Canadá</div>
+      <div class="country-nat">Canadian</div>
+    </div>
+    <div class="country-card" onclick="speakPhrase('Germany')">
+      <div class="country-flag">🇩🇪</div>
+      <div class="country-name">Germany</div>
+      <div class="country-es">Alemania</div>
+      <div class="country-nat">German</div>
+    </div>
+    <div class="country-card" onclick="speakPhrase('France')">
+      <div class="country-flag">🇫🇷</div>
+      <div class="country-name">France</div>
+      <div class="country-es">Francia</div>
+      <div class="country-nat">French</div>
+    </div>
+    <div class="country-card" onclick="speakPhrase('Brazil')">
+      <div class="country-flag">🇧🇷</div>
+      <div class="country-name">Brazil</div>
+      <div class="country-es">Brasil</div>
+      <div class="country-nat">Brazilian</div>
+    </div>
+    <div class="country-card" onclick="speakPhrase('Japan')">
+      <div class="country-flag">🇯🇵</div>
+      <div class="country-name">Japan</div>
+      <div class="country-es">Japón</div>
+      <div class="country-nat">Japanese</div>
+    </div>
+    <div class="country-card" onclick="speakPhrase('China')">
+      <div class="country-flag">🇨🇳</div>
+      <div class="country-name">China</div>
+      <div class="country-es">China</div>
+      <div class="country-nat">Chinese</div>
+    </div>
+  </div>
+  <div class="teacher-note" style="margin-bottom:0"><strong>🎯 Quick drill:</strong> "Are you from Japan?" → student says "No, I'm from Mexico." This is the first full answer they produce. Celebrate it!</div>
+</div>
+
+<!-- PANEL 2: ROLEPLAY -->
+<div class="panel" id="panel-2">
+  <div class="sec-head"><span class="sec-icon">🗣</span><span class="sec-title">Role-play</span><span class="sec-time">12 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> This is the first real conversation in English. Read the teacher lines aloud — student fills in the blanks with their real information. Do this 3 times: first slow, then normal speed, then without looking at the screen. The blanks show what the student needs to produce.</div>
+  <div class="roleplay-box">
+    <div class="roleplay-head">🎭 Conversation 1 — First meeting</div>
+    <div class="dialogue">
+      <div class="bubble bubble-teacher"><div class="bubble-label">Teacher</div><div class="bubble-text">Hello! What's your name?</div></div>
+      <div class="bubble bubble-student"><div class="bubble-label">Student</div><div class="bubble-text">My name is <em style="color:rgba(255,255,255,.5);border-bottom:1.5px solid rgba(255,255,255,.4);padding:0 4px">[your name]</em>.</div></div>
+      <div class="bubble bubble-teacher"><div class="bubble-label">Teacher</div><div class="bubble-text">Nice to meet you! Where are you from?</div></div>
+      <div class="bubble bubble-student"><div class="bubble-label">Student</div><div class="bubble-text">I'm from <em style="color:rgba(255,255,255,.5);border-bottom:1.5px solid rgba(255,255,255,.4);padding:0 4px">[your city]</em>.</div></div>
+      <div class="bubble bubble-teacher"><div class="bubble-label">Teacher</div><div class="bubble-text">Nice to meet you too!</div></div>
+      <div class="bubble bubble-student"><div class="bubble-label">Student</div><div class="bubble-text">Nice to meet you!</div></div>
+    </div>
+  </div>
+  <div class="roleplay-box">
+    <div class="roleplay-head">🎭 Conversation 2 — Using colors + numbers</div>
+    <div class="dialogue">
+      <div class="bubble bubble-teacher"><div class="bubble-label">Teacher</div><div class="bubble-text">Hello! What's your name?</div></div>
+      <div class="bubble bubble-student"><div class="bubble-label">Student</div><div class="bubble-text">My name is <em style="color:rgba(255,255,255,.5);border-bottom:1.5px solid rgba(255,255,255,.4);padding:0 4px">[your name]</em>.</div></div>
+      <div class="bubble bubble-teacher"><div class="bubble-label">Teacher</div><div class="bubble-text">How many people are on your team?</div></div>
+      <div class="bubble bubble-student"><div class="bubble-label">Student</div><div class="bubble-text"><em style="color:rgba(255,255,255,.5);border-bottom:1.5px solid rgba(255,255,255,.4);padding:0 4px">[a number]</em>!</div></div>
+      <div class="bubble bubble-teacher"><div class="bubble-label">Teacher</div><div class="bubble-text">What color is your shirt today?</div></div>
+      <div class="bubble bubble-student"><div class="bubble-label">Student</div><div class="bubble-text"><em style="color:rgba(255,255,255,.5);border-bottom:1.5px solid rgba(255,255,255,.4);padding:0 4px">[a color]</em>!</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 3: PRACTICE -->
+<div class="panel" id="panel-3">
+  <div class="sec-head"><span class="sec-icon">🎯</span><span class="sec-title">Practice — Say It</span><span class="sec-time">8 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Teacher reads each prompt. Student responds immediately in English with one phrase. No writing. No reading. Just speaking. This is the key moment — connecting image + prompt + speech in real time.</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div style="background:var(--white);border:2px solid var(--border);border-radius:14px;padding:14px 16px">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">PROMPT 1</div>
+      <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;margin-bottom:6px">Teacher shows 🇲🇽</div>
+      <div style="font-size:13px;color:#7C3AED;font-weight:700">Student says: "Mexico" or "I'm from Mexico"</div>
+    </div>
+    <div style="background:var(--white);border:2px solid var(--border);border-radius:14px;padding:14px 16px">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">PROMPT 2</div>
+      <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;margin-bottom:6px">Teacher asks: "What's your name?"</div>
+      <div style="font-size:13px;color:#7C3AED;font-weight:700">Student says: "My name is [...]."</div>
+    </div>
+    <div style="background:var(--white);border:2px solid var(--border);border-radius:14px;padding:14px 16px">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">PROMPT 3</div>
+      <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;margin-bottom:6px">Teacher shows 🇺🇸 and asks: "Are you from here?"</div>
+      <div style="font-size:13px;color:#7C3AED;font-weight:700">Student says: "No! I'm from Mexico!"</div>
+    </div>
+    <div style="background:var(--white);border:2px solid var(--border);border-radius:14px;padding:14px 16px">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">PROMPT 4 — CHALLENGE</div>
+      <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;margin-bottom:6px">Teacher asks: "What's your name AND where are you from?"</div>
+      <div style="font-size:13px;color:#7C3AED;font-weight:700">Student says TWO phrases: "My name is Ana. I'm from Celaya."</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#7C3AED,#A855F7);border-radius:14px;padding:16px;text-align:center">
+      <div style="font-size:20px;margin-bottom:6px">🌟</div>
+      <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;color:#fff;margin-bottom:4px">Full Introduction!</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.85)">"Hello! My name is [name]. I'm from [city]. Nice to meet you!"</div>
+    </div>
+  </div>
+
+  <!-- EXTRA ACTIVITY: Color + Country combo -->
+  <div style="margin-top:20px">
+  <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">🎯 Bonus Activity — Mix It Up!</div>
+  <div style="background:var(--white);border:2px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px">
+    <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;margin-bottom:10px;color:var(--dark)">Teacher points to objects and asks — student answers in English only:</div>
+    <div style="display:flex;flex-direction:column;gap:7px;font-size:13px">
+      <div style="padding:9px 12px;background:#F5F3FF;border-radius:8px;display:flex;justify-content:space-between"><span>👕 "What color is your shirt?"</span><span style="color:#7C3AED;font-weight:700">→ color word</span></div>
+      <div style="padding:9px 12px;background:#F5F3FF;border-radius:8px;display:flex;justify-content:space-between"><span>✋ "How many fingers?" (hold up random)</span><span style="color:#7C3AED;font-weight:700">→ number</span></div>
+      <div style="padding:9px 12px;background:#F5F3FF;border-radius:8px;display:flex;justify-content:space-between"><span>🇺🇸 "Are you from the USA?"</span><span style="color:#7C3AED;font-weight:700">→ Yes / No</span></div>
+      <div style="padding:9px 12px;background:#F5F3FF;border-radius:8px;display:flex;justify-content:space-between"><span>🤝 "What do you say when you meet someone?"</span><span style="color:#7C3AED;font-weight:700">→ Nice to meet you!</span></div>
+      <div style="padding:9px 12px;background:#F5F3FF;border-radius:8px;display:flex;justify-content:space-between"><span>🌍 "What country are you from?"</span><span style="color:#7C3AED;font-weight:700">→ I'm from Mexico</span></div>
+    </div>
+  </div>
+
+  <!-- EXTRA: Spelling drill -->
+  <div style="background:var(--white);border:2px solid var(--border);border-radius:14px;padding:16px">
+    <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;margin-bottom:8px;color:var(--dark)">✏️ Read & Repeat — Click to hear, then say it</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button onclick="speakPhrase('My name is Ana')" style="padding:12px;background:#F5F3FF;border:2px solid #DDD6FE;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:#4C1D95;-webkit-tap-highlight-color:transparent">🔊 My name is Ana</button>
+      <button onclick="speakPhrase('I am from Mexico')" style="padding:12px;background:#F5F3FF;border:2px solid #DDD6FE;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:#4C1D95;-webkit-tap-highlight-color:transparent">🔊 I'm from Mexico</button>
+      <button onclick="speakPhrase('Nice to meet you')" style="padding:12px;background:#F5F3FF;border:2px solid #DDD6FE;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:#4C1D95;-webkit-tap-highlight-color:transparent">🔊 Nice to meet you!</button>
+      <button onclick="speakPhrase('What is your name')" style="padding:12px;background:#F5F3FF;border:2px solid #DDD6FE;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:#4C1D95;-webkit-tap-highlight-color:transparent">🔊 What's your name?</button>
+      <button onclick="speakPhrase('Where are you from')" style="padding:12px;background:#F5F3FF;border:2px solid #DDD6FE;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:#4C1D95;-webkit-tap-highlight-color:transparent">🔊 Where are you from?</button>
+      <button onclick="speakPhrase('Goodbye. See you later')" style="padding:12px;background:#F5F3FF;border:2px solid #DDD6FE;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:#4C1D95;-webkit-tap-highlight-color:transparent">🔊 Goodbye / See you later</button>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- PANEL 4: I KNOW THIS -->
+<div class="panel" id="panel-4">
+  <div class="sec-head"><span class="sec-icon">🏆</span><span class="sec-title">I Know This!</span><span class="sec-time">5 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note — CRITICAL:</strong> Now includes ALL words from S1 + S2 + S3. By now the student should know 25+ words. Make the bar fill feel like a game. Count together. Say: "You learned 25 words in 3 classes. That's incredible."</div>
+  <div class="progress-section">
+    <h3>Tap every word you know 👆</h3>
+    <div class="word-chips" id="wordChips"></div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-label" id="progressLabel">0 words · Let's go! 🚀</div>
+  </div>
+  <div style="text-align:center;margin-top:20px">
+    <div style="font-size:40px;margin-bottom:8px" id="celebEmoji">🌟</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:var(--dark)" id="celebMsg">Tap the words you know!</div>
+  </div>
+</div>
+
+<!-- PANEL 5: TEACHER TIPS -->
+<div class="panel" id="panel-5">
+  <div class="sec-head"><span class="sec-icon">📋</span><span class="sec-title">Session Guide</span></div>
+  <div class="teacher-note"><strong>📌 S3 introduces the first real English phrases the student will say in their life.</strong> Keep the energy celebratory. Every correct phrase is a milestone.</div>
+  <div class="tip-grid">
+    <div class="tip-item"><div class="tip-icon">🔁</div><div><strong>0–3 min — Review S1+S2:</strong> 5 images → colors. 5 fingers → numbers. Yes/No question.</div></div>
+    <div class="tip-item"><div class="tip-icon">👤</div><div><strong>3–13 min — My Name Is:</strong> Present 5 phrases one by one. Hear → repeat → say with own name.</div></div>
+    <div class="tip-item"><div class="tip-icon">🌍</div><div><strong>13–23 min — Countries:</strong> Show flags → say names. "Are you from [...]?" → Yes/No answers.</div></div>
+    <div class="tip-item"><div class="tip-icon">🗣</div><div><strong>23–35 min — Role-play:</strong> Two full conversations. Slow → normal → without screen. 3 rounds.</div></div>
+    <div class="tip-item"><div class="tip-icon">🎯</div><div><strong>35–40 min — Practice:</strong> 4 prompts. Student produces phrases in real time.</div></div>
+    <div class="tip-item"><div class="tip-icon">🏆</div><div><strong>40–45 min — I Know This:</strong> Full S1+S2+S3 vocabulary. Count together. Big celebration.</div></div>
+  </div>
+  <div style="background:#F5F3FF;border-radius:12px;padding:16px;margin-top:20px;text-align:center">
+    <div style="font-size:24px;margin-bottom:6px">🎯</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:var(--dark);margin-bottom:4px">Session 3 Success Goal</div>
+    <div style="font-size:13px;color:#4C1D95;line-height:1.6">Student says <strong>"My name is [...] and I'm from [...]"</strong> without looking at the screen. That is a complete, real English sentence. That's everything.</div>
+  </div>
+</div>
+
+<script>
+function showTab(idx,btn){
+  document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  window.scrollTo(0,0);
+}
+function speakPhrase(w,btn){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=0.82;
+  if(btn){btn.classList.add('playing');}
+  u.onend=function(){if(btn)btn.classList.remove('playing');};
+  window.speechSynthesis.speak(u);
+}
+var WORDS=['red','blue','green','yellow','orange','purple','pink','black','white','brown','hello','goodbye','one','two','three','four','five','six','seven','ten','yes','no','My name is','I\'m from','Nice to meet you','Mexico','USA','Germany','France','Japan'];
+var known=new Set();
+function renderChips(){
+  document.getElementById('wordChips').innerHTML=WORDS.map(w=>
+    '<div class="wchip'+(known.has(w)?' known':'')+'" onclick="toggleKnown(this,\''+w.replace(/'/g,"\\'")+'\')" >'+w+'</div>'
+  ).join('');
+  var pct=Math.round(known.size/WORDS.length*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('progressLabel').textContent=known.size+' of '+WORDS.length+' words · '+(pct===100?'You know everything! 🏆':pct>=50?'Incredible! 🔥':pct>0?'Keep going! 🌱':'Let\'s go! 🚀');
+  document.getElementById('celebEmoji').textContent=pct===100?'🏆':pct>=75?'🔥':pct>=50?'🌟':pct>0?'🌱':'⭐';
+  document.getElementById('celebMsg').textContent=pct===100?'You know everything! AMAZING!':pct>0?known.size+' words — fantastic!':'Tap the words you know!';
+}
+function toggleKnown(el,w){if(known.has(w))known.delete(w);else known.add(w);renderChips();}
+renderChips();
+</script>
+
+<!-- EXTRA: Sentence Builder activity -->
+<div style="max-width:860px;margin:0 auto;padding:0 20px 20px">
+  <div style="background:#F5F3FF;border:2px solid #DDD6FE;border-radius:16px;padding:20px;margin-top:-20px">
+    <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:#4C1D95;margin-bottom:12px">🧩 Extra — Build the sentence</div>
+    <div style="font-size:12px;color:#6D28D9;margin-bottom:14px">Teacher reads the words in random order. Student puts them in the right order and says the sentence.</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="background:#fff;border:1.5px solid #DDD6FE;border-radius:10px;padding:12px 14px">
+        <div style="font-size:11px;font-weight:800;color:#7C3AED;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">Sentence 1</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+          <span style="background:#EDE9FE;color:#4C1D95;padding:5px 12px;border-radius:20px;font-weight:700;font-size:13px">name</span>
+          <span style="background:#EDE9FE;color:#4C1D95;padding:5px 12px;border-radius:20px;font-weight:700;font-size:13px">My</span>
+          <span style="background:#EDE9FE;color:#4C1D95;padding:5px 12px;border-radius:20px;font-weight:700;font-size:13px">is</span>
+          <span style="background:#EDE9FE;color:#4C1D95;padding:5px 12px;border-radius:20px;font-weight:700;font-size:13px">Ana</span>
+        </div>
+        <div style="font-size:12px;color:#7C3AED;font-weight:700">✅ My name is Ana.</div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #DDD6FE;border-radius:10px;padding:12px 14px">
+        <div style="font-size:11px;font-weight:800;color:#7C3AED;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">Sentence 2</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+          <span style="background:#EDE9FE;color:#4C1D95;padding:5px 12px;border-radius:20px;font-weight:700;font-size:13px">from</span>
+          <span style="background:#EDE9FE;color:#4C1D95;padding:5px 12px;border-radius:20px;font-weight:700;font-size:13px">Mexico</span>
+          <span style="background:#EDE9FE;color:#4C1D95;padding:5px 12px;border-radius:20px;font-weight:700;font-size:13px">I'm</span>
+        </div>
+        <div style="font-size:12px;color:#7C3AED;font-weight:700">✅ I'm from Mexico.</div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #DDD6FE;border-radius:10px;padding:12px 14px">
+        <div style="font-size:11px;font-weight:800;color:#7C3AED;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">Sentence 3</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+          <span style="background:#EDE9FE;color:#4C1D95;padding:5px 12px;border-radius:20px;font-weight:700;font-size:13px">you</span>
+          <span style="background:#EDE9FE;color:#4C1D95;padding:5px 12px;border-radius:20px;font-weight:700;font-size:13px">meet</span>
+          <span style="background:#EDE9FE;color:#4C1D95;padding:5px 12px;border-radius:20px;font-weight:700;font-size:13px">Nice</span>
+          <span style="background:#EDE9FE;color:#4C1D95;padding:5px 12px;border-radius:20px;font-weight:700;font-size:13px">to</span>
+        </div>
+        <div style="font-size:12px;color:#7C3AED;font-weight:700">✅ Nice to meet you!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

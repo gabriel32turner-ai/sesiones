@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-A1 · M3 · S1 — Daily Actions | Gabriel Turner</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--teal:#0D9488;--dark:#1A1A2E;--bg:#F7FAFA;--white:#fff;--muted:#7A8A9A;--border:#D1E9E8;--green:#16A34A;--green-l:rgba(22,163,74,.1);--red:#DC2626;--red-l:rgba(220,38,38,.08);}
+body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh}
+.header{background:var(--dark);padding:12px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200}
+.gt-logo{width:36px;height:36px;background:var(--teal);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#fff;flex-shrink:0}
+.htitle{flex:1}.htitle h1{font-size:13px;font-weight:800;color:#fff;font-family:'Nunito',sans-serif}.htitle p{font-size:10px;color:rgba(255,255,255,.4);margin-top:1px}
+.hbadge{background:var(--teal);color:#fff;font-size:10px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;font-family:'Nunito',sans-serif}
+.teacher-badge{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:4px}
+.hero{background:linear-gradient(135deg,#0D9488 0%,#14B8A6 60%,#5EEAD4 100%);padding:28px 20px 24px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='15'/%3E%3C/g%3E%3C/svg%3E")}
+.hero-emoji{font-size:48px;margin-bottom:8px;position:relative;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero-title{font-family:'Nunito',sans-serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:4px;position:relative}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.8);margin-bottom:14px;position:relative}
+.hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative}
+.hpill{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:#fff}
+.tabs-wrap{background:var(--dark);border-bottom:2px solid rgba(255,255,255,.06);position:sticky;top:60px;z-index:100}
+.tabs{max-width:860px;margin:0 auto;padding:0 16px;display:flex;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:11px 18px;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;-webkit-tap-highlight-color:transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:'Nunito Sans',sans-serif}
+.tab.active{color:#5EEAD4;border-bottom-color:#5EEAD4}
+.tab:hover{color:rgba(255,255,255,.7)}
+.panel{display:none;max-width:860px;margin:0 auto;padding:24px 20px 60px}
+.panel.active{display:block}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.sec-icon{font-size:22px}.sec-title{font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:var(--dark)}
+.sec-time{font-size:11px;color:var(--muted);margin-left:auto;background:var(--border);padding:3px 10px;border-radius:20px;font-weight:700}
+.teacher-note{background:#F0FDFA;border:1.5px solid #99F6E4;border-radius:10px;padding:12px 14px;font-size:12px;color:#0D5E55;line-height:1.6;margin-bottom:16px}
+.teacher-note strong{color:#0A4B44}
+
+/* ACTION CARDS */
+.actions-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.action-card{background:var(--white);border:2px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;text-align:center}
+.action-card:hover{border-color:var(--teal);transform:translateY(-3px);box-shadow:0 6px 20px rgba(13,148,136,.15)}
+.action-card.selected{border-color:var(--teal);background:#F0FDFA}
+.action-img{height:80px;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,#F0FDFA,#CCFBF1)}
+.action-body{padding:10px}
+.action-word{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:var(--dark);margin-bottom:2px}
+.action-es{font-size:11px;color:var(--muted);font-style:italic;margin-bottom:6px}
+.action-ex{font-size:11px;color:var(--teal);font-weight:700;display:none;margin-bottom:4px}
+.action-card.selected .action-ex{display:block}
+.speak-btn{display:inline-flex;align-items:center;gap:3px;background:none;border:1.5px solid var(--border);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;color:var(--muted);transition:all .15s;-webkit-tap-highlight-color:transparent}
+.speak-btn:hover,.speak-btn.playing{background:var(--teal);border-color:var(--teal);color:#fff}
+
+/* TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:0;margin-bottom:20px}
+.tl-item{display:flex;gap:14px;align-items:stretch}
+.tl-left{display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0}
+.tl-time{background:var(--teal);color:#fff;border-radius:20px;padding:4px 8px;font-size:11px;font-weight:800;font-family:'Nunito',sans-serif;white-space:nowrap;margin-bottom:4px}
+.tl-line{flex:1;width:2px;background:var(--border);margin:0 auto}
+.tl-right{background:var(--white);border:2px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:10px;flex:1;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.tl-right:hover{border-color:var(--teal);background:#F0FDFA}
+.tl-emoji{font-size:24px;margin-bottom:4px}
+.tl-action{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:var(--dark);margin-bottom:2px}
+.tl-es{font-size:11px;color:var(--muted);font-style:italic}
+.tl-right.hl{border-color:var(--teal);background:#F0FDFA}
+
+/* MATCH GAME */
+.match-container{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.match-col{display:flex;flex-direction:column;gap:8px}
+.match-col-label{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;text-align:center}
+.mitem{padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--white);font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;text-align:center;transition:all .15s;-webkit-tap-highlight-color:transparent;min-height:52px;display:flex;align-items:center;justify-content:center}
+.mitem.emoji{font-size:30px;background:var(--bg)}
+.mitem:hover{border-color:var(--teal)}
+.mitem.selected{border-color:var(--teal);background:#F0FDFA;transform:scale(1.03)}
+.mitem.matched{background:var(--green-l);border-color:var(--green);color:var(--green);cursor:default}
+.mitem.wrong-flash{background:rgba(220,38,38,.1);border-color:var(--red)}
+.match-score{text-align:center;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px}
+.match-score.done{color:var(--green)}
+
+/* SAY IT */
+.say-list{display:flex;flex-direction:column;gap:10px}
+.say-item{background:var(--white);border:2px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.say-num{width:32px;height:32px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0;font-family:'Nunito',sans-serif}
+.say-content{flex:1}.say-prompt{font-size:13px;color:var(--muted);margin-bottom:4px}
+.say-answer{font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;color:var(--dark)}
+.say-es{font-size:11px;color:var(--muted);font-style:italic;margin-top:2px}
+
+/* SENTENCE BUILDER */
+.sb-box{background:var(--white);border:2px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:16px}
+.sb-head{background:var(--teal);padding:12px 16px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#fff}
+.sb-body{padding:16px;display:flex;flex-direction:column;gap:12px}
+.sb-item{background:var(--bg);border-radius:10px;padding:12px 14px}
+.sb-prompt{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+.sb-words{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.sb-word{background:var(--teal);color:#fff;padding:5px 12px;border-radius:20px;font-weight:700;font-size:13px;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.sb-word:hover{opacity:.8}
+.sb-answer{font-size:13px;color:var(--teal);font-weight:700;padding:6px 0}
+
+/* I KNOW THIS */
+.progress-section{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:20px}
+.progress-section h3{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;margin-bottom:14px}
+.word-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.wchip{padding:8px 16px;border-radius:30px;border:2px solid var(--border);background:var(--bg);font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .2s;color:var(--muted);-webkit-tap-highlight-color:transparent}
+.wchip.known{background:var(--green-l);border-color:var(--green);color:var(--green)}
+.progress-bar-wrap{background:var(--border);border-radius:100px;height:10px;overflow:hidden;margin-bottom:8px}
+.progress-bar-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--teal),#5EEAD4);transition:width .5s ease}
+.progress-label{font-size:12px;color:var(--muted);font-weight:700;text-align:center}
+.tip-grid{display:flex;flex-direction:column;gap:8px}
+.tip-item{display:flex;align-items:flex-start;gap:10px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--dark);line-height:1.6}
+.tip-icon{font-size:18px;flex-shrink:0}
+.btn-reset{padding:8px 20px;background:none;border:2px solid var(--border);border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;color:var(--muted);transition:all .15s;margin-top:8px}
+.btn-reset:hover{border-color:var(--teal);color:var(--teal)}
+@media(max-width:480px){
+  .panel{padding:16px 12px 40px}.actions-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .action-img{height:60px;font-size:32px}.hero-title{font-size:22px}.tab{padding:9px 12px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="gt-logo">GT</div>
+  <div class="htitle"><h1>Gabriel Turner English Training</h1><p>Pre-A1 · Module 3 · Session 1</p></div>
+  <span class="hbadge">Pre-A1</span>
+  <span class="teacher-badge">👩‍🏫 Teacher</span>
+</div>
+<div class="hero">
+  <div class="hero-emoji">⚡</div>
+  <div class="hero-title">Daily Actions</div>
+  <div class="hero-sub">Module 3 · Session 1 · 55 minutes</div>
+  <div class="hero-pills">
+    <span class="hpill">⚡ 10 action verbs</span>
+    <span class="hpill">🕐 My day timeline</span>
+    <span class="hpill">🎮 Match It</span>
+    <span class="hpill">🧩 Sentence Builder</span>
+  </div>
+</div>
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab(0,this)">⚡ Actions</button>
+    <button class="tab" onclick="showTab(1,this)">🕐 My Day</button>
+    <button class="tab" onclick="showTab(2,this)">🎮 Match It</button>
+    <button class="tab" onclick="showTab(3,this)">🧩 Build It</button>
+    <button class="tab" onclick="showTab(4,this)">🗣 Say It</button>
+    <button class="tab" onclick="showTab(5,this)">🏆 I Know This</button>
+    <button class="tab" onclick="showTab(6,this)">📋 Teacher Tips</button>
+  </div>
+</div>
+
+<!-- PANEL 0: ACTIONS -->
+<div class="panel active" id="panel-0">
+  <div class="sec-head"><span class="sec-icon">⚡</span><span class="sec-title">Daily Action Words</span><span class="sec-time">12 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Present each action with a physical gesture. Click to hear — student repeats AND does the gesture. Mime the action yourself first. Physical movement = faster recall. After all 10: teacher does the gesture silently, student says the word.</div>
+  <div class="actions-grid">
+    <div class="action-card" onclick="toggleAction(this,'eat')">
+      <div class="action-img">🍽</div>
+      <div class="action-body">
+        <div class="action-word">eat</div>
+        <div class="action-es">comer</div>
+        <div class="action-ex">I eat breakfast.</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakIt('eat',this)">🔊 eat</button>
+      </div>
+    </div>
+    <div class="action-card" onclick="toggleAction(this,'drink')">
+      <div class="action-img">☕</div>
+      <div class="action-body">
+        <div class="action-word">drink</div>
+        <div class="action-es">beber / tomar</div>
+        <div class="action-ex">I drink coffee.</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakIt('drink',this)">🔊 drink</button>
+      </div>
+    </div>
+    <div class="action-card" onclick="toggleAction(this,'sleep')">
+      <div class="action-img">😴</div>
+      <div class="action-body">
+        <div class="action-word">sleep</div>
+        <div class="action-es">dormir</div>
+        <div class="action-ex">I sleep at 10pm.</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakIt('sleep',this)">🔊 sleep</button>
+      </div>
+    </div>
+    <div class="action-card" onclick="toggleAction(this,'work')">
+      <div class="action-img">💼</div>
+      <div class="action-body">
+        <div class="action-word">work</div>
+        <div class="action-es">trabajar</div>
+        <div class="action-ex">I work at Ford.</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakIt('work',this)">🔊 work</button>
+      </div>
+    </div>
+    <div class="action-card" onclick="toggleAction(this,'go')">
+      <div class="action-img">🚶</div>
+      <div class="action-body">
+        <div class="action-word">go</div>
+        <div class="action-es">ir</div>
+        <div class="action-ex">I go to the office.</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakIt('go',this)">🔊 go</button>
+      </div>
+    </div>
+    <div class="action-card" onclick="toggleAction(this,'wake up')">
+      <div class="action-img">⏰</div>
+      <div class="action-body">
+        <div class="action-word">wake up</div>
+        <div class="action-es">despertar</div>
+        <div class="action-ex">I wake up at 7.</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakIt('wake up',this)">🔊 wake up</button>
+      </div>
+    </div>
+    <div class="action-card" onclick="toggleAction(this,'drive')">
+      <div class="action-img">🚗</div>
+      <div class="action-body">
+        <div class="action-word">drive</div>
+        <div class="action-es">manejar</div>
+        <div class="action-ex">I drive to work.</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakIt('drive',this)">🔊 drive</button>
+      </div>
+    </div>
+    <div class="action-card" onclick="toggleAction(this,'read')">
+      <div class="action-img">📖</div>
+      <div class="action-body">
+        <div class="action-word">read</div>
+        <div class="action-es">leer</div>
+        <div class="action-ex">I read in the morning.</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakIt('read',this)">🔊 read</button>
+      </div>
+    </div>
+    <div class="action-card" onclick="toggleAction(this,'watch')">
+      <div class="action-img">📺</div>
+      <div class="action-body">
+        <div class="action-word">watch</div>
+        <div class="action-es">ver / mirar</div>
+        <div class="action-ex">I watch TV at night.</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakIt('watch',this)">🔊 watch</button>
+      </div>
+    </div>
+    <div class="action-card" onclick="toggleAction(this,'talk')">
+      <div class="action-img">📞</div>
+      <div class="action-body">
+        <div class="action-word">talk</div>
+        <div class="action-es">hablar</div>
+        <div class="action-ex">I talk to my team.</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speakIt('talk',this)">🔊 talk</button>
+      </div>
+    </div>
+  </div>
+  <div class="teacher-note" style="margin-bottom:0"><strong>🎯 Gesture drill:</strong> Teacher does the action silently → student says the word. Then reverse: student does the gesture → teacher confirms with "Yes! Eat / Sleep / Work!" 2 rounds minimum.</div>
+</div>
+
+<!-- PANEL 1: MY DAY TIMELINE -->
+<div class="panel" id="panel-1">
+  <div class="sec-head"><span class="sec-icon">🕐</span><span class="sec-title">My Day</span><span class="sec-time">10 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Show each timeline item. Student says the action word. Then ask: "Do YOU do this?" → student answers Yes/No (from M0!). After the timeline, student builds their own day: teacher asks "What do you do at 7am?" and student answers with one word.</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">6am</div><div class="tl-line"></div></div>
+      <div class="tl-right" onclick="this.classList.toggle('hl');speakIt('wake up',null)"><div class="tl-emoji">⏰</div><div class="tl-action">Wake up</div><div class="tl-es">despertar</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">7am</div><div class="tl-line"></div></div>
+      <div class="tl-right" onclick="this.classList.toggle('hl');speakIt('eat breakfast',null)"><div class="tl-emoji">🍳</div><div class="tl-action">Eat breakfast</div><div class="tl-es">desayunar</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">7:30am</div><div class="tl-line"></div></div>
+      <div class="tl-right" onclick="this.classList.toggle('hl');speakIt('drive to work',null)"><div class="tl-emoji">🚗</div><div class="tl-action">Drive to work</div><div class="tl-es">manejar al trabajo</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">8am</div><div class="tl-line"></div></div>
+      <div class="tl-right" onclick="this.classList.toggle('hl');speakIt('work',null)"><div class="tl-emoji">💼</div><div class="tl-action">Work</div><div class="tl-es">trabajar</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">2pm</div><div class="tl-line"></div></div>
+      <div class="tl-right" onclick="this.classList.toggle('hl');speakIt('eat lunch',null)"><div class="tl-emoji">🍱</div><div class="tl-action">Eat lunch</div><div class="tl-es">comer</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">6pm</div><div class="tl-line"></div></div>
+      <div class="tl-right" onclick="this.classList.toggle('hl');speakIt('go home',null)"><div class="tl-emoji">🏠</div><div class="tl-action">Go home</div><div class="tl-es">ir a casa</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">8pm</div><div class="tl-line"></div></div>
+      <div class="tl-right" onclick="this.classList.toggle('hl');speakIt('watch TV',null)"><div class="tl-emoji">📺</div><div class="tl-action">Watch TV</div><div class="tl-es">ver televisión</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">10pm</div><div class="tl-line"></div></div>
+      <div class="tl-right" onclick="this.classList.toggle('hl');speakIt('sleep',null)"><div class="tl-emoji">😴</div><div class="tl-action">Sleep</div><div class="tl-es">dormir</div></div>
+    </div>
+  </div>
+  <div class="teacher-note" style="margin-bottom:0"><strong>🎯 My Day drill:</strong> "What do you do at 7am?" → student says one word: "Eat!" or "Sleep!" No full sentences yet. Accept single words with a thumbs up.</div>
+</div>
+
+<!-- PANEL 2: MATCH IT -->
+<div class="panel" id="panel-2">
+  <div class="sec-head"><span class="sec-icon">🎮</span><span class="sec-title">Match It — Actions</span><span class="sec-time">10 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Student taps an emoji on the left, then the matching English word on the right. No time limit — patience wins over speed here. After first match, reset and play again — second round should be faster. Student says the word aloud before tapping.</div>
+  <div class="match-score" id="matchScore">Match the action to the word 🎯</div>
+  <div class="match-container">
+    <div class="match-col"><div class="match-col-label">Action</div><div id="colLeft"></div></div>
+    <div class="match-col"><div class="match-col-label">Word</div><div id="colRight"></div></div>
+  </div>
+  <button class="btn-reset" onclick="initMatch()">🔄 New game</button>
+</div>
+
+<!-- PANEL 3: BUILD IT -->
+<div class="panel" id="panel-3">
+  <div class="sec-head"><span class="sec-icon">🧩</span><span class="sec-title">Build the Sentence</span><span class="sec-time">10 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> This is the first time the student builds full sentences with action verbs. The structure is always I + action (+ place/time). Teacher reads the scrambled words — student puts them in order and says the sentence. Tap each word to hear it.</div>
+  <div class="sb-box">
+    <div class="sb-head">🧩 Put the words in order — then say the sentence!</div>
+    <div class="sb-body">
+      <div class="sb-item">
+        <div class="sb-prompt">Sentence 1</div>
+        <div class="sb-words">
+          <span class="sb-word" onclick="speakIt('eat',this)">eat</span>
+          <span class="sb-word" onclick="speakIt('I',this)">I</span>
+          <span class="sb-word" onclick="speakIt('breakfast',this)">breakfast</span>
+        </div>
+        <div class="sb-answer">✅ I eat breakfast.</div>
+      </div>
+      <div class="sb-item">
+        <div class="sb-prompt">Sentence 2</div>
+        <div class="sb-words">
+          <span class="sb-word" onclick="speakIt('work',this)">work</span>
+          <span class="sb-word" onclick="speakIt('at',this)">at</span>
+          <span class="sb-word" onclick="speakIt('I',this)">I</span>
+          <span class="sb-word" onclick="speakIt('Ford',this)">Ford</span>
+        </div>
+        <div class="sb-answer">✅ I work at Ford.</div>
+      </div>
+      <div class="sb-item">
+        <div class="sb-prompt">Sentence 3</div>
+        <div class="sb-words">
+          <span class="sb-word" onclick="speakIt('10',this)">10pm</span>
+          <span class="sb-word" onclick="speakIt('sleep',this)">sleep</span>
+          <span class="sb-word" onclick="speakIt('I',this)">I</span>
+          <span class="sb-word" onclick="speakIt('at',this)">at</span>
+        </div>
+        <div class="sb-answer">✅ I sleep at 10pm.</div>
+      </div>
+      <div class="sb-item">
+        <div class="sb-prompt">Sentence 4</div>
+        <div class="sb-words">
+          <span class="sb-word" onclick="speakIt('to',this)">to</span>
+          <span class="sb-word" onclick="speakIt('work',this)">work</span>
+          <span class="sb-word" onclick="speakIt('I',this)">I</span>
+          <span class="sb-word" onclick="speakIt('drive',this)">drive</span>
+        </div>
+        <div class="sb-answer">✅ I drive to work.</div>
+      </div>
+      <div class="sb-item">
+        <div class="sb-prompt">Sentence 5 — Challenge!</div>
+        <div class="sb-words">
+          <span class="sb-word" onclick="speakIt('coffee',this)">coffee</span>
+          <span class="sb-word" onclick="speakIt('morning',this)">morning</span>
+          <span class="sb-word" onclick="speakIt('I',this)">I</span>
+          <span class="sb-word" onclick="speakIt('drink',this)">drink</span>
+          <span class="sb-word" onclick="speakIt('in the',this)">in the</span>
+        </div>
+        <div class="sb-answer">✅ I drink coffee in the morning.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 4: SAY IT -->
+<div class="panel" id="panel-4">
+  <div class="sec-head"><span class="sec-icon">🗣</span><span class="sec-title">Say It</span><span class="sec-time">8 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Teacher shows the image or does the gesture. Student says the word AND then tries to say "I [action]." If they can't manage the full sentence yet, just the word is fine. By end of session the goal is 5 automatic words.</div>
+  <div class="say-list">
+    <div class="say-item"><div class="say-num">1</div><div style="font-size:36px">🍳</div><div class="say-content"><div class="say-prompt">What do you do in the morning?</div><div class="say-answer">Eat! / I eat breakfast.</div><div class="say-es">comer</div></div><button class="speak-btn" onclick="speakIt('eat',this)">🔊</button></div>
+    <div class="say-item"><div class="say-num">2</div><div style="font-size:36px">💼</div><div class="say-content"><div class="say-prompt">What do you do from 8 to 5?</div><div class="say-answer">Work! / I work.</div><div class="say-es">trabajar</div></div><button class="speak-btn" onclick="speakIt('work',this)">🔊</button></div>
+    <div class="say-item"><div class="say-num">3</div><div style="font-size:36px">😴</div><div class="say-content"><div class="say-prompt">What do you do at night?</div><div class="say-answer">Sleep! / I sleep.</div><div class="say-es">dormir</div></div><button class="speak-btn" onclick="speakIt('sleep',this)">🔊</button></div>
+    <div class="say-item"><div class="say-num">4</div><div style="font-size:36px">🚗</div><div class="say-content"><div class="say-prompt">How do you go to work?</div><div class="say-answer">Drive! / I drive.</div><div class="say-es">manejar</div></div><button class="speak-btn" onclick="speakIt('drive',this)">🔊</button></div>
+    <div class="say-item"><div class="say-num">5</div><div style="font-size:36px">☕</div><div class="say-content"><div class="say-prompt">What do you have in the morning?</div><div class="say-answer">Drink! / I drink coffee.</div><div class="say-es">beber / tomar</div></div><button class="speak-btn" onclick="speakIt('drink',this)">🔊</button></div>
+    <div class="say-item"><div class="say-num">6</div><div style="font-size:36px">📺</div><div class="say-content"><div class="say-prompt">What do you do at night at home?</div><div class="say-answer">Watch! / I watch TV.</div><div class="say-es">ver / mirar</div></div><button class="speak-btn" onclick="speakIt('watch TV',this)">🔊</button></div>
+    <div class="say-item" style="background:linear-gradient(135deg,#0D9488,#14B8A6);border-color:#0D9488"><div class="say-num" style="background:rgba(255,255,255,.2)">⭐</div><div style="font-size:36px">🙋</div><div class="say-content"><div class="say-prompt" style="color:rgba(255,255,255,.7)">Challenge — tell me YOUR day!</div><div class="say-answer" style="color:#fff;font-size:14px">I wake up at ✏️... I eat... I work at... I sleep at...</div></div></div>
+  </div>
+</div>
+
+<!-- PANEL 5: I KNOW THIS -->
+<div class="panel" id="panel-5">
+  <div class="sec-head"><span class="sec-icon">🏆</span><span class="sec-title">I Know This!</span><span class="sec-time">5 min</span></div>
+  <div class="teacher-note"><strong>📌 Teacher Note:</strong> Student taps every word they know. Includes ALL vocabulary from M0 + today's M3 S1 words. The bar should be very full — this student has been learning for a while. Make it a celebration of total progress.</div>
+  <div class="progress-section">
+    <h3>Tap every word you know 👆</h3>
+    <div class="word-chips" id="wordChips"></div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-label" id="progressLabel">0 words · Let's go!</div>
+  </div>
+  <div style="text-align:center;margin-top:20px">
+    <div style="font-size:40px;margin-bottom:8px" id="celebEmoji">🌟</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:var(--dark)" id="celebMsg">Tap the words you know!</div>
+  </div>
+</div>
+
+<!-- PANEL 6: TEACHER TIPS -->
+<div class="panel" id="panel-6">
+  <div class="sec-head"><span class="sec-icon">📋</span><span class="sec-title">Session Guide</span></div>
+  <div class="teacher-note"><strong>📌 M3 introduces action verbs.</strong> This is a big moment — the student goes from nouns (colors, numbers, names) to verbs (eat, work, sleep). Keep the gestural approach — mime everything.</div>
+  <div class="tip-grid">
+    <div class="tip-item"><div class="tip-icon">🔁</div><div><strong>0–5 min — M0 Review:</strong> Quick 5-question hot seat from M0 content. Colors + numbers + "My name is / I'm from".</div></div>
+    <div class="tip-item"><div class="tip-icon">⚡</div><div><strong>5–17 min — Actions:</strong> Present 10 verbs with gestures. Hear → gesture → repeat. Then teacher gestures silently → student says the word.</div></div>
+    <div class="tip-item"><div class="tip-icon">🕐</div><div><strong>17–27 min — My Day:</strong> Timeline walk-through. "Do you do this?" → Yes/No answers. Then "What do you do at 7am?" → single word answers.</div></div>
+    <div class="tip-item"><div class="tip-icon">🎮</div><div><strong>27–37 min — Match It:</strong> Student plays independently. Say the word before tapping. Reset and play twice.</div></div>
+    <div class="tip-item"><div class="tip-icon">🧩</div><div><strong>37–45 min — Build It:</strong> Sentence builder. Teacher reads the words in random order — student arranges and says the sentence.</div></div>
+    <div class="tip-item"><div class="tip-icon">🗣</div><div><strong>45–50 min — Say It:</strong> Rapid-fire prompts. Goal: 5 automatic responses.</div></div>
+    <div class="tip-item"><div class="tip-icon">🏆</div><div><strong>50–55 min — I Know This:</strong> Full progress bar including M0. Count together.</div></div>
+  </div>
+  <div style="background:#F0FDFA;border-radius:12px;padding:16px;margin-top:16px;text-align:center">
+    <div style="font-size:24px;margin-bottom:6px">🎯</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:var(--dark);margin-bottom:4px">Session 1 Success Goal</div>
+    <div style="font-size:13px;color:#0D5E55;line-height:1.6">Student says <strong>at least 6 action words</strong> without hesitation and attempts "I [action]" for at least 3 of them.</div>
+  </div>
+</div>
+
+<script>
+function showTab(idx,btn){
+  document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  window.scrollTo(0,0);
+}
+function speakIt(w,btn){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=0.82;
+  if(btn){btn.classList.add('playing');}
+  u.onend=function(){if(btn)btn.classList.remove('playing');};
+  window.speechSynthesis.speak(u);
+}
+function toggleAction(card,word){
+  card.classList.toggle('selected');
+  speakIt(word,null);
+}
+
+// MATCH GAME
+var PAIRS=[
+  {e:'🍽',word:'eat'},{e:'😴',word:'sleep'},
+  {e:'💼',word:'work'},{e:'🚗',word:'drive'},
+  {e:'📺',word:'watch'},{e:'☕',word:'drink'},
+];
+var mSel=null,mMatched=0;
+function shuffle(a){return a.sort(()=>Math.random()-.5);}
+function initMatch(){
+  mSel=null;mMatched=0;
+  document.getElementById('matchScore').textContent='Match the action to the word 🎯';
+  document.getElementById('matchScore').className='match-score';
+  var left=shuffle([...PAIRS]);var right=shuffle([...PAIRS]);
+  document.getElementById('colLeft').innerHTML=left.map(p=>'<div class="mitem emoji" data-word="'+p.word+'" onclick="selMatch(this,\'left\')">'+p.e+'</div>').join('');
+  document.getElementById('colRight').innerHTML=right.map(p=>'<div class="mitem" data-word="'+p.word+'" onclick="selMatch(this,\'right\')">'+p.word+'</div>').join('');
+}
+function selMatch(el,side){
+  if(el.classList.contains('matched'))return;
+  if(mSel&&mSel.side===side){document.querySelectorAll('.mitem').forEach(m=>m.classList.remove('selected'));mSel=null;}
+  if(!mSel){el.classList.add('selected');mSel={el,side,word:el.dataset.word};return;}
+  if(mSel.side===side){el.classList.add('selected');mSel={el,side,word:el.dataset.word};return;}
+  if(mSel.word===el.dataset.word){
+    mSel.el.classList.remove('selected');mSel.el.classList.add('matched');
+    el.classList.add('matched');mMatched++;speakIt(el.dataset.word,null);
+    if(mMatched===PAIRS.length){document.getElementById('matchScore').textContent='🎉 Perfect! All matched!';document.getElementById('matchScore').className='match-score done';}
+  } else {
+    mSel.el.classList.add('wrong-flash');el.classList.add('wrong-flash');
+    setTimeout(()=>{mSel.el.classList.remove('wrong-flash','selected');el.classList.remove('wrong-flash');mSel=null;},500);return;
+  }
+  mSel=null;
+}
+initMatch();
+
+// I KNOW THIS
+var WORDS=['red','blue','green','yellow','orange','black','white','pink','hello','goodbye','one','two','three','four','five','six','seven','eight','nine','ten','yes','no','My name is','I\'m from','Nice to meet you','Mexico','eat','drink','sleep','work','go','drive','read','watch','talk','wake up'];
+var known=new Set();
+function renderChips(){
+  document.getElementById('wordChips').innerHTML=WORDS.map(w=>'<div class="wchip'+(known.has(w)?' known':'')+'" onclick="toggleKnown(this,\''+w.replace(/'/g,"\\'")+'\')" >'+w+'</div>').join('');
+  var pct=Math.round(known.size/WORDS.length*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('progressLabel').textContent=known.size+' of '+WORDS.length+' words · '+(pct===100?'Amazing! 🏆':pct>=50?'Incredible! 🔥':pct>0?'Keep going! 🌱':'Let\'s go!');
+  document.getElementById('celebEmoji').textContent=pct===100?'🏆':pct>=75?'🔥':pct>=50?'🌟':pct>0?'🌱':'⭐';
+  document.getElementById('celebMsg').textContent=pct===100?'You know everything! 🏆':pct>0?known.size+' words — fantastic!':'Tap every word you know!';
+}
+function toggleKnown(el,w){if(known.has(w))known.delete(w);else known.add(w);renderChips();}
+renderChips();
+</script>
+</body>
+</html>
