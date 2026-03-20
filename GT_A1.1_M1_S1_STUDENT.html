@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 1 — Hello, I'm… | Gabriel Turner English Training</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9922A;--dark:#1A2E45;--bg:#F7F5F0;--white:#fff;
+  --muted:#7A8A9A;--border:#E8E4DC;--green:#16A34A;--green-l:rgba(22,163,74,.1);
+  --red:#DC2626;--red-l:rgba(220,38,38,.08);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* HEADER */
+.header{background:var(--dark)}
+.header-inner{max-width:720px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:12px}
+.gt-logo{width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#000;font-family:'DM Serif Display',serif;flex-shrink:0}
+.hinfo h1{font-size:13px;font-weight:700;color:#fff}
+.hinfo p{font-size:11px;color:rgba(255,255,255,.4);margin-top:1px}
+.lbadge{background:var(--gold);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1A2E45 0%,#0F1F30 100%);padding:28px 20px 24px;text-align:center}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.hero-title{font-family:'DM Serif Display',serif;font-size:28px;color:#fff;margin-bottom:6px;line-height:1.2}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:16px}
+.hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.hpill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,.6)}
+.hpill strong{color:var(--gold)}
+
+/* NAV TABS */
+.tabs-wrap{background:var(--dark);border-bottom:2px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:100}
+.tabs{max-width:720px;margin:0 auto;padding:0 16px;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:12px 16px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;-webkit-tap-highlight-color:transparent;font-family:'DM Sans',sans-serif;background:none;border-top:none;border-left:none;border-right:none}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab:hover{color:rgba(255,255,255,.7)}
+
+/* PANELS */
+.panel{display:none;max-width:720px;margin:0 auto;padding:24px 20px 48px}
+.panel.active{display:block}
+
+/* SECTION HEADS */
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec-icon{font-size:18px}
+.sec-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--dark)}
+.sec-time{font-size:11px;color:var(--muted);margin-left:auto;background:var(--border);padding:3px 9px;border-radius:20px}
+
+/* VOCAB */
+.vocab-intro{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6}
+.vocab-grid{display:flex;flex-direction:column;gap:8px}
+.vitem{background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.vitem:hover{border-color:var(--gold)}
+.vitem.playing{border-color:var(--gold);background:rgba(201,146,42,.05)}
+.vspeak{width:34px;height:34px;background:rgba(201,146,42,.1);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;flex-shrink:0;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.vspeak:hover,.vspeak.playing{background:var(--gold);color:#fff}
+.vword{font-size:16px;font-weight:700;color:var(--dark);flex:1}
+.ves{font-size:12px;color:var(--muted);font-style:italic}
+.vex{font-size:12px;color:var(--dark);font-style:italic;margin-top:2px;display:none}
+.vitem.open .vex{display:block}
+.vitem.open{border-color:var(--gold);background:rgba(201,146,42,.03)}
+
+/* GRAMMAR */
+.grammar-box{background:var(--white);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.grammar-head{background:var(--dark);padding:12px 16px;font-size:12px;font-weight:700;color:#fff;letter-spacing:.08em;text-transform:uppercase}
+.grammar-body{padding:16px}
+.grammar-rule{background:#EFF6FF;border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:13px;color:var(--dark);line-height:1.7;text-align:center;font-weight:600}
+.grammar-examples{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.gex{font-size:13px;color:var(--dark);font-style:italic;padding:8px 12px;background:var(--bg);border-radius:7px;border-left:3px solid var(--gold)}
+.grammar-errs{margin-top:12px}
+.gerr-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.gerr{display:flex;align-items:flex-start;gap:8px;font-size:12px;margin-bottom:6px;line-height:1.5}
+
+/* WORD BANK EXERCISE */
+.wb-intro{font-size:13px;color:var(--muted);margin-bottom:12px}
+.word-bank{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;padding:12px;background:var(--white);border-radius:10px;border:1.5px solid var(--border)}
+.wb-token{padding:6px 14px;background:var(--dark);color:#fff;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;user-select:none;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.wb-token.used{opacity:.3;cursor:not-allowed}
+.wb-token.selected{background:var(--gold);transform:scale(1.05)}
+.ex-sentences{display:flex;flex-direction:column;gap:8px}
+.ex-sent{background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.8;color:var(--dark)}
+.blank{display:inline-block;min-width:80px;height:24px;border-bottom:2px solid var(--gold);margin:0 4px;cursor:pointer;vertical-align:middle;text-align:center;font-weight:700;color:var(--gold);padding:0 6px;border-radius:4px 4px 0 0;transition:all .15s}
+.blank.correct{background:var(--green-l);border-color:var(--green);color:var(--green);border-radius:4px;border-bottom-width:2px}
+.blank.wrong{background:var(--red-l);border-color:var(--red);color:var(--red);border-radius:4px;animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.wb-reset{margin-top:10px;padding:6px 16px;background:none;border:1.5px solid var(--border);border-radius:20px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.wb-reset:hover{border-color:var(--gold);color:var(--gold)}
+.wb-answer{font-size:11px;color:var(--muted);margin-top:8px;padding:8px 12px;background:var(--bg);border-radius:7px;display:none}
+.show-answers-btn{margin-top:8px;padding:6px 14px;background:none;border:1.5px solid var(--border);border-radius:20px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* SPEAKING */
+.speaking-intro{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6}
+.sq-list{display:flex;flex-direction:column;gap:10px}
+.sq{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.sq-num{width:28px;height:28px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px}
+.sq-text{font-size:14px;color:var(--dark);line-height:1.6;font-weight:500}
+
+/* READING */
+.reading-intro{font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.6}
+.reading-text{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:16px 18px;font-size:13px;line-height:2;margin-bottom:14px}
+.rsentence{cursor:pointer;border-radius:4px;padding:1px 3px;transition:background .2s;display:inline}
+.rsentence.hl{background:rgba(201,146,42,.18)}
+.questions-head{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.rq-list{display:flex;flex-direction:column;gap:8px}
+.rq{background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--dark);display:flex;gap:10px;align-items:flex-start}
+.rq-num{font-weight:700;color:var(--gold);flex-shrink:0}
+.rq-answer{margin-top:8px;padding:8px 12px;background:var(--green-l);border-radius:6px;font-size:12px;color:var(--green);display:none;font-weight:600}
+.rq.open .rq-answer{display:block}
+.reveal-hint{font-size:11px;color:var(--muted);margin-top:4px;display:none}
+.rq.open .reveal-hint{display:none}
+
+/* LISTENING */
+.listening-intro{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6}
+.audio-box{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:20px;text-align:center;margin-bottom:14px}
+.audio-icon{font-size:36px;margin-bottom:8px}
+.audio-title{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.audio-sub{font-size:12px;color:var(--muted)}
+.audio-player{width:100%;margin-top:14px;border-radius:8px;outline:none}
+.lq-list{display:flex;flex-direction:column;gap:8px}
+.lq{background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--dark);display:flex;gap:10px;align-items:flex-start;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lq-num{font-weight:700;color:var(--gold);flex-shrink:0}
+
+/* GLOSSARY */
+.glossary-intro{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6}
+.glos-search{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:12px;-webkit-appearance:none}
+.glos-search:focus{border-color:var(--gold)}
+.glos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.gcard{background:var(--white);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s}
+.gcard:hover,.gcard.flipped{border-color:var(--gold)}
+.gcard-front,.gcard-back{padding:14px}
+.gcard-back{display:none;background:var(--dark)}
+.gcard.flipped .gcard-front{display:none}
+.gcard.flipped .gcard-back{display:block}
+.gcard-word{font-size:16px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.gcard-es{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:8px}
+.gcard-speak{display:inline-flex;align-items:center;gap:5px;background:none;border:1.5px solid var(--border);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;-webkit-tap-highlight-color:transparent}
+.gcard-back-word{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
+.gcard-back-es{font-size:12px;color:rgba(255,255,255,.5);font-style:italic;margin-bottom:8px}
+.gcard-ex{font-size:12px;color:rgba(255,255,255,.8);font-style:italic;line-height:1.5}
+.gcard-hint{font-size:10px;color:var(--muted);margin-top:6px}
+.gcard.flipped .gcard-hint{display:none}
+
+/* PROGRESS BAR */
+.progress-bar{height:3px;background:var(--border);position:sticky;top:46px;z-index:99}
+.progress-fill{height:100%;background:var(--gold);transition:width .3s ease;width:0%}
+
+/* FOOTER */
+.footer{background:var(--dark);padding:16px 20px;text-align:center;font-size:11px;color:rgba(255,255,255,.35);margin-top:20px}
+.footer strong{color:var(--gold)}
+
+@media(max-width:480px){
+  .panel{padding:18px 14px 40px}
+  .hero{padding:20px 14px}
+  .hero-title{font-size:22px}
+  .glos-grid{grid-template-columns:repeat(2,1fr)}
+  .tab{padding:10px 12px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="gt-logo">GT</div>
+    <div class="hinfo">
+      <h1>Gabriel Turner English Training</h1>
+      <p>Module 1 · Session 1 · Hello, I'm…</p>
+    </div>
+    <span class="lbadge">A1.1</span>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">A1.1 · Module 1 · Session 1</div>
+  <div class="hero-title">Hello, I'm…</div>
+  <div class="hero-sub">Greetings, introductions & the verb TO BE</div>
+  <div class="hero-pills">
+    <span class="hpill"><strong>⏱</strong> 60 min</span>
+    <span class="hpill"><strong>📐</strong> am / is / are</span>
+    <span class="hpill"><strong>🎯</strong> Introduce yourself</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab(0,this)">📚 Vocabulary</button>
+    <button class="tab" onclick="showTab(1,this)">📐 Grammar</button>
+    <button class="tab" onclick="showTab(2,this)">🟢 Speaking</button>
+    <button class="tab" onclick="showTab(3,this)">📖 Reading</button>
+    <button class="tab" onclick="showTab(4,this)">🎧 Listening</button>
+    <button class="tab" onclick="showTab(5,this)">📒 Glossary</button>
+  </div>
+</div>
+
+<!-- ── PANEL 0: VOCABULARY ── -->
+<div class="panel active" id="panel-0">
+  <div class="sec-head"><span class="sec-icon">📚</span><span class="sec-title">Vocabulary</span><span class="sec-time">8–10 min</span></div>
+  <div class="vocab-intro">Click 🔊 to hear each word. Click the card to see an example sentence.</div>
+  <div class="vocab-grid">
+    <!-- Nouns -->
+    <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:4px 0 2px">Key Words</div>
+    <div class="vitem" onclick="toggleVocab(this)"><button class="vspeak" onclick="event.stopPropagation();speak('name',this)">🔊</button><div><div class="vword">name</div><div class="ves">(nombre)</div><div class="vex">My <strong>name</strong> is Ana. What's your <strong>name</strong>?</div></div></div>
+    <div class="vitem" onclick="toggleVocab(this)"><button class="vspeak" onclick="event.stopPropagation();speak('surname',this)">🔊</button><div><div class="vword">surname</div><div class="ves">(apellido)</div><div class="vex">My <strong>surname</strong> is García. G-A-R-C-Í-A.</div></div></div>
+    <div class="vitem" onclick="toggleVocab(this)"><button class="vspeak" onclick="event.stopPropagation();speak('job',this)">🔊</button><div><div class="vword">job</div><div class="ves">(trabajo / puesto)</div><div class="vex">My <strong>job</strong> is in sales. What's your <strong>job</strong>?</div></div></div>
+    <div class="vitem" onclick="toggleVocab(this)"><button class="vspeak" onclick="event.stopPropagation();speak('company',this)">🔊</button><div><div class="vword">company</div><div class="ves">(empresa)</div><div class="vex">I work at Ford. What <strong>company</strong> are you from?</div></div></div>
+    <div class="vitem" onclick="toggleVocab(this)"><button class="vspeak" onclick="event.stopPropagation();speak('city',this)">🔊</button><div><div class="vword">city</div><div class="ves">(ciudad)</div><div class="vex">I live in Celaya. It's a great <strong>city</strong>.</div></div></div>
+    <div class="vitem" onclick="toggleVocab(this)"><button class="vspeak" onclick="event.stopPropagation();speak('team',this)">🔊</button><div><div class="vword">team</div><div class="ves">(equipo)</div><div class="vex">My <strong>team</strong> is small — just five people.</div></div></div>
+    <div class="vitem" onclick="toggleVocab(this)"><button class="vspeak" onclick="event.stopPropagation();speak('manager',this)">🔊</button><div><div class="vword">manager</div><div class="ves">(jefe / jefa)</div><div class="vex">My <strong>manager</strong> is Carlos. He's very friendly.</div></div></div>
+    <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:10px 0 2px">Key Phrases</div>
+    <div class="vitem" onclick="toggleVocab(this)"><button class="vspeak" onclick="event.stopPropagation();speak('Nice to meet you',this)">🔊</button><div><div class="vword">Nice to meet you</div><div class="ves">(mucho gusto)</div><div class="vex"><strong>Nice to meet you!</strong> I'm Ana from the sales team.</div></div></div>
+    <div class="vitem" onclick="toggleVocab(this)"><button class="vspeak" onclick="event.stopPropagation();speak('I work at',this)">🔊</button><div><div class="vword">I work at / for</div><div class="ves">(trabajo en / trabajo para)</div><div class="vex"><strong>I work at</strong> Ford. <strong>I work for</strong> a small company.</div></div></div>
+    <div class="vitem" onclick="toggleVocab(this)"><button class="vspeak" onclick="event.stopPropagation();speak('My name is',this)">🔊</button><div><div class="vword">My name is…</div><div class="ves">(mi nombre es…)</div><div class="vex"><strong>My name is</strong> Ana García. Nice to meet you.</div></div></div>
+    <div class="vitem" onclick="toggleVocab(this)"><button class="vspeak" onclick="event.stopPropagation();speak('What is your name',this)">🔊</button><div><div class="vword">What's your name?</div><div class="ves">(¿cuál es tu nombre?)</div><div class="vex">Hello! <strong>What's your name?</strong> — My name is Carlos.</div></div></div>
+  </div>
+</div>
+
+<!-- ── PANEL 1: GRAMMAR ── -->
+<div class="panel" id="panel-1">
+  <div class="sec-head"><span class="sec-icon">📐</span><span class="sec-title">Grammar — Verb TO BE</span><span class="sec-time">8–10 min</span></div>
+
+  <!-- Rule box -->
+  <div class="grammar-box">
+    <div class="grammar-head">The verb TO BE — am / is / are</div>
+    <div class="grammar-body">
+      <div class="grammar-rule">I <strong style="color:#2563EB">am</strong> · He / She / It <strong style="color:#C9922A">is</strong> · You / We / They <strong style="color:#16A34A">are</strong></div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Examples</div>
+      <div class="grammar-examples">
+        <div class="gex">I <strong>am</strong> Ana. I <strong>am</strong> from Mexico.</div>
+        <div class="gex">She <strong>is</strong> my manager. He <strong>is</strong> Carlos.</div>
+        <div class="gex">We <strong>are</strong> a team of five. They <strong>are</strong> from Germany.</div>
+        <div class="gex">You <strong>are</strong> in the sales department.</div>
+      </div>
+      <div class="grammar-errs">
+        <div class="gerr-label">⚠ Common mistakes</div>
+        <div class="gerr"><span style="color:var(--red);font-weight:700">❌</span><span>She <s>am</s> from Mexico. → She <strong>is</strong> from Mexico.</span></div>
+        <div class="gerr"><span style="color:var(--red);font-weight:700">❌</span><span>I <s>is</s> Ana. → I <strong>am</strong> Ana.</span></div>
+        <div class="gerr"><span style="color:var(--red);font-weight:700">❌</span><span>They <s>is</s> my colleagues. → They <strong>are</strong> my colleagues.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise -->
+  <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">✏️ Exercise — Complete the sentences</div>
+  <div class="wb-intro">Click a word from the box, then click a blank to fill it in.</div>
+
+  <div class="word-bank" id="wordBank">
+    <div class="wb-token" onclick="selectToken(this,'am')">am</div>
+    <div class="wb-token" onclick="selectToken(this,'is')">is</div>
+    <div class="wb-token" onclick="selectToken(this,'are')">are</div>
+    <div class="wb-token" onclick="selectToken(this,'am')">am</div>
+    <div class="wb-token" onclick="selectToken(this,'is')">is</div>
+    <div class="wb-token" onclick="selectToken(this,'are')">are</div>
+  </div>
+
+  <div class="ex-sentences">
+    <div class="ex-sent">1. I <span class="blank" onclick="fillBlank(this,'am')" data-answer="am">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Ana García. Nice to meet you.</div>
+    <div class="ex-sent">2. She <span class="blank" onclick="fillBlank(this,'is')" data-answer="is">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> my manager. Her name is Laura.</div>
+    <div class="ex-sent">3. We <span class="blank" onclick="fillBlank(this,'are')" data-answer="are">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> from Celaya, Guanajuato.</div>
+    <div class="ex-sent">4. He <span class="blank" onclick="fillBlank(this,'is')" data-answer="is">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> in the engineering department.</div>
+    <div class="ex-sent">5. I <span class="blank" onclick="fillBlank(this,'am')" data-answer="am">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> not from Monterrey — I <span class="blank" onclick="fillBlank(this,'am')" data-answer="am">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> from Celaya.</div>
+    <div class="ex-sent">6. They <span class="blank" onclick="fillBlank(this,'are')" data-answer="are">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> our clients from the United States.</div>
+  </div>
+
+  <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+    <button class="wb-reset" onclick="resetExercise()">↺ Reset</button>
+    <button class="show-answers-btn" onclick="showAnswers()">👁 Show answers</button>
+  </div>
+  <div class="wb-answer" id="answersBox">
+    ✅ Answers: 1. am · 2. is · 3. are · 4. is · 5. am / am · 6. are
+  </div>
+</div>
+
+<!-- ── PANEL 2: SPEAKING ── -->
+<div class="panel" id="panel-2">
+  <div class="sec-head"><span class="sec-icon">🟢</span><span class="sec-title">Speaking</span><span class="sec-time">15–20 min</span></div>
+  <div class="speaking-intro">Answer these questions in English. Try to give full sentences!</div>
+  <div class="sq-list">
+    <div class="sq"><div class="sq-num">1</div><div class="sq-text">What's your name? Where are you from?</div></div>
+    <div class="sq"><div class="sq-num">2</div><div class="sq-text">What's your job? What company are you from?</div></div>
+    <div class="sq"><div class="sq-num">3</div><div class="sq-text">Who is your manager? What is his / her name?</div></div>
+    <div class="sq"><div class="sq-num">4</div><div class="sq-text">How many people are on your team?</div></div>
+    <div class="sq"><div class="sq-num">5</div><div class="sq-text">What city are you from? Is it a big city?</div></div>
+    <div class="sq"><div class="sq-num">6</div><div class="sq-text">Are you from Mexico? What is your nationality?</div></div>
+    <div class="sq"><div class="sq-num">7</div><div class="sq-text">Nice to meet you! Introduce yourself in 3 sentences.</div></div>
+    <div class="sq"><div class="sq-num">8</div><div class="sq-text">Is your company big or small? How many people work there?</div></div>
+  </div>
+</div>
+
+<!-- ── PANEL 3: READING ── -->
+<div class="panel" id="panel-3">
+  <div class="sec-head"><span class="sec-icon">📖</span><span class="sec-title">Reading</span><span class="sec-time">8–10 min</span></div>
+  <div class="reading-intro">Read the text. Click a sentence to highlight it.</div>
+
+  <div class="reading-text">
+    <p>
+      <span class="rsentence" onclick="hlSent(this)">My name is Ana García.</span>
+      <span class="rsentence" onclick="hlSent(this)">I am from Celaya, Guanajuato.</span>
+      <span class="rsentence" onclick="hlSent(this)">I am 32 years old.</span>
+    </p>
+    <p style="margin-top:10px">
+      <span class="rsentence" onclick="hlSent(this)">I work at Ford Motor Company.</span>
+      <span class="rsentence" onclick="hlSent(this)">My job is in the sales department.</span>
+      <span class="rsentence" onclick="hlSent(this)">My manager is Carlos Reyes.</span>
+      <span class="rsentence" onclick="hlSent(this)">He is very friendly.</span>
+    </p>
+    <p style="margin-top:10px">
+      <span class="rsentence" onclick="hlSent(this)">My team is small — we are five people.</span>
+      <span class="rsentence" onclick="hlSent(this)">My colleagues are Ana, Roberto, Laura, and Miguel.</span>
+      <span class="rsentence" onclick="hlSent(this)">We are all from Guanajuato.</span>
+    </p>
+    <p style="margin-top:10px">
+      <span class="rsentence" onclick="hlSent(this)">Our clients are from the United States and Germany.</span>
+      <span class="rsentence" onclick="hlSent(this)">English is very important for my job.</span>
+      <span class="rsentence" onclick="hlSent(this)">Nice to meet you!</span>
+    </p>
+  </div>
+
+  <div class="questions-head">Comprehension questions — tap to reveal the answer</div>
+  <div class="rq-list">
+    <div class="rq" onclick="toggleRQ(this)"><div class="rq-num">1.</div><div><div>Where is Ana from?</div><div class="rq-answer">She is from Celaya, Guanajuato.</div></div></div>
+    <div class="rq" onclick="toggleRQ(this)"><div class="rq-num">2.</div><div><div>What company does she work at?</div><div class="rq-answer">She works at Ford Motor Company.</div></div></div>
+    <div class="rq" onclick="toggleRQ(this)"><div class="rq-num">3.</div><div><div>Who is her manager?</div><div class="rq-answer">Her manager is Carlos Reyes.</div></div></div>
+    <div class="rq" onclick="toggleRQ(this)"><div class="rq-num">4.</div><div><div>How many people are on her team?</div><div class="rq-answer">There are five people on her team.</div></div></div>
+    <div class="rq" onclick="toggleRQ(this)"><div class="rq-num">5.</div><div><div>Where are the clients from?</div><div class="rq-answer">The clients are from the United States and Germany.</div></div></div>
+  </div>
+</div>
+
+<!-- ── PANEL 4: LISTENING ── -->
+<div class="panel" id="panel-4">
+  <div class="sec-head"><span class="sec-icon">🎧</span><span class="sec-title">Listening</span><span class="sec-time">5–8 min</span></div>
+  <div class="listening-intro">Listen to the audio. Then answer the questions below.</div>
+
+  <div class="audio-box">
+    <div class="audio-icon">🎙</div>
+    <div class="audio-title">David's Introduction</div>
+    <div class="audio-sub">A professional introduces himself at his new company.</div>
+    <audio class="audio-player" controls>
+      <source src="https://drive.google.com/uc?export=download&id=AUDIO_ID_PLACEHOLDER" type="audio/mpeg">
+      Your browser does not support audio.
+    </audio>
+  </div>
+
+  <div class="questions-head">Listening questions — tap to reveal the answer</div>
+  <div class="lq-list">
+    <div class="rq" onclick="toggleRQ(this)"><div class="rq-num">1.</div><div><div>What is his name?</div><div class="rq-answer">His name is David.</div></div></div>
+    <div class="rq" onclick="toggleRQ(this)"><div class="rq-num">2.</div><div><div>What floor is his office on?</div><div class="rq-answer">His office is on the fourth floor.</div></div></div>
+    <div class="rq" onclick="toggleRQ(this)"><div class="rq-num">3.</div><div><div>How many screens does he have on his desk?</div><div class="rq-answer">He has two screens on his desk.</div></div></div>
+    <div class="rq" onclick="toggleRQ(this)"><div class="rq-num">4.</div><div><div>What is his manager's name?</div><div class="rq-answer">His manager's name is Laura.</div></div></div>
+  </div>
+</div>
+
+<!-- ── PANEL 5: GLOSSARY ── -->
+<div class="panel" id="panel-5">
+  <div class="sec-head"><span class="sec-icon">📒</span><span class="sec-title">Glossary — Session 1</span></div>
+  <div class="glossary-intro">Tap a card to see an example sentence. Click 🔊 to hear the word.</div>
+
+  <input class="glos-search" type="text" placeholder="Search a word…" oninput="filterGlossary(this.value)" autocomplete="off" autocorrect="off" spellcheck="false">
+
+  <div class="glos-grid" id="glossaryGrid"></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>Gabriel Turner English Training</strong> · A1.1 Module 1 · Session 1<br>
+  Celaya, Guanajuato · 461 147 2119
+</div>
+
+<script>
+// ── TAB NAVIGATION ──────────────────────────────────────────────────
+const TOTAL_TABS = 6;
+function showTab(idx, btn){
+  document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  document.getElementById('progressFill').style.width=Math.round((idx+1)/TOTAL_TABS*100)+'%';
+  window.scrollTo(0,0);
+}
+
+// ── VOCABULARY ──────────────────────────────────────────────────────
+function toggleVocab(el){
+  el.classList.toggle('open');
+}
+function speak(word, btn){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(word);
+  u.lang='en-US';u.rate=0.85;
+  if(btn){btn.classList.add('playing');btn.textContent='🔊';}
+  u.onend=function(){if(btn){btn.classList.remove('playing');}};
+  window.speechSynthesis.speak(u);
+}
+
+// ── GRAMMAR EXERCISE ────────────────────────────────────────────────
+var selectedToken = null;
+var selectedValue = null;
+
+function selectToken(el, val){
+  if(el.classList.contains('used'))return;
+  document.querySelectorAll('.wb-token').forEach(t=>t.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedToken = el;
+  selectedValue = val;
+}
+
+function fillBlank(blank, answer){
+  if(!selectedToken || !selectedValue)return;
+  if(blank.classList.contains('correct'))return;
+
+  blank.textContent = selectedValue;
+
+  if(selectedValue === answer){
+    blank.classList.remove('wrong');
+    blank.classList.add('correct');
+    selectedToken.classList.add('used');
+    selectedToken.classList.remove('selected');
+    selectedToken = null;
+    selectedValue = null;
+  } else {
+    blank.classList.add('wrong');
+    setTimeout(function(){
+      blank.classList.remove('wrong');
+      blank.textContent='\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0';
+    }, 700);
+  }
+}
+
+function resetExercise(){
+  selectedToken=null; selectedValue=null;
+  document.querySelectorAll('.wb-token').forEach(t=>{t.classList.remove('used','selected');});
+  document.querySelectorAll('.blank').forEach(b=>{b.classList.remove('correct','wrong');b.textContent='\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0';});
+  document.getElementById('answersBox').style.display='none';
+}
+
+function showAnswers(){
+  var box=document.getElementById('answersBox');
+  box.style.display=box.style.display==='block'?'none':'block';
+}
+
+// ── READING ─────────────────────────────────────────────────────────
+function hlSent(el){
+  var was=el.classList.contains('hl');
+  document.querySelectorAll('.rsentence').forEach(s=>s.classList.remove('hl'));
+  if(!was)el.classList.add('hl');
+}
+function toggleRQ(el){el.classList.toggle('open');}
+
+// ── GLOSSARY ────────────────────────────────────────────────────────
+var GLOS = [
+  {w:'name',es:'nombre',ex:"My name is Ana. What's your name?"},
+  {w:'surname',es:'apellido',ex:"My surname is García. G-A-R-C-Í-A."},
+  {w:'job',es:'trabajo / puesto',ex:"My job is in sales. What's your job?"},
+  {w:'company',es:'empresa',ex:"I work at Ford. What company are you from?"},
+  {w:'city',es:'ciudad',ex:"I live in Celaya. It's a great city."},
+  {w:'team',es:'equipo',ex:"My team is small — just five people."},
+  {w:'manager',es:'jefe / jefa',ex:"My manager is Carlos. He's very friendly."},
+  {w:'country',es:'país',ex:"My country is Mexico. I'm Mexican."},
+  {w:'am',es:'soy / estoy (yo)',ex:"I am Ana. I am from Celaya."},
+  {w:'is',es:'es / está (él/ella)',ex:"She is my manager. He is Carlos."},
+  {w:'are',es:'son / están (tú/nosotros/ellos)',ex:"We are a team. They are from Germany."},
+  {w:'Nice to meet you',es:'mucho gusto',ex:"Nice to meet you! I'm Ana from sales."},
+  {w:'I work at',es:'trabajo en / trabajo para',ex:"I work at Ford. I work for a small company."},
+  {w:'My name is',es:'mi nombre es / me llamo',ex:"My name is Ana García. Nice to meet you."},
+  {w:'department',es:'departamento / área',ex:"I work in the HR department."},
+  {w:'colleague',es:'colega / compañero de trabajo',ex:"My colleague Ana is from Monterrey."},
+];
+
+function renderGlossary(filter){
+  var grid=document.getElementById('glossaryGrid');
+  var items=GLOS.filter(function(g){
+    return !filter||g.w.toLowerCase().includes(filter.toLowerCase())||g.es.toLowerCase().includes(filter.toLowerCase());
+  });
+  grid.innerHTML=items.map(function(g){
+    return '<div class="gcard" onclick="flipCard(this)">'
+      +'<div class="gcard-front">'
+      +'<div class="gcard-word">'+g.w+'</div>'
+      +'<div class="gcard-es">('+g.es+')</div>'
+      +'<button class="gcard-speak" onclick="event.stopPropagation();speak(\''+g.w.replace(/'/g,"\\'")+'\')" >🔊 Listen</button>'
+      +'<div class="gcard-hint" style="font-size:10px;color:var(--muted);margin-top:6px">Tap for example ▾</div>'
+      +'</div>'
+      +'<div class="gcard-back">'
+      +'<div class="gcard-back-word">'+g.w+'</div>'
+      +'<div class="gcard-back-es">('+g.es+')</div>'
+      +'<div class="gcard-ex">'+g.ex+'</div>'
+      +'</div>'
+      +'</div>';
+  }).join('');
+}
+
+function flipCard(el){el.classList.toggle('flipped');}
+function filterGlossary(val){renderGlossary(val);}
+
+renderGlossary();
+</script>
+</body>
+</html>
